@@ -22,3 +22,7 @@ The search's workflow like docsearch.
   - elasticsearch 1.x
 - 前端UI - 如 [docsearch](https://github.com/algolia/docsearch)
   - 不同数据来源
+
+## 开发注意点
+
+- 使用 TypeScript
