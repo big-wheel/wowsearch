@@ -1,0 +1,39 @@
+{
+  "name": "wowsearch",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "The search's workflow like docsearch.",
+  "author": "big-wheel",
+  "scripts": {
+    "test": "jest",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "wowsearch"
+  ],
+  "license": "MIT",
+  "repository": "big-wheel/wowsearch",
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "testMatch": [
+      "**/__test{s,}__/*.(spec|test).{t,j}s{x,}"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^23.0.0",
+    "jest": "^23.1.0",
+    "lerna": "^2.7.1",
+    "ts-jest": "^22.4.6",
+    "typescript": "^2.9.1"
+  }
+}
