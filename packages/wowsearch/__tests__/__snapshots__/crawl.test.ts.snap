@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`crawl crawl text 1`] = `
+Object {
+  "lvl0": "obots.js",
+  "lvl1": "Resources",
+  "lvl2": "InstallationUsageAPILicense",
+  "lvl3": null,
+  "lvl4": "abc",
+  "text": "obots.js — is parser for robots.txt files for node.js.It's recommended to install via npm:Here's an example of using robots.js:Default crawler user-agent is:Mozilla/5.0 (X11; Linux i686; rv:5.0) Gecko/20100101 Firefox/5.0
+Here's an example of using another user-agent and more detailed callback:Here's an example of getting list of sitemaps:Here's an example of getCrawlDelay usage:An example of passing options to the HTTP request:RobotsParser — main class. This class provides a set of methods to read,
+    parse and answer questions about a single robots.txt file.setUrl(url, read) — sets the URL referring to a robots.txt file.
+      by default, invokes read() method.
+      If read is a function, it is called once the remote file is downloaded and parsed, and it
+      takes in two arguments: the first is the parser itself, and the second is a boolean
+      which is True if the the remote file was successfully parsed.read(after_parse) — reads the robots.txt URL and feeds it to the parserparse(lines) — parse the input lines from a robots.txt filecanFetch(userAgent, url, callback) — using the parsed robots.txt decide if
+      userAgent can fetch url. Callback function:
+      function callback(access, url, reason) { ... }
+      where:
+      
+        access — can this url be fetched. true/false.
+        url — target url
+        reason — reason for access. Object:
+          
+            type — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'
+            entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'
+            statusCode — http response status code for url. Only for type 'statusCode'
+          
+        
+      
+    function callback(access, url, reason) { ... }access — can this url be fetched. true/false.url — target urlreason — reason for access. Object:
+          
+            type — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'
+            entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'
+            statusCode — http response status code for url. Only for type 'statusCode'
+          
+        accesstype — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'lib/Entry.js:statusCode — http response status code for url. Only for type 'statusCode'canFetchSync(userAgent, url) — using the parsed robots.txt decide if
+      userAgent can fetch url. Return true/false.getCrawlDelay(userAgent) — returns Crawl-delay for the certain userAgentgetSitemaps(sitemaps) — gets Sitemaps from parsed robots.txtgetDisallowedPaths(userAgent) — gets paths explictly disallowed for the user agent specified AND *See LICENSE
+    file.Robots.txt Specifications by GoogleRobots.txt parser for pythonA Standard for Robot Exclusion",
+}
+`;
+
+exports[`crawl crawl text when smart_crawling 1`] = `
+Object {
+  "crawlTexts": Object {
+    "lvl0": "robots.js",
+    "lvl1": "Resources",
+    "lvl2": "InstallationUsageAPILicense",
+    "lvl3": null,
+    "lvl4": "abc",
+    "text": "robots.js — is parser for robots.txt files for node.js.It's recommended to install via npm:Here's an example of using robots.js:Default crawler user-agent is:Mozilla/5.0 (X11; Linux i686; rv:5.0) Gecko/20100101 Firefox/5.0
+Here's an example of using another user-agent and more detailed callback:Here's an example of getting list of sitemaps:Here's an example of getCrawlDelay usage:An example of passing options to the HTTP request:RobotsParser — main class. This class provides a set of methods to read,
+    parse and answer questions about a single robots.txt file.setUrl(url, read) — sets the URL referring to a robots.txt file.
+      by default, invokes read() method.
+      If read is a function, it is called once the remote file is downloaded and parsed, and it
+      takes in two arguments: the first is the parser itself, and the second is a boolean
+      which is True if the the remote file was successfully parsed.read(after_parse) — reads the robots.txt URL and feeds it to the parserparse(lines) — parse the input lines from a robots.txt filecanFetch(userAgent, url, callback) — using the parsed robots.txt decide if
+      userAgent can fetch url. Callback function:
+      function callback(access, url, reason) { ... }
+      where:
+      
+        access — can this url be fetched. true/false.
+        url — target url
+        reason — reason for access. Object:
+          
+            type — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'
+            entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'
+            statusCode — http response status code for url. Only for type 'statusCode'
+          
+        
+      
+    function callback(access, url, reason) { ... }access — can this url be fetched. true/false.url — target urlreason — reason for access. Object:
+          
+            type — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'
+            entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'
+            statusCode — http response status code for url. Only for type 'statusCode'
+          
+        accesstype — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'lib/Entry.js:statusCode — http response status code for url. Only for type 'statusCode'canFetchSync(userAgent, url) — using the parsed robots.txt decide if
+      userAgent can fetch url. Return true/false.getCrawlDelay(userAgent) — returns Crawl-delay for the certain userAgentgetSitemaps(sitemaps) — gets Sitemaps from parsed robots.txtgetDisallowedPaths(userAgent) — gets paths explictly disallowed for the user agent specified AND *See LICENSE
+    file.Robots.txt Specifications by GoogleRobots.txt parser for pythonA Standard for Robot Exclusion",
+  },
+  "smartCrawlingUrls": Array [
+    "https://npmjs.com/settings/moyuyc/profile",
+    "https://npmjs.com/settings/moyuyc/packages",
+    "https://npmjs.com/settings/moyuyc/billing",
+    "https://npmjs.com/settings/moyuyc/tokens",
+  ],
+}
+`;
+
+exports[`crawl crawl text when smart_crawling and force_crawling_urls 1`] = `
+Object {
+  "crawlTexts": Object {
+    "lvl0": "robots.js",
+    "lvl1": "Resources",
+    "lvl2": "InstallationUsageAPILicense",
+    "lvl3": null,
+    "lvl4": "abc",
+    "text": "robots.js — is parser for robots.txt files for node.js.It's recommended to install via npm:Here's an example of using robots.js:Default crawler user-agent is:Mozilla/5.0 (X11; Linux i686; rv:5.0) Gecko/20100101 Firefox/5.0
+Here's an example of using another user-agent and more detailed callback:Here's an example of getting list of sitemaps:Here's an example of getCrawlDelay usage:An example of passing options to the HTTP request:RobotsParser — main class. This class provides a set of methods to read,
+    parse and answer questions about a single robots.txt file.setUrl(url, read) — sets the URL referring to a robots.txt file.
+      by default, invokes read() method.
+      If read is a function, it is called once the remote file is downloaded and parsed, and it
+      takes in two arguments: the first is the parser itself, and the second is a boolean
+      which is True if the the remote file was successfully parsed.read(after_parse) — reads the robots.txt URL and feeds it to the parserparse(lines) — parse the input lines from a robots.txt filecanFetch(userAgent, url, callback) — using the parsed robots.txt decide if
+      userAgent can fetch url. Callback function:
+      function callback(access, url, reason) { ... }
+      where:
+      
+        access — can this url be fetched. true/false.
+        url — target url
+        reason — reason for access. Object:
+          
+            type — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'
+            entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'
+            statusCode — http response status code for url. Only for type 'statusCode'
+          
+        
+      
+    function callback(access, url, reason) { ... }access — can this url be fetched. true/false.url — target urlreason — reason for access. Object:
+          
+            type — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'
+            entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'
+            statusCode — http response status code for url. Only for type 'statusCode'
+          
+        accesstype — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'lib/Entry.js:statusCode — http response status code for url. Only for type 'statusCode'canFetchSync(userAgent, url) — using the parsed robots.txt decide if
+      userAgent can fetch url. Return true/false.getCrawlDelay(userAgent) — returns Crawl-delay for the certain userAgentgetSitemaps(sitemaps) — gets Sitemaps from parsed robots.txtgetDisallowedPaths(userAgent) — gets paths explictly disallowed for the user agent specified AND *See LICENSE
+    file.Robots.txt Specifications by GoogleRobots.txt parser for pythonA Standard for Robot Exclusion",
+  },
+  "smartCrawlingUrls": Array [
+    "https://npmjs.com/npm/enterprise",
+    "https://npmjs.com/features",
+    "https://npmjs.com/pricing",
+    "https://npmjs.com/support",
+    "https://npmjs.com/",
+    "https://npmjs.com/logout",
+    "https://npmjs.com/~moyuyc",
+    "https://npmjs.com/settings/moyuyc/profile",
+    "https://npmjs.com/settings/moyuyc/packages",
+    "https://npmjs.com/settings/moyuyc/billing",
+    "https://npmjs.com/settings/moyuyc/tokens",
+    "https://npmjs.com/org/create",
+    "https://npmjs.com/search",
+    "https://npmjs.com/~ekalinin",
+    "https://npmjs.com/policies/security",
+    "https://npmjs.com/about",
+    "https://npmjs.com/jobs",
+    "https://npmjs.com/npm-weekly",
+    "https://npmjs.com/policies/terms",
+    "https://npmjs.com/policies/conduct",
+    "https://npmjs.com/policies/disputes",
+    "https://npmjs.com/policies/privacy",
+    "https://npmjs.com/policies/receiving-reports",
+    "https://npmjs.com/policies/",
+  ],
+}
+`;
+
+exports[`crawl crawl text with js_render 1`] = `
+Object {
+  "crawlTexts": Object {
+    "lvl0": "the-answer",
+    "lvl1": null,
+    "lvl2": "InstallationUsageReally?License",
+    "lvl3": null,
+    "lvl4": null,
+    "text": "The answer to the question of life, the universe and everything.Yes — I needed a simple module to demonstrate how to import npm packages into Rollup bundles. In particular, this package exposes both a main (UMD format) and module (ES2015 format) in its package.json.mainmoduleMIT",
+  },
+  "smartCrawlingUrls": Array [],
+}
+`;
+
+exports[`crawl should crawl nothing 1`] = `
+Object {
+  "crawlTexts": Object {},
+  "smartCrawlingUrls": Array [],
+}
+`;

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`normalize normalize throw error 1`] = `"selectors: expected type: object, actual type: undefined."`;
+
+exports[`normalize normalize throw error 2`] = `
+"strip_chars: expected type: string, actual type: null.
+start_urls: expected type: function, actual type: string.
+selectors: expected type: object, actual type: undefined."
+`;
+
+exports[`normalize should normalized 1`] = `
+Object {
+  "force_crawling_urls": false,
+  "force_sitemap_urls_crawling": false,
+  "js_render": false,
+  "js_waitfor": 0,
+  "selectors": Object {},
+  "selectors_exclude": Array [],
+  "sitemap_urls": Array [],
+  "sitemap_urls_patterns": Array [],
+  "smart_crawling": false,
+  "start_urls": Array [
+    "*",
+  ],
+  "stop_urls": Array [],
+  "strip_chars": " .,;:§¶",
+}
+`;

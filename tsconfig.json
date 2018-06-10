@@ -6,7 +6,12 @@
     "declaration": true,
     "declarationDir": "declare",
     "outDir": "dist",
-    "allowJs": true
+    "allowJs": true,
+    "lib": [
+      "es6",
+      "dom",
+      "es2015"
+    ]
   },
   "exclude": [
     "node_modules",

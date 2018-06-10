@@ -2,6 +2,6 @@
   "name": "wowsearch-ui",
   "version": "1.0.0",
   "dependencies": {
-
+    "read-json-sync": "^2.0.0"
   }
 }

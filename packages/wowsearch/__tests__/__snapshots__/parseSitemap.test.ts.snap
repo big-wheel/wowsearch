@@ -1,0 +1,492 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseSitemap parseSitemapXML 1`] = `
+Object {
+  "urlset": Object {
+    "$": Object {
+      "xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+      "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+      "xsi:schemaLocation": "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd",
+    },
+    "url": Array [
+      Object {
+        "lastmod": Array [
+          "2018-06-01T06:33:24.918Z",
+        ],
+        "loc": Array [
+          "http://example.com/ERP历史项目介绍",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-03T08:17:15.292Z",
+        ],
+        "loc": Array [
+          "http://example.com/ERP测试环境提测过程-hudson",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-03T08:17:15.292Z",
+        ],
+        "loc": Array [
+          "http://example.com/ERP部分项目前端上线流程-smartci",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-03T08:17:15.293Z",
+        ],
+        "loc": Array [
+          "http://example.com/react-redux模式介绍",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-03T08:17:15.293Z",
+        ],
+        "loc": Array [
+          "http://example.com/require-jquery-avalon模式介绍",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-03T08:17:15.293Z",
+        ],
+        "loc": Array [
+          "http://example.com/require-jquery模式介绍",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-06T11:13:15.250Z",
+        ],
+        "loc": Array [
+          "http://example.com/代码优化及Code%20Review",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-09T12:15:33.045Z",
+        ],
+        "loc": Array [
+          "http://example.com/vue%20中的动态传参和query传参",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-08T08:19:21.176Z",
+        ],
+        "loc": Array [
+          "http://example.com/项目文档集合+内部图床+项目状态徽章%20服务",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-08T08:19:21.176Z",
+        ],
+        "loc": Array [
+          "http://example.com/使用微云搭建团队内部图床服务",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-08T08:19:21.177Z",
+        ],
+        "loc": Array [
+          "http://example.com/项目文档集合服务",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-08T08:19:21.177Z",
+        ],
+        "loc": Array [
+          "http://example.com/项目状态徽章服务",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-08T15:39:20.296Z",
+        ],
+        "loc": Array [
+          "http://example.com/团队临时分享点%20-%20按日期排序",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-05T05:30:49.559Z",
+        ],
+        "loc": Array [
+          "http://example.com/如何同步本地markdown至树状文档？",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-04T03:16:56.752Z",
+        ],
+        "loc": Array [
+          "http://example.com/如何录制命令行交互？",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-01T07:22:13.066Z",
+        ],
+        "loc": Array [
+          "http://example.com/Something%20About%20Editorconfig",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-01T02:20:26.185Z",
+        ],
+        "loc": Array [
+          "http://example.com/UI%20还原宣贯与保障方法",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-28T02:41:11.345Z",
+        ],
+        "loc": Array [
+          "http://example.com/cookbook导言",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-07T14:33:33.745Z",
+        ],
+        "loc": Array [
+          "http://example.com/交互闭环的开发理念",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-01T06:33:24.949Z",
+        ],
+        "loc": Array [
+          "http://example.com/团队佛系讲堂",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-31T23:19:08.281Z",
+        ],
+        "loc": Array [
+          "http://example.com/团队培训历史列表",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-06T15:31:11.043Z",
+        ],
+        "loc": Array [
+          "http://example.com/团队微分享机制",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-28T02:41:11.345Z",
+        ],
+        "loc": Array [
+          "http://example.com/团队文化",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-09T09:59:27.382Z",
+        ],
+        "loc": Array [
+          "http://example.com/cookbook%20release%20notes",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-08T08:19:21.177Z",
+        ],
+        "loc": Array [
+          "http://example.com/cookbook%20自动化发布",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-31T06:07:45.327Z",
+        ],
+        "loc": Array [
+          "http://example.com/cookbook-version-1",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-06T15:24:39.060Z",
+        ],
+        "loc": Array [
+          "http://example.com/cookbook使用指南",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-25T07:24:38.669Z",
+        ],
+        "loc": Array [
+          "http://example.com/cookbook",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-07T13:27:08.052Z",
+        ],
+        "loc": Array [
+          "http://example.com/doc-pic文档图床",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-31T23:19:08.281Z",
+        ],
+        "loc": Array [
+          "http://example.com/release-scripts",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-08T08:19:21.177Z",
+        ],
+        "loc": Array [
+          "http://example.com/组件Demo站点发布自动化",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-05T05:51:52.218Z",
+        ],
+        "loc": Array [
+          "http://example.com/react-hyper",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-06T15:31:11.043Z",
+        ],
+        "loc": Array [
+          "http://example.com/SourceTree%20diff%20大文件时无响应问题解决方法",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-21T14:04:37.636Z",
+        ],
+        "loc": Array [
+          "http://example.com/docker",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-31T06:07:45.327Z",
+        ],
+        "loc": Array [
+          "http://example.com/swagger-ui搜索插件",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-21T12:05:09.301Z",
+        ],
+        "loc": Array [
+          "http://example.com/avalon",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-21T12:05:09.301Z",
+        ],
+        "loc": Array [
+          "http://example.com/avalon监控属性的坑",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-29T12:50:51.812Z",
+        ],
+        "loc": Array [
+          "http://example.com/你与文档的故事",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-28T15:49:46.694Z",
+        ],
+        "loc": Array [
+          "http://example.com/团队文档化",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-24T12:23:33.038Z",
+        ],
+        "loc": Array [
+          "http://example.com/如何在cookbook中内嵌度学堂上传的视频",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-31T23:19:08.281Z",
+        ],
+        "loc": Array [
+          "http://example.com/文档系统运作机制",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-29T04:12:23.723Z",
+        ],
+        "loc": Array [
+          "http://example.com/git%20rebase%20-%20git%20merge",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-05T10:29:45.137Z",
+        ],
+        "loc": Array [
+          "http://example.com/git%20提交失败(上传数据大小限制)",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-31T07:52:26.355Z",
+        ],
+        "loc": Array [
+          "http://example.com/mac装机",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-01T06:33:24.958Z",
+        ],
+        "loc": Array [
+          "http://example.com/react%20draggable%20在%20firefox%20下%20not%20woking",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-06T15:09:20.599Z",
+        ],
+        "loc": Array [
+          "http://example.com/Case%20study--Property%20is%20lost%20when%20re-render%20component%20in%20React",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-08T11:43:39.456Z",
+        ],
+        "loc": Array [
+          "http://example.com/textarea%20换行问题",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-28T12:05:09.868Z",
+        ],
+        "loc": Array [
+          "http://example.com/webpack中的动态publicPath",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-31T12:07:37.767Z",
+        ],
+        "loc": Array [
+          "http://example.com/一个字体图标引发的系列问题",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-30T04:16:40.198Z",
+        ],
+        "loc": Array [
+          "http://example.com/元素computed%20style的对比手段",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-06T10:05:23.423Z",
+        ],
+        "loc": Array [
+          "http://example.com/firefox%20下设置%20overflow:scroll%20不出现滚动条",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-01T06:33:24.959Z",
+        ],
+        "loc": Array [
+          "http://example.com/IE%20v2%20Icon%20图标二次刷新消失问题",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-28T12:05:09.868Z",
+        ],
+        "loc": Array [
+          "http://example.com/IE10以下类静态变量继承",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-29T07:37:48.879Z",
+        ],
+        "loc": Array [
+          "http://example.com/IE9%20console.log%20bug解决",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-05T14:41:23.785Z",
+        ],
+        "loc": Array [
+          "http://example.com/小问题：fe-cook本地安装依赖error问题",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-09T12:15:33.045Z",
+        ],
+        "loc": Array [
+          "http://example.com/执行git%20commit%20--amend%20引发的事故现场及解决方案",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-06-09T00:50:29.194Z",
+        ],
+        "loc": Array [
+          "http://example.com/数字校验问题之全角-半角",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-25T09:11:52.849Z",
+        ],
+        "loc": Array [
+          "http://example.com/深入理解window%20onload",
+        ],
+      },
+      Object {
+        "lastmod": Array [
+          "2018-05-24T11:49:01.112Z",
+        ],
+        "loc": Array [
+          "http://example.com/怎么调试移动端",
+        ],
+      },
+      Object {
+        "loc": Array [
+          "http://example.com/",
+        ],
+      },
+    ],
+  },
+}
+`;
