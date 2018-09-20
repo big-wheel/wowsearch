@@ -7,6 +7,8 @@
 
 The search's workflow like docsearch.
 
+**⚠ Working in progress**
+
 ## 介绍
 
 这是一个搜索网页的玩意，适合于网页上内容索引（搜索）。  
