@@ -5,6 +5,7 @@
   "description": "The search's workflow like docsearch.",
   "author": "big-wheel",
   "scripts": {
+    "bootstrap": "PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org lerna bootstrap",
     "test": "jest",
     "prepublishOnly": "npm test"
   },

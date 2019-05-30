@@ -11,7 +11,7 @@ import parse from './src/parseSitemap'
 const debug = require('debug')('wowsearch')
 
 import * as preduce from 'p-reduce'
-import * as uniq from 'array-uniq'
+import * as uniq from 'lodash.uniq'
 import makeCheck from './src/makeCheckUrl'
 
 export async function getUrlList(config: Config) {

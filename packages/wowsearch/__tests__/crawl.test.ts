@@ -4,6 +4,7 @@
  * @date 2018/6/10
  * @description
  */
+process.env.DEBUG = 'wowsearch:crawl'
 import { readFileSync } from 'fs'
 import { makeFixture } from './help'
 import { crawl, isSameOrigin, crawlByUrl } from '../src/crawl'
@@ -13,7 +14,7 @@ describe('crawl', function() {
     const texts = await crawl(
       readFileSync(makeFixture('text.html')).toString(),
       {
-        strip_chars: 'r',
+        // strip_chars: 'r',
         selectors: {
           lvl0: '#readme .package-name-redundant',
           lvl1: '#readme h1:not(.package-name-redundant)',
@@ -25,7 +26,7 @@ describe('crawl', function() {
             selector: '#readme h3'
           },
           lvl4: { selector: '#readme h4', default_value: 'abc' },
-          text: '#readme p, #readme li, #readme code'
+          text: '#readme > p, #readme li, #readme code, #readme pre'
         },
         selectors_exclude: ['#readme .deep-link']
       }

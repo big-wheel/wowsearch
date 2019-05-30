@@ -7,7 +7,7 @@
 import * as request from 'request-promise-native'
 import { parseString } from 'xml2js'
 import * as pify from 'pify'
-import * as uniq from 'array-uniq'
+import * as uniq from 'lodash.uniq'
 
 export function parseSitemapXML(text: string): Promise<any> {
   return pify(parseString)(text)

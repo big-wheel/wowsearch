@@ -6,12 +6,13 @@
  */
 import { CrawlerConfig } from './types/Config'
 import * as request from 'request-promise-native'
-import * as select from 'xpath.js'
-import { DOMParser } from 'xmldom'
-import * as cheerio from 'cheerio'
+import { JSDOM } from 'jsdom'
 import * as each from 'lodash.foreach'
+
 import makeCheck from './makeCheckUrl'
 import * as u from 'url'
+import DocumentNode from './types/DocumentNode'
+import selectVal, {selectAll} from './selectVal';
 
 const debug = require('debug')('wowsearch:crawl')
 
@@ -38,13 +39,49 @@ export function isSameOrigin(valueUrl: string, fromUrl?: string) {
   )
 }
 
+function getCrawlingUrls(
+  document,
+  { fromUrl = '', config }: { fromUrl?: string; config?: CrawlerConfig } = {}
+) {
+  const { start_urls, stop_urls, force_crawling_urls } = config
+
+  const check = makeCheck({ start_urls, stop_urls })
+  const smartCrawlingUrls = []
+  document.querySelectorAll('a').map(function(node) {
+    let href = node.getAttribute('href')
+    if (href && isSameOrigin(href, fromUrl)) {
+      href = u.resolve(fromUrl, href)
+      let o = u.parse(href)
+      delete o.query
+      delete o.search
+      delete o.hash
+      href = u.format(o)
+
+      debug('checked href: %s, isSameOrigin', href)
+      if (force_crawling_urls || check(href)) {
+        fromUrl !== href &&
+          smartCrawlingUrls.indexOf(href) < 0 &&
+          smartCrawlingUrls.push(href)
+      }
+    } else {
+      debug('checked href: %s, not matched', href)
+    }
+  })
+
+  debug('smartCrawlingUrls: %o, from url: %s', smartCrawlingUrls, fromUrl)
+  return smartCrawlingUrls
+}
+
+
+
 export function crawl(
   text: string,
   config: CrawlerConfig,
   fromUrl = ''
 ): { smartCrawlingUrls; crawlTexts } {
-  const $ = cheerio.load(text)
-  let doc
+  const documentNode = new DocumentNode()
+
+  const { document } = new JSDOM(text, { url: fromUrl }).window
   const {
     start_urls,
     stop_urls,
@@ -54,44 +91,22 @@ export function crawl(
     smart_crawling,
     force_crawling_urls
   } = config
-  const check = makeCheck({ start_urls, stop_urls })
 
   let smartCrawlingUrls = []
   if (smart_crawling) {
-    $('a').map(function() {
-      let href = $(this).attr('href')
-      if (href && isSameOrigin(href, fromUrl)) {
-        href = u.resolve(fromUrl, href)
-        let o = u.parse(href)
-        delete o.query
-        delete o.search
-        delete o.hash
-        href = u.format(o)
-
-        debug('checked href: %s, isSameOrigin', href)
-        if (force_crawling_urls || check(href)) {
-          fromUrl !== href &&
-            smartCrawlingUrls.indexOf(href) < 0 &&
-            smartCrawlingUrls.push(href)
-        }
-      } else {
-        debug('checked href: %s, not matched', href)
-      }
-    })
-
-    debug('smartCrawlingUrls: %o, from url: %s', smartCrawlingUrls, fromUrl)
+    smartCrawlingUrls = getCrawlingUrls(document, { fromUrl, config })
   }
 
   // TODO
   // Do filter about start_urls and stop_urls.
-
   if (selectors_exclude) {
     each(selectors_exclude, (val, key) => {
-      $(val).remove()
+      const nodes = selectAll(document, val)
+      nodes.forEach(node => node.remove())
     })
   }
 
-  let crawlTexts = []
+  let crawlTexts = {}
   // { lvl0:
   //       lvl1:
   //       lvl2:
@@ -104,40 +119,11 @@ export function crawl(
   // selectors.
 
   each(selectors, (value, key) => {
-    let text = null
-    if (typeof value === 'string') {
-      value = {
-        type: 'css',
-        selector: value
-      }
-    }
-    if (value.type === 'css' || !value.type) {
-      text = $(value.selector).text()
-      debug('css selector: %s, matched: %o.', value.selector, text)
+    // The global Selector
+    if (value && value.global) {
+      documentNode.global.set(key, selectVal(value, document).text)
     } else {
-      if (!doc) {
-        doc = new DOMParser({
-          errorHandler: {
-            warning: null,
-            error: console.error,
-            fatalError: console.error
-          }
-        }).parseFromString($.html())
-      }
-
-      let nodes = select(doc, value.selector)
-      text = nodes.map(node => node.textContent).join('')
-      debug('xpath selector: %s, matched: %o.', value.selector, text)
     }
-    let strip_chars = value.strip_chars || config.strip_chars || ''
-    crawlTexts[key] = text
-      ? text.replace(
-          new RegExp(`(^[${strip_chars}]+)|(${strip_chars}]+$)`, 'g'),
-          ''
-        )
-      : value.hasOwnProperty('default_value')
-        ? value.default_value
-        : null
   })
 
   return { crawlTexts, smartCrawlingUrls }
@@ -166,6 +152,7 @@ export async function crawlByUrl(url: string, config: CrawlerConfig) {
       return {}
     }
   }
+  debug('html: %s', html)
 
   let { crawlTexts, smartCrawlingUrls } = await crawl(html, config, url)
   debug('url: %s, crawlTexts: %o', url, crawlTexts)

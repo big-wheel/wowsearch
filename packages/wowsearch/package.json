@@ -2,24 +2,24 @@
   "name": "wowsearch",
   "version": "1.0.0",
   "dependencies": {
-    "array-uniq": "^2.0.0",
-    "cheerio": "^1.0.0-rc.2",
     "debug": "^3.1.0",
+    "jsdom": "^15.1.1",
     "lodash.clonedeep": "^4.5.0",
     "lodash.foreach": "^4.5.0",
+    "lodash.uniq": "^4.5.0",
     "minimatch": "^3.0.4",
     "p-reduce": "^1.0.0",
     "pify": "^3.0.0",
     "puppeteer": "^1.5.0",
-    "read-json-sync": "^2.0.0",
-    "request": "^2.87.0",
     "request-promise-native": "^1.0.5",
     "walli": "^1.1.2",
-    "xml2js": "^0.4.19",
-    "xmldom": "^0.1.27",
-    "xpath.js": "^1.1.0"
+    "xml2js": "^0.4.19"
+  },
+  "devDependencies": {
+    "read-json-sync": "^2.0.0"
   },
   "jest": {
+    "testEnvironment": "node",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },

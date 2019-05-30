@@ -8,15 +8,20 @@ import * as w from 'walli'
 import * as each from 'lodash.foreach'
 import * as clone from 'lodash.clonedeep'
 import { Rule, walliRule } from '../match'
+import {normalizeSelector} from "../selectVal";
 
 export type Selector =
   | string
-  | {
-      selector: string
-      type?: 'xpath' | 'css'
-      default_value?: any
-      strip_chars?: string
-    }
+  | StrictSelector
+
+export type StrictSelector = {
+  selector: string
+  type?: 'xpath' | 'css'
+  global?: boolean
+  anchor_selector?: Selector
+  default_value?: any
+  strip_chars?: string
+}
 
 const walliSelector = w.oneOf([
   w.string,
@@ -28,7 +33,16 @@ const walliSelector = w.oneOf([
   })
 ])
 
-
+export type Selectors = {
+  lvl0?: Selector
+  lvl1?: Selector
+  lvl2?: Selector
+  lvl3?: Selector
+  lvl4?: Selector
+  lvl5?: Selector
+  lvl6?: Selector
+  text?: Selector
+}
 
 export type CrawlerConfig = {
   js_render?: boolean
@@ -37,20 +51,12 @@ export type CrawlerConfig = {
   start_urls?: Array<Rule | { url: Rule }>
   stop_urls?: Rule[]
 
-  selectors: {
-    lvl0?: Selector
-    lvl1?: Selector
-    lvl2?: Selector
-    lvl3?: Selector
-    lvl4?: Selector
-    lvl5?: Selector
-    lvl6?: Selector
-    text?: Selector
-  }
+  selectors: Selectors
 
   selectors_exclude?: string[]
   smart_crawling?: boolean
   force_crawling_urls?: boolean
+  anchor_selector?: Selector
 }
 
 export type Config = CrawlerConfig & {
@@ -80,7 +86,7 @@ const WalliDef = w.leq({
   selectors_exclude: w.arrayOf(w.string).optional
 })
 
-export function normalize(config) {
+export function normalize(config: Config) {
   let errorMsg = WalliDef.toUnlawfulString(config)
   if (errorMsg) {
     throw new TypeError(errorMsg)
@@ -92,6 +98,7 @@ export function normalize(config) {
       strip_chars: ' .,;:§¶',
       js_render: false,
       js_waitfor: 0,
+      anchor_selector: 'a[id]',
       start_urls: [/.*/],
       stop_urls: [],
       selectors_exclude: [],
@@ -110,7 +117,10 @@ export function normalize(config) {
         selector: value
       }
     }
-    config.selectors[key] = Object.assign({ type: 'css', strip_chars: config.strip_chars, default_value: null }, value)
+    if (value) {
+      config.selectors[key] = Object.assign({type: 'css', strip_chars: config.strip_chars, anchor_selector: config.anchor_selector, default_value: null}, value)
+      config.selectors[key].anchor_selector = normalizeSelector(config.selectors[key].anchor_selector)
+    }
   })
 
   return config
