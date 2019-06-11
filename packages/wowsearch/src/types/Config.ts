@@ -8,19 +8,30 @@ import * as w from 'walli'
 import * as each from 'lodash.foreach'
 import * as clone from 'lodash.clonedeep'
 import { Rule, walliRule } from '../match'
-import {normalizeSelector} from "../selectVal";
+import { normalizeSelector } from '../selectVal'
 
-export type Selector =
-  | string
-  | StrictSelector
+type CommonConfig = {
+  strip_chars?: string
+  anchor_attribute_name?: string
+  anchor_selector?: Selector
+}
 
-export type StrictSelector = {
+export type Selector = string | StrictSelector
+
+export type StrictSelector = CommonConfig & {
   selector: string
   type?: 'xpath' | 'css'
   global?: boolean
-  anchor_selector?: Selector
+  anchor_attribute_name?: string
+  anchor_selector?: AnchorSelector | string
   default_value?: any
-  strip_chars?: string
+}
+
+export type AnchorSelector = CommonConfig & {
+  selector: string
+  type?: 'xpath' | 'css'
+  global?: boolean
+  default_value?: any
 }
 
 const walliSelector = w.oneOf([
@@ -44,10 +55,9 @@ export type Selectors = {
   text?: Selector
 }
 
-export type CrawlerConfig = {
+export type CrawlerConfig = CommonConfig & {
   js_render?: boolean
   js_waitfor?: string | number | Function
-  strip_chars?: string
   start_urls?: Array<Rule | { url: Rule }>
   stop_urls?: Rule[]
 
@@ -56,7 +66,6 @@ export type CrawlerConfig = {
   selectors_exclude?: string[]
   smart_crawling?: boolean
   force_crawling_urls?: boolean
-  anchor_selector?: Selector
 }
 
 export type Config = CrawlerConfig & {
@@ -69,7 +78,8 @@ const WalliDef = w.leq({
   js_render: w.boolean.optional,
   js_waitfor: w.oneOf([w.string, w.number, w.function_]).optional,
   strip_chars: w.string.optional,
-  start_urls: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })])).optional,
+  start_urls: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })]))
+    .optional,
   stop_urls: w.arrayOf(walliRule).optional,
 
   selectors: {
@@ -99,6 +109,7 @@ export function normalize(config: Config) {
       js_render: false,
       js_waitfor: 0,
       anchor_selector: 'a[id]',
+      anchor_attribute_name: 'id',
       start_urls: [/.*/],
       stop_urls: [],
       selectors_exclude: [],
@@ -118,8 +129,19 @@ export function normalize(config: Config) {
       }
     }
     if (value) {
-      config.selectors[key] = Object.assign({type: 'css', strip_chars: config.strip_chars, anchor_selector: config.anchor_selector, default_value: null}, value)
-      config.selectors[key].anchor_selector = normalizeSelector(config.selectors[key].anchor_selector)
+      config.selectors[key] = Object.assign(
+        {
+          type: 'css',
+          strip_chars: config.strip_chars,
+          anchor_selector: config.anchor_selector,
+          anchor_attribute_name: config.anchor_attribute_name,
+          default_value: null
+        },
+        value
+      )
+      config.selectors[key].anchor_selector = normalizeSelector(
+        config.selectors[key].anchor_selector
+      )
     }
   })
 

@@ -16,7 +16,6 @@ export function normalizeSelector(selectorItem): StrictSelector {
 export function selectAll(
   document,
   selectorItem,
-  { xpathRoot } = {}
 ): Element[] {
   selectorItem = normalizeSelector(selectorItem)
   if (!selectorItem) return []
@@ -26,7 +25,7 @@ export function selectAll(
       return document.querySelectorAll(selectorItem.selector)
     } else {
       const documentElem = document.ownerDocument || document
-      const selfNode = xpathRoot || document
+      const selfNode = document
       const headings = documentElem.evaluate(
         selectorItem.selector,
         selfNode,
@@ -47,7 +46,7 @@ export function selectAll(
 }
 
 // @ts-ignore
-export function selectOne(document, selectorItem, { xpathRoot } = {}): Element {
+export function selectOne(document, selectorItem): Element {
   selectorItem = normalizeSelector(selectorItem)
   if (!selectorItem) return null
 
@@ -56,7 +55,7 @@ export function selectOne(document, selectorItem, { xpathRoot } = {}): Element {
       return document.querySelector(selectorItem.selector)
     } else {
       const documentElem = document.ownerDocument || document
-      const selfNode = xpathRoot || document
+      const selfNode = document
       const headings = documentElem.evaluate(
         selectorItem.selector,
         selfNode,
