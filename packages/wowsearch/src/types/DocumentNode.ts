@@ -10,4 +10,6 @@ import WithChildrenNode from "./WithChildrenNode";
 export default class DocumentNode extends WithChildrenNode {
   public global = new Map<string, string>()
   public readonly type = 'document'
+
+  public href: string
 }

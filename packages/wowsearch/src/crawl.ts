@@ -11,8 +11,9 @@ import * as each from 'lodash.foreach'
 
 import makeCheck from './makeCheckUrl'
 import * as u from 'url'
+import parseElementTree from './parseElementTree'
+import selectVal, { selectAll } from './selectVal'
 import DocumentNode from './types/DocumentNode'
-import selectVal, {selectAll} from './selectVal';
 
 const debug = require('debug')('wowsearch:crawl')
 
@@ -52,7 +53,7 @@ function getCrawlingUrls(
     if (href && isSameOrigin(href, fromUrl)) {
       href = u.resolve(fromUrl, href)
       let o = u.parse(href)
-      delete o.query
+      // delete o.query
       delete o.search
       delete o.hash
       href = u.format(o)
@@ -72,15 +73,14 @@ function getCrawlingUrls(
   return smartCrawlingUrls
 }
 
-
-
 export function crawl(
   text: string,
   config: CrawlerConfig,
   fromUrl = ''
-): { smartCrawlingUrls; crawlTexts } {
-  const documentNode = new DocumentNode()
-
+): {
+  documentNode: DocumentNode,
+  smartCrawlingUrls: string[]
+} {
   const { document } = new JSDOM(text, { url: fromUrl }).window
   const {
     start_urls,
@@ -106,27 +106,13 @@ export function crawl(
     })
   }
 
-  let crawlTexts = {}
-  // { lvl0:
-  //       lvl1:
-  //       lvl2:
-  //       lvl3:
-  //       lvl4: null,
-  //       lvl5: null,
-  //       lvl6: null,
-  //       text:
+  const documentNode = parseElementTree(document, selectors)
+  documentNode.href = fromUrl
 
-  // selectors.
-
-  each(selectors, (value, key) => {
-    // The global Selector
-    if (value && value.global) {
-      documentNode.global.set(key, selectVal(value, document).text)
-    } else {
-    }
-  })
-
-  return { crawlTexts, smartCrawlingUrls }
+  return {
+    documentNode,
+    smartCrawlingUrls
+  }
 }
 
 export async function crawlByUrl(url: string, config: CrawlerConfig) {
@@ -146,7 +132,7 @@ export async function crawlByUrl(url: string, config: CrawlerConfig) {
     await browser.close()
   } else {
     try {
-      html = await request(encodeURI(decodeURI(url)))
+      html = await request(url)
     } catch (e) {
       console.error(`URL: ${url}`, String(e))
       return {}
@@ -154,7 +140,5 @@ export async function crawlByUrl(url: string, config: CrawlerConfig) {
   }
   debug('html: %s', html)
 
-  let { crawlTexts, smartCrawlingUrls } = await crawl(html, config, url)
-  debug('url: %s, crawlTexts: %o', url, crawlTexts)
-  return { crawlTexts, smartCrawlingUrls }
+  return await crawl(html, config, url)
 }
