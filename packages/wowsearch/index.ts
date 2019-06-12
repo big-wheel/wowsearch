@@ -4,9 +4,9 @@
  * @date 2018/6/10
  * @description
  */
-import { Config, normalize } from './src/types/Config'
+import { Config, normalize } from 'wowsearch-parse/types/Config'
 import { crawl, crawlByUrl } from './src/crawl'
-import match, { isRule, Rule } from './src/match'
+import match, { isRule, Rule } from 'wowsearch-parse/match'
 import parse from './src/parseSitemap'
 const debug = require('debug')('wowsearch')
 
@@ -31,8 +31,7 @@ export async function getUrlList(config: Config) {
     start_urls.forEach(u => {
       if (typeof u === 'string') {
         urls.push(u)
-      }
-      else if (u && typeof (<any>u).url === 'string') {
+      } else if (u && typeof (<any>u).url === 'string') {
         urls.push((<any>u).url)
       }
     })
@@ -63,23 +62,27 @@ export async function getUrlList(config: Config) {
   return urls
 }
 
-export default async function wowsearch(config: Config) {
+export default async function wowsearch(config: Config): Promise<{}> {
   config = normalize(config)
 
+  const docMap = {}
   const urls = await getUrlList(config)
 
   const history = []
   while (!!urls.length) {
     const url = urls.shift()
     history.push(url)
-    const { crawlTexts, smartCrawlingUrls } = await crawlByUrl(url, config)
-    if (crawlTexts) {
-      console.log(crawlTexts)
-    }
+    const { documentNode, smartCrawlingUrls } = await crawlByUrl(url, config)
+    if (!documentNode) continue
 
+    docMap[url] = documentNode
     if (smartCrawlingUrls) {
-      const notWalkedUrls = smartCrawlingUrls.filter(smartUrl => history.indexOf(smartUrl) < 0)
+      const notWalkedUrls = smartCrawlingUrls.filter(
+        smartUrl => history.indexOf(smartUrl) < 0
+      )
       urls.push(...notWalkedUrls)
     }
   }
+
+  return docMap
 }

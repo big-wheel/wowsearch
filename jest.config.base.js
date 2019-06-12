@@ -1,4 +1,5 @@
 module.exports = {
+  testEnvironment: 'node',
   roots: ['<rootDir>/packages'],
   testPathIgnorePatterns: ['__template'],
   transform: {
@@ -8,5 +9,5 @@ module.exports = {
   testRegex: '.(test|spec).(jsx?|tsx?)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   // testMatch: ['**/__test{s,}__/*.(spec|test).{t,j}s{x,}'],
-  setupTestFrameworkScriptFile: '<rootDir>/scripts/test-setup.js'
+  // setupTestFrameworkScriptFile: '<rootDir>/scripts/test-setup.js'
 }

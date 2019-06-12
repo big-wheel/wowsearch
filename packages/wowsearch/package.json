@@ -3,17 +3,15 @@
   "version": "1.0.0",
   "dependencies": {
     "debug": "^3.1.0",
+    "isomorphic-fetch": "^2.2.1",
     "jsdom": "^15.1.1",
-    "lodash.clonedeep": "^4.5.0",
-    "lodash.foreach": "^4.5.0",
     "lodash.uniq": "^4.5.0",
     "minimatch": "^3.0.4",
     "p-reduce": "^1.0.0",
     "pify": "^3.0.0",
     "puppeteer": "^1.5.0",
-    "request-promise-native": "^1.0.5",
-    "walli": "^1.1.2",
-    "@moyuyc/visit-tree": "^2.0.1",
+    "wowsearch-parse": "^1.0.0",
+    "lodash.foreach": "^4.5.0",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {

@@ -1,0 +1,43 @@
+{
+  "name": "wowsearch-parse",
+  "author": "imcuttle",
+  "description": "document parser",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dist": "tsc",
+    "test": "jest",
+    "dev": "npm run dist -- -w",
+    "prepublishOnly": "npm run dist",
+    "version": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/big-wheel/wowsearch.git"
+  },
+  "dependencies": {
+    "lodash.uniq": "^4.5.0",
+    "@moyuyc/visit-tree": "^2.0.1",
+    "minimatch": "^3.0.4",
+    "walli": "^1.1.2",
+    "debug": "^3.1.0",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.foreach": "^4.5.0"
+  },
+  "devDependencies": {
+    "jsdom": "^15.1.1"
+  },
+  "keywords": [
+    "imcuttle",
+    "wowsearch-parse",
+    "wowsearch"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "main": "index.js",
+  "typings": "index.d.js",
+  "version": "1.0.0"
+}

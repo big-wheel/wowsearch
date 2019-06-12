@@ -5,6 +5,7 @@
  * @description
  */
 import { readFileSync } from 'fs'
+import { inspect } from 'util'
 import * as readJSONSync from 'read-json-sync'
 import { makeFixture } from './help'
 import { default as wowsearch, getUrlList } from '../index'
@@ -17,17 +18,19 @@ describe('wowsearch', function() {
         stop_urls: [],
         selectors: {},
         start_urls: [/.*/],
-        sitemap_urls: ['http://origin.eux.baidu.com:8666/sitemap.xml', 'http://origin.eux.baidu.com:8666/sitemap.xml']
+        sitemap_urls: ['https://imcuttle.github.io/sitemap.xml']
       }
     )
-    console.log(urls)
     expect(urls).toMatchSnapshot()
   })
 
   it('crawl text with js_render', async function() {
-    await wowsearch(
-      readJSONSync(makeFixture('cookbook.json'))
+    jest.setTimeout(1000 * 60)
+    const map = await wowsearch(
+      readJSONSync(makeFixture('haier2.json'))
     )
+
+    console.log(inspect(map, {depth: 10}))
   })
 
 })

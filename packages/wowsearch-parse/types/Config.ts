@@ -116,7 +116,7 @@ export function normalize(config: Config) {
       sitemap_urls: [],
       sitemap_urls_patterns: [/.*/],
       force_sitemap_urls_crawling: false,
-      smart_crawling: true,
+      smart_crawling: false,
       force_crawling_urls: false
     },
     config

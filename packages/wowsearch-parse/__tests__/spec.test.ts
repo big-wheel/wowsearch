@@ -6,7 +6,7 @@
  */
 import { readFileSync } from 'fs'
 import { makeFixture } from './help'
-import parseElementTree from '../src/parseElementTree'
+import parseElementTree from '..'
 import { JSDOM } from 'jsdom'
 
 const parse = (html, config) => {

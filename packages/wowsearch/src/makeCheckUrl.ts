@@ -1,5 +1,5 @@
-import { isRule, Rule } from './match'
-import match from './match'
+import { isRule, Rule } from '../../wowsearch-parse/match'
+import match from '../../wowsearch-parse/match'
 
 /**
  * @file makeCheckUrl

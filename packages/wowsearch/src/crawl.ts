@@ -4,16 +4,16 @@
  * @date 2018/6/10
  * @description
  */
-import { CrawlerConfig } from './types/Config'
-import * as request from 'request-promise-native'
+import { CrawlerConfig } from 'wowsearch-parse/types/Config'
+import * as fetch from 'isomorphic-fetch'
 import { JSDOM } from 'jsdom'
 import * as each from 'lodash.foreach'
 
 import makeCheck from './makeCheckUrl'
 import * as u from 'url'
-import parseElementTree from './parseElementTree'
-import selectVal, { selectAll } from './selectVal'
-import DocumentNode from './types/DocumentNode'
+import parseElementTree from 'wowsearch-parse'
+import selectVal, { selectAll } from 'wowsearch-parse/selectVal'
+import DocumentNode from 'wowsearch-parse/types/DocumentNode'
 
 const debug = require('debug')('wowsearch:crawl')
 
@@ -46,9 +46,9 @@ function getCrawlingUrls(
 ) {
   const { start_urls, stop_urls, force_crawling_urls } = config
 
-  const check = makeCheck({ start_urls, stop_urls })
+  const check = makeCheck({ start_urls: start_urls.concat('**'), stop_urls })
   const smartCrawlingUrls = []
-  document.querySelectorAll('a').map(function(node) {
+  ;[].slice.apply(document.querySelectorAll('a')).map(function(node) {
     let href = node.getAttribute('href')
     if (href && isSameOrigin(href, fromUrl)) {
       href = u.resolve(fromUrl, href)
@@ -73,14 +73,16 @@ function getCrawlingUrls(
   return smartCrawlingUrls
 }
 
+type CrawlResult = {
+  documentNode?: DocumentNode
+  smartCrawlingUrls?: string[]
+}
+
 export function crawl(
   text: string,
   config: CrawlerConfig,
   fromUrl = ''
-): {
-  documentNode: DocumentNode,
-  smartCrawlingUrls: string[]
-} {
+): CrawlResult {
   const { document } = new JSDOM(text, { url: fromUrl }).window
   const {
     start_urls,
@@ -115,7 +117,10 @@ export function crawl(
   }
 }
 
-export async function crawlByUrl(url: string, config: CrawlerConfig) {
+export async function crawlByUrl(
+  url: string,
+  config: CrawlerConfig
+): Promise<CrawlResult> {
   let html
   if (config.js_render) {
     const puppeteer = require('puppeteer')
@@ -132,7 +137,8 @@ export async function crawlByUrl(url: string, config: CrawlerConfig) {
     await browser.close()
   } else {
     try {
-      html = await request(url)
+      let res = await fetch(url)
+      html = await res.text()
     } catch (e) {
       console.error(`URL: ${url}`, String(e))
       return {}

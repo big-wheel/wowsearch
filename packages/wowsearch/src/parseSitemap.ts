@@ -4,7 +4,7 @@
  * @date 2018/6/10
  * @description
  */
-import * as request from 'request-promise-native'
+import * as fetch from 'isomorphic-fetch'
 import { parseString } from 'xml2js'
 import * as pify from 'pify'
 import * as uniq from 'lodash.uniq'
@@ -21,8 +21,11 @@ export function parseSitemapTXT(text: string): string[] {
 }
 
 export default async function parseFromUrl(url: string) {
-  const text = await request(url)
-  if (url.toLowerCase().endsWith('.xml')) {
+  // console.log(url)
+  const res = await fetch(url)
+  const text = await res.text()
+
+  if (res.headers.get('content-type') === 'application/xml' || url.toLowerCase().endsWith('.xml')) {
     let obj = await parseSitemapXML(text)
     let urls = []
     obj.urlset.url.forEach(({ loc }) => {

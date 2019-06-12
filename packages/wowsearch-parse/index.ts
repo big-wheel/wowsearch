@@ -10,7 +10,6 @@ import {
 } from './types/Config'
 import selectVal, {
   normalizeSelector,
-  selectAll,
   selectOne,
   transformVal
 } from './selectVal'

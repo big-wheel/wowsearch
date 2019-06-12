@@ -14,6 +14,10 @@
   ],
   "license": "MIT",
   "repository": "big-wheel/wowsearch",
+  "edam": {
+    "source": "./packages/__template",
+    "output": "./packages"
+  },
   "jest": {
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
