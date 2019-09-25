@@ -7,10 +7,13 @@
     "declarationDir": "declare",
     "outDir": "dist",
     "allowJs": true,
+    "downlevelIteration": true,
     "lib": [
       "es6",
       "dom",
-      "es2015"
+      "es2015",
+      "es2016",
+      "es2017"
     ]
   },
   "exclude": [

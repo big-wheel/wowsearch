@@ -8,12 +8,14 @@ import { CrawlerConfig } from 'wowsearch-parse/types/Config'
 import * as fetch from 'isomorphic-fetch'
 import { JSDOM } from 'jsdom'
 import * as each from 'lodash.foreach'
+import * as got from 'got'
 
 import makeCheck from './makeCheckUrl'
 import * as u from 'url'
 import parseElementTree from 'wowsearch-parse'
 import selectVal, { selectAll } from 'wowsearch-parse/selectVal'
 import DocumentNode from 'wowsearch-parse/types/DocumentNode'
+import flattenDocumentNode from './flattenDocumentNode'
 
 const debug = require('debug')('wowsearch:crawl')
 
@@ -78,11 +80,11 @@ type CrawlResult = {
   smartCrawlingUrls?: string[]
 }
 
-export function crawl(
+export async function crawl(
   text: string,
   config: CrawlerConfig,
-  fromUrl = ''
-): CrawlResult {
+  fromUrl?
+): Promise<CrawlResult> {
   const { document } = new JSDOM(text, { url: fromUrl }).window
   const {
     start_urls,
@@ -91,6 +93,8 @@ export function crawl(
     selectors,
     selectors_exclude,
     smart_crawling,
+    url_tpl,
+    source_adaptor,
     force_crawling_urls
   } = config
 
@@ -141,10 +145,36 @@ export async function crawlByUrl(
       html = await res.text()
     } catch (e) {
       console.error(`URL: ${url}`, String(e))
-      return {}
+      return null
     }
   }
   debug('html: %s', html)
 
-  return await crawl(html, config, url)
+  return crawl(html, config, url)
+}
+
+export async function pushDocumentNode(
+  documentNode: DocumentNode,
+  config: CrawlerConfig
+) {
+  const { url_tpl, source_adaptor } = config
+  const list = flattenDocumentNode(documentNode, { url_tpl })
+
+  // Push
+  const pushAdaptor = require(source_adaptor.name)(source_adaptor.options)
+  const promiseList = list.map((item, i, list) =>
+    Promise.resolve(pushAdaptor(got, item, i, list))
+  )
+  const resultList = await Promise.all(promiseList)
+  return resultList.every(result => result !== false)
+}
+
+export async function push(text: string, config: CrawlerConfig, fromUrl?) {
+  const { documentNode } = await crawl(text, config, fromUrl)
+  return pushDocumentNode(documentNode, config)
+}
+
+export async function pushByUrl(url: string, config: CrawlerConfig) {
+  const { documentNode } = await crawlByUrl(url, config)
+  return pushDocumentNode(documentNode, config)
 }

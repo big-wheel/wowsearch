@@ -1,0 +1,37 @@
+{
+  "name": "wowsearch-elastic-adaptor",
+  "author": "imcuttle",
+  "description": "wowsearch adaptor for elastic",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dist": "tsc",
+    "test": "jest",
+    "dev": "npm run dist -- -w",
+    "prepublishOnly": "npm run dist",
+    "version": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/big-wheel/wowsearch.git"
+  },
+  "devDependencies": {
+    "wowsearch-parse": "^1.0.0"
+  },
+  "keywords": [
+    "imcuttle",
+    "wowsearch-elastic-adaptor",
+    "wowsearch"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "main": "index.js",
+  "typings": "index.d.js",
+  "version": "1.0.0",
+  "dependencies": {
+    "url-join": "^4.0.1"
+  }
+}

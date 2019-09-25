@@ -60,6 +60,11 @@ export type CrawlerConfig = CommonConfig & {
   js_waitfor?: string | number | Function
   start_urls?: Array<Rule | { url: Rule }>
   stop_urls?: Rule[]
+  url_tpl?: string
+  source_adaptor?: {
+    name: string
+    options?: any
+  }
 
   selectors: Selectors
 
@@ -78,6 +83,8 @@ const WalliDef = w.leq({
   js_render: w.boolean.optional,
   js_waitfor: w.oneOf([w.string, w.number, w.function_]).optional,
   strip_chars: w.string.optional,
+  source_adaptor: w.string.optional,
+  url_tpl: w.string.optional,
   start_urls: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })]))
     .optional,
   stop_urls: w.arrayOf(walliRule).optional,

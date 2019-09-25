@@ -1,19 +1,285 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`crawl crawl text 1`] = `
-Object {
-  "lvl0": "obots.js",
-  "lvl1": "Resources",
-  "lvl2": "InstallationUsageAPILicense",
-  "lvl3": null,
-  "lvl4": "abc",
-  "text": "obots.js — is parser for robots.txt files for node.js.It's recommended to install via npm:Here's an example of using robots.js:Default crawler user-agent is:Mozilla/5.0 (X11; Linux i686; rv:5.0) Gecko/20100101 Firefox/5.0
-Here's an example of using another user-agent and more detailed callback:Here's an example of getting list of sitemaps:Here's an example of getCrawlDelay usage:An example of passing options to the HTTP request:RobotsParser — main class. This class provides a set of methods to read,
-    parse and answer questions about a single robots.txt file.setUrl(url, read) — sets the URL referring to a robots.txt file.
+exports[`flattenDocumentNode should flattenDocumentNode spec 1`] = `
+Array [
+  Object {
+    "anchor": null,
+    "content": "robots.js",
+    "level": 0,
+    "parents": Array [],
+    "tags": Array [],
+    "type": "lvl",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "robots.js — is parser for robots.txt files for node.js.",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": null,
+    "content": "Installation",
+    "level": 2,
+    "parents": Array [
+      "robots.js",
+    ],
+    "tags": Array [],
+    "type": "lvl",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "It's recommended to install via npm:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Installation",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "$ npm install -g robots",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Installation",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": null,
+    "content": "Usage",
+    "level": 2,
+    "parents": Array [
+      "robots.js",
+    ],
+    "tags": Array [],
+    "type": "lvl",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Here's an example of using robots.js:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "var robots = require('robots')  , parser = new robots.RobotsParser(); parser.setUrl('http://nodeguide.ru/robots.txt', function(parser, success) {  if(success) {    parser.canFetch('*', '/doc/dailyjs-nodepad/', function (access) {      if (access) {        // parse url      }    });  }});",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Default crawler user-agent is:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Mozilla/5.0 (X11; Linux i686; rv:5.0) Gecko/20100101 Firefox/5.0
+",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Here's an example of using another user-agent and more detailed callback:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "var robots = require('robots')  , parser = new robots.RobotsParser(                'http://nodeguide.ru/robots.txt',                'Mozilla/5.0 (compatible; RobotTxtBot/1.0)',                after_parse            );            function after_parse(parser, success) {  if(success) {    parser.canFetch('*', '/doc/dailyjs-nodepad/', function (access, url, reason) {      if (access) {        console.log(' url: '+url+', access: '+access);        // parse url ...      }    });  }};",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Here's an example of getting list of sitemaps:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "var robots = require('robots')  , parser = new robots.RobotsParser(); parser.setUrl('http://nodeguide.ru/robots.txt', function(parser, success) {  if(success) {    parser.getSitemaps(function(sitemaps) {      // sitemaps — array    });  }});",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Here's an example of getCrawlDelay usage:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "    var robots = require('robots')      , parser = new robots.RobotsParser();     // for example:    //    // $ curl -s http://nodeguide.ru/robots.txt    //    // User-agent: Google-bot    // Disallow: /     // Crawl-delay: 2    //    // User-agent: *    // Disallow: /    // Crawl-delay: 2     parser.setUrl('http://nodeguide.ru/robots.txt', function(parser, success) {      if(success) {        var GoogleBotDelay = parser.getCrawlDelay(\\"Google-bot\\");        // ...      }    });",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "An example of passing options to the HTTP request:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "var options = {  headers:{    Authorization:\\"Basic \\" + new Buffer(\\"username:password\\").toString(\\"base64\\")}} var robots = require('robots')  , parser = new robots.RobotsParser(null, options); parser.setUrl('http://nodeguide.ru/robots.txt', function(parser, success) {  ...});",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": null,
+    "content": "API",
+    "level": 2,
+    "parents": Array [
+      "robots.js",
+    ],
+    "tags": Array [],
+    "type": "lvl",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "RobotsParser — main class. This class provides a set of methods to read,
+    parse and answer questions about a single robots.txt file.",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "setUrl(url, read) — sets the URL referring to a robots.txt file.
       by default, invokes read() method.
       If read is a function, it is called once the remote file is downloaded and parsed, and it
       takes in two arguments: the first is the parser itself, and the second is a boolean
-      which is True if the the remote file was successfully parsed.read(after_parse) — reads the robots.txt URL and feeds it to the parserparse(lines) — parse the input lines from a robots.txt filecanFetch(userAgent, url, callback) — using the parsed robots.txt decide if
+      which is True if the the remote file was successfully parsed.",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "read(after_parse) — reads the robots.txt URL and feeds it to the parser",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "parse(lines) — parse the input lines from a robots.txt file",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "canFetch(userAgent, url, callback) — using the parsed robots.txt decide if
       userAgent can fetch url. Callback function:
       function callback(access, url, reason) { ... }
       where:
@@ -28,151 +294,214 @@ Here's an example of using another user-agent and more detailed callback:Here's 
           
         
       
-    function callback(access, url, reason) { ... }access — can this url be fetched. true/false.url — target urlreason — reason for access. Object:
-          
-            type — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'
-            entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'
-            statusCode — http response status code for url. Only for type 'statusCode'
-          
-        accesstype — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'lib/Entry.js:statusCode — http response status code for url. Only for type 'statusCode'canFetchSync(userAgent, url) — using the parsed robots.txt decide if
-      userAgent can fetch url. Return true/false.getCrawlDelay(userAgent) — returns Crawl-delay for the certain userAgentgetSitemaps(sitemaps) — gets Sitemaps from parsed robots.txtgetDisallowedPaths(userAgent) — gets paths explictly disallowed for the user agent specified AND *See LICENSE
-    file.Robots.txt Specifications by GoogleRobots.txt parser for pythonA Standard for Robot Exclusion",
-}
-`;
-
-exports[`crawl crawl text when smart_crawling 1`] = `
-Object {
-  "crawlTexts": Object {
-    "lvl0": "robots.js",
-    "lvl1": "Resources",
-    "lvl2": "InstallationUsageAPILicense",
-    "lvl3": null,
-    "lvl4": "abc",
-    "text": "robots.js — is parser for robots.txt files for node.js.It's recommended to install via npm:Here's an example of using robots.js:Default crawler user-agent is:Mozilla/5.0 (X11; Linux i686; rv:5.0) Gecko/20100101 Firefox/5.0
-Here's an example of using another user-agent and more detailed callback:Here's an example of getting list of sitemaps:Here's an example of getCrawlDelay usage:An example of passing options to the HTTP request:RobotsParser — main class. This class provides a set of methods to read,
-    parse and answer questions about a single robots.txt file.setUrl(url, read) — sets the URL referring to a robots.txt file.
-      by default, invokes read() method.
-      If read is a function, it is called once the remote file is downloaded and parsed, and it
-      takes in two arguments: the first is the parser itself, and the second is a boolean
-      which is True if the the remote file was successfully parsed.read(after_parse) — reads the robots.txt URL and feeds it to the parserparse(lines) — parse the input lines from a robots.txt filecanFetch(userAgent, url, callback) — using the parsed robots.txt decide if
-      userAgent can fetch url. Callback function:
-      function callback(access, url, reason) { ... }
-      where:
-      
-        access — can this url be fetched. true/false.
-        url — target url
-        reason — reason for access. Object:
-          
-            type — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'
-            entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'
-            statusCode — http response status code for url. Only for type 'statusCode'
-          
-        
-      
-    function callback(access, url, reason) { ... }access — can this url be fetched. true/false.url — target urlreason — reason for access. Object:
-          
-            type — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'
-            entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'
-            statusCode — http response status code for url. Only for type 'statusCode'
-          
-        accesstype — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'lib/Entry.js:statusCode — http response status code for url. Only for type 'statusCode'canFetchSync(userAgent, url) — using the parsed robots.txt decide if
-      userAgent can fetch url. Return true/false.getCrawlDelay(userAgent) — returns Crawl-delay for the certain userAgentgetSitemaps(sitemaps) — gets Sitemaps from parsed robots.txtgetDisallowedPaths(userAgent) — gets paths explictly disallowed for the user agent specified AND *See LICENSE
-    file.Robots.txt Specifications by GoogleRobots.txt parser for pythonA Standard for Robot Exclusion",
+    ",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
   },
-  "smartCrawlingUrls": Array [
-    "https://npmjs.com/settings/moyuyc/profile",
-    "https://npmjs.com/settings/moyuyc/packages",
-    "https://npmjs.com/settings/moyuyc/billing",
-    "https://npmjs.com/settings/moyuyc/tokens",
-  ],
-}
-`;
-
-exports[`crawl crawl text when smart_crawling and force_crawling_urls 1`] = `
-Object {
-  "crawlTexts": Object {
-    "lvl0": "robots.js",
-    "lvl1": "Resources",
-    "lvl2": "InstallationUsageAPILicense",
-    "lvl3": null,
-    "lvl4": "abc",
-    "text": "robots.js — is parser for robots.txt files for node.js.It's recommended to install via npm:Here's an example of using robots.js:Default crawler user-agent is:Mozilla/5.0 (X11; Linux i686; rv:5.0) Gecko/20100101 Firefox/5.0
-Here's an example of using another user-agent and more detailed callback:Here's an example of getting list of sitemaps:Here's an example of getCrawlDelay usage:An example of passing options to the HTTP request:RobotsParser — main class. This class provides a set of methods to read,
-    parse and answer questions about a single robots.txt file.setUrl(url, read) — sets the URL referring to a robots.txt file.
-      by default, invokes read() method.
-      If read is a function, it is called once the remote file is downloaded and parsed, and it
-      takes in two arguments: the first is the parser itself, and the second is a boolean
-      which is True if the the remote file was successfully parsed.read(after_parse) — reads the robots.txt URL and feeds it to the parserparse(lines) — parse the input lines from a robots.txt filecanFetch(userAgent, url, callback) — using the parsed robots.txt decide if
-      userAgent can fetch url. Callback function:
-      function callback(access, url, reason) { ... }
-      where:
-      
-        access — can this url be fetched. true/false.
-        url — target url
-        reason — reason for access. Object:
-          
-            type — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'
-            entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'
-            statusCode — http response status code for url. Only for type 'statusCode'
-          
-        
-      
-    function callback(access, url, reason) { ... }access — can this url be fetched. true/false.url — target urlreason — reason for access. Object:
-          
-            type — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'
-            entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'
-            statusCode — http response status code for url. Only for type 'statusCode'
-          
-        accesstype — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'lib/Entry.js:statusCode — http response status code for url. Only for type 'statusCode'canFetchSync(userAgent, url) — using the parsed robots.txt decide if
-      userAgent can fetch url. Return true/false.getCrawlDelay(userAgent) — returns Crawl-delay for the certain userAgentgetSitemaps(sitemaps) — gets Sitemaps from parsed robots.txtgetDisallowedPaths(userAgent) — gets paths explictly disallowed for the user agent specified AND *See LICENSE
-    file.Robots.txt Specifications by GoogleRobots.txt parser for pythonA Standard for Robot Exclusion",
+  Object {
+    "anchor": undefined,
+    "content": "canFetchSync(userAgent, url) — using the parsed robots.txt decide if
+      userAgent can fetch url. Return true/false.",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
   },
-  "smartCrawlingUrls": Array [
-    "https://npmjs.com/npm/enterprise",
-    "https://npmjs.com/features",
-    "https://npmjs.com/pricing",
-    "https://npmjs.com/support",
-    "https://npmjs.com/",
-    "https://npmjs.com/logout",
-    "https://npmjs.com/~moyuyc",
-    "https://npmjs.com/settings/moyuyc/profile",
-    "https://npmjs.com/settings/moyuyc/packages",
-    "https://npmjs.com/settings/moyuyc/billing",
-    "https://npmjs.com/settings/moyuyc/tokens",
-    "https://npmjs.com/org/create",
-    "https://npmjs.com/search",
-    "https://npmjs.com/~ekalinin",
-    "https://npmjs.com/policies/security",
-    "https://npmjs.com/about",
-    "https://npmjs.com/jobs",
-    "https://npmjs.com/npm-weekly",
-    "https://npmjs.com/policies/terms",
-    "https://npmjs.com/policies/conduct",
-    "https://npmjs.com/policies/disputes",
-    "https://npmjs.com/policies/privacy",
-    "https://npmjs.com/policies/receiving-reports",
-    "https://npmjs.com/policies/",
-  ],
-}
-`;
-
-exports[`crawl crawl text with js_render 1`] = `
-Object {
-  "crawlTexts": Object {
-    "lvl0": "the-answer",
-    "lvl1": null,
-    "lvl2": "InstallationUsageReally?License",
-    "lvl3": null,
-    "lvl4": null,
-    "text": "The answer to the question of life, the universe and everything.Yes — I needed a simple module to demonstrate how to import npm packages into Rollup bundles. In particular, this package exposes both a main (UMD format) and module (ES2015 format) in its package.json.mainmoduleMIT",
+  Object {
+    "anchor": undefined,
+    "content": "getCrawlDelay(userAgent) — returns Crawl-delay for the certain userAgent",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
   },
-  "smartCrawlingUrls": Array [],
-}
+  Object {
+    "anchor": undefined,
+    "content": "getSitemaps(sitemaps) — gets Sitemaps from parsed robots.txt",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "getDisallowedPaths(userAgent) — gets paths explictly disallowed for the user agent specified AND *",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": null,
+    "content": "License",
+    "level": 2,
+    "parents": Array [
+      "robots.js",
+    ],
+    "tags": Array [],
+    "type": "lvl",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "See LICENSE
+    file.",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "License",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": null,
+    "content": "Resources",
+    "level": 1,
+    "parents": Array [
+      "robots.js",
+    ],
+    "tags": Array [],
+    "type": "lvl",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Robots.txt Specifications by Google",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Resources",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Robots.txt parser for python",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Resources",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "A Standard for Robot Exclusion",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Resources",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+]
 `;
 
-exports[`crawl should crawl nothing 1`] = `
+exports[`push should push 2`] = `
 Object {
-  "crawlTexts": Object {},
-  "smartCrawlingUrls": Array [],
+  "body": "{\\"index\\":0}
+{\\"anchor\\":null,\\"url\\":\\"#\\",\\"level\\":0,\\"type\\":\\"lvl\\",\\"content\\":\\"robots.js\\",\\"parents\\":[],\\"tags\\":[]}
+{\\"index\\":1}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"robots.js — is parser for robots.txt files for node.js.\\",\\"parents\\":[\\"robots.js\\"],\\"tags\\":[]}
+{\\"index\\":2}
+{\\"anchor\\":null,\\"url\\":\\"#\\",\\"level\\":2,\\"type\\":\\"lvl\\",\\"content\\":\\"Installation\\",\\"parents\\":[\\"robots.js\\"],\\"tags\\":[]}
+{\\"index\\":3}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"It's recommended to install via npm:\\",\\"parents\\":[\\"robots.js\\",\\"Installation\\"],\\"tags\\":[]}
+{\\"index\\":4}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"$ npm install -g robots\\",\\"parents\\":[\\"robots.js\\",\\"Installation\\"],\\"tags\\":[]}
+{\\"index\\":5}
+{\\"anchor\\":null,\\"url\\":\\"#\\",\\"level\\":2,\\"type\\":\\"lvl\\",\\"content\\":\\"Usage\\",\\"parents\\":[\\"robots.js\\"],\\"tags\\":[]}
+{\\"index\\":6}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"Here's an example of using robots.js:\\",\\"parents\\":[\\"robots.js\\",\\"Usage\\"],\\"tags\\":[]}
+{\\"index\\":7}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"var robots = require('robots')  , parser = new robots.RobotsParser(); parser.setUrl('http://nodeguide.ru/robots.txt', function(parser, success) {  if(success) {    parser.canFetch('*', '/doc/dailyjs-nodepad/', function (access) {      if (access) {        // parse url      }    });  }});\\",\\"parents\\":[\\"robots.js\\",\\"Usage\\"],\\"tags\\":[]}
+{\\"index\\":8}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"Default crawler user-agent is:\\",\\"parents\\":[\\"robots.js\\",\\"Usage\\"],\\"tags\\":[]}
+{\\"index\\":9}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"Mozilla/5.0 (X11; Linux i686; rv:5.0) Gecko/20100101 Firefox/5.0\\\\n\\",\\"parents\\":[\\"robots.js\\",\\"Usage\\"],\\"tags\\":[]}
+{\\"index\\":10}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"Here's an example of using another user-agent and more detailed callback:\\",\\"parents\\":[\\"robots.js\\",\\"Usage\\"],\\"tags\\":[]}
+{\\"index\\":11}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"var robots = require('robots')  , parser = new robots.RobotsParser(                'http://nodeguide.ru/robots.txt',                'Mozilla/5.0 (compatible; RobotTxtBot/1.0)',                after_parse            );            function after_parse(parser, success) {  if(success) {    parser.canFetch('*', '/doc/dailyjs-nodepad/', function (access, url, reason) {      if (access) {        console.log(' url: '+url+', access: '+access);        // parse url ...      }    });  }};\\",\\"parents\\":[\\"robots.js\\",\\"Usage\\"],\\"tags\\":[]}
+{\\"index\\":12}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"Here's an example of getting list of sitemaps:\\",\\"parents\\":[\\"robots.js\\",\\"Usage\\"],\\"tags\\":[]}
+{\\"index\\":13}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"var robots = require('robots')  , parser = new robots.RobotsParser(); parser.setUrl('http://nodeguide.ru/robots.txt', function(parser, success) {  if(success) {    parser.getSitemaps(function(sitemaps) {      // sitemaps — array    });  }});\\",\\"parents\\":[\\"robots.js\\",\\"Usage\\"],\\"tags\\":[]}
+{\\"index\\":14}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"Here's an example of getCrawlDelay usage:\\",\\"parents\\":[\\"robots.js\\",\\"Usage\\"],\\"tags\\":[]}
+{\\"index\\":15}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"    var robots = require('robots')      , parser = new robots.RobotsParser();     // for example:    //    // $ curl -s http://nodeguide.ru/robots.txt    //    // User-agent: Google-bot    // Disallow: /     // Crawl-delay: 2    //    // User-agent: *    // Disallow: /    // Crawl-delay: 2     parser.setUrl('http://nodeguide.ru/robots.txt', function(parser, success) {      if(success) {        var GoogleBotDelay = parser.getCrawlDelay(\\\\\\"Google-bot\\\\\\");        // ...      }    });\\",\\"parents\\":[\\"robots.js\\",\\"Usage\\"],\\"tags\\":[]}
+{\\"index\\":16}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"An example of passing options to the HTTP request:\\",\\"parents\\":[\\"robots.js\\",\\"Usage\\"],\\"tags\\":[]}
+{\\"index\\":17}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"var options = {  headers:{    Authorization:\\\\\\"Basic \\\\\\" + new Buffer(\\\\\\"username:password\\\\\\").toString(\\\\\\"base64\\\\\\")}} var robots = require('robots')  , parser = new robots.RobotsParser(null, options); parser.setUrl('http://nodeguide.ru/robots.txt', function(parser, success) {  ...});\\",\\"parents\\":[\\"robots.js\\",\\"Usage\\"],\\"tags\\":[]}
+{\\"index\\":18}
+{\\"anchor\\":null,\\"url\\":\\"#\\",\\"level\\":2,\\"type\\":\\"lvl\\",\\"content\\":\\"API\\",\\"parents\\":[\\"robots.js\\"],\\"tags\\":[]}
+{\\"index\\":19}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"RobotsParser — main class. This class provides a set of methods to read,\\\\n    parse and answer questions about a single robots.txt file.\\",\\"parents\\":[\\"robots.js\\",\\"API\\"],\\"tags\\":[]}
+{\\"index\\":20}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"setUrl(url, read) — sets the URL referring to a robots.txt file.\\\\n      by default, invokes read() method.\\\\n      If read is a function, it is called once the remote file is downloaded and parsed, and it\\\\n      takes in two arguments: the first is the parser itself, and the second is a boolean\\\\n      which is True if the the remote file was successfully parsed.\\",\\"parents\\":[\\"robots.js\\",\\"API\\"],\\"tags\\":[]}
+{\\"index\\":21}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"read(after_parse) — reads the robots.txt URL and feeds it to the parser\\",\\"parents\\":[\\"robots.js\\",\\"API\\"],\\"tags\\":[]}
+{\\"index\\":22}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"parse(lines) — parse the input lines from a robots.txt file\\",\\"parents\\":[\\"robots.js\\",\\"API\\"],\\"tags\\":[]}
+{\\"index\\":23}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"canFetch(userAgent, url, callback) — using the parsed robots.txt decide if\\\\n      userAgent can fetch url. Callback function:\\\\n      function callback(access, url, reason) { ... }\\\\n      where:\\\\n      \\\\n        access — can this url be fetched. true/false.\\\\n        url — target url\\\\n        reason — reason for access. Object:\\\\n          \\\\n            type — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'\\\\n            entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'\\\\n            statusCode — http response status code for url. Only for type 'statusCode'\\\\n          \\\\n        \\\\n      \\\\n    \\",\\"parents\\":[\\"robots.js\\",\\"API\\"],\\"tags\\":[]}
+{\\"index\\":24}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"canFetchSync(userAgent, url) — using the parsed robots.txt decide if\\\\n      userAgent can fetch url. Return true/false.\\",\\"parents\\":[\\"robots.js\\",\\"API\\"],\\"tags\\":[]}
+{\\"index\\":25}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"getCrawlDelay(userAgent) — returns Crawl-delay for the certain userAgent\\",\\"parents\\":[\\"robots.js\\",\\"API\\"],\\"tags\\":[]}
+{\\"index\\":26}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"getSitemaps(sitemaps) — gets Sitemaps from parsed robots.txt\\",\\"parents\\":[\\"robots.js\\",\\"API\\"],\\"tags\\":[]}
+{\\"index\\":27}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"getDisallowedPaths(userAgent) — gets paths explictly disallowed for the user agent specified AND *\\",\\"parents\\":[\\"robots.js\\",\\"API\\"],\\"tags\\":[]}
+{\\"index\\":28}
+{\\"anchor\\":null,\\"url\\":\\"#\\",\\"level\\":2,\\"type\\":\\"lvl\\",\\"content\\":\\"License\\",\\"parents\\":[\\"robots.js\\"],\\"tags\\":[]}
+{\\"index\\":29}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"See LICENSE\\\\n    file.\\",\\"parents\\":[\\"robots.js\\",\\"License\\"],\\"tags\\":[]}
+{\\"index\\":30}
+{\\"anchor\\":null,\\"url\\":\\"#\\",\\"level\\":1,\\"type\\":\\"lvl\\",\\"content\\":\\"Resources\\",\\"parents\\":[\\"robots.js\\"],\\"tags\\":[]}
+{\\"index\\":31}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"Robots.txt Specifications by Google\\",\\"parents\\":[\\"robots.js\\",\\"Resources\\"],\\"tags\\":[]}
+{\\"index\\":32}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"Robots.txt parser for python\\",\\"parents\\":[\\"robots.js\\",\\"Resources\\"],\\"tags\\":[]}
+{\\"index\\":33}
+{\\"url\\":\\"#\\",\\"type\\":\\"text\\",\\"content\\":\\"A Standard for Robot Exclusion\\",\\"parents\\":[\\"robots.js\\",\\"Resources\\"],\\"tags\\":[]}",
+  "header": Object {
+    "content-type": "application/json",
+  },
+  "query": Object {
+    "refresh": "",
+  },
 }
 `;

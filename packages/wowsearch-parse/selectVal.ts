@@ -30,7 +30,8 @@ export function selectAll(
         selectorItem.selector,
         selfNode,
         null,
-        0
+        0,
+        null
       )
       let thisHeading = headings.iterateNext()
       const array = []

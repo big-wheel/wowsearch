@@ -5,9 +5,81 @@
  * @description
  */
 process.env.DEBUG = 'wowsearch:crawl'
+
 import { readFileSync } from 'fs'
 import { makeFixture } from './help'
-import { crawl, isSameOrigin, crawlByUrl } from '../src/crawl'
+import { crawl, push, isSameOrigin, crawlByUrl } from '../src/crawl'
+import flattenDocumentNode from '../src/flattenDocumentNode'
+
+jest.mock('got')
+
+import * as got from 'got'
+
+describe('flattenDocumentNode', function() {
+  it('should flattenDocumentNode spec', async function() {
+    const { documentNode } = await crawl(
+      readFileSync(makeFixture('text.html')).toString(),
+      {
+        // strip_chars: 'r',
+        selectors: {
+          lvl0: '#readme .package-name-redundant',
+          lvl1: '#readme h1:not(.package-name-redundant)',
+          lvl2: {
+            selector: '//*[@id="readme"]//h2',
+            type: 'xpath'
+          },
+          lvl3: {
+            selector: '#readme h3'
+          },
+          lvl4: { selector: '#readme h4', default_value: 'abc' },
+          text: '#readme > p, #readme li, #readme code, #readme pre'
+        },
+        selectors_exclude: ['#readme .deep-link']
+      }
+    )
+
+    expect(flattenDocumentNode(documentNode)).toMatchSnapshot()
+  })
+})
+
+describe('push', function() {
+  it('should push', async function() {
+    const result = await push(
+      readFileSync(makeFixture('text.html')).toString(),
+      {
+        source_adaptor: {
+          name: 'wowsearch-elastic-adaptor/node',
+          options: {
+            index_name: 'temp'
+          }
+        },
+        // strip_chars: 'r',
+        selectors: {
+          lvl0: '#readme .package-name-redundant',
+          lvl1: '#readme h1:not(.package-name-redundant)',
+          lvl2: {
+            selector: '//*[@id="readme"]//h2',
+            type: 'xpath'
+          },
+          lvl3: {
+            selector: '#readme h3'
+          },
+          lvl4: { selector: '#readme h4', default_value: 'abc' },
+          text: '#readme > p, #readme li, #readme code, #readme pre'
+        },
+        selectors_exclude: ['#readme .deep-link']
+      }
+    )
+
+    expect(result).toBeTruthy()
+    expect(got.post.mock.calls.length).toBe(1)
+
+    const calls = got.post.mock.calls[0]
+    expect(calls.length).toBe(2)
+    expect(calls[0]).toMatchInlineSnapshot(`"http://localhost:9200/temp/_bulk"`)
+    expect(calls[1]).toMatchSnapshot()
+  })
+})
 
 describe('crawl', function() {
   it('crawl text', async function() {
@@ -77,7 +149,7 @@ describe('crawl', function() {
           lvl3: {
             selector: '#readme h3'
           },
-          lvl4: {selector: '#readme h4', default_value: 'abc'},
+          lvl4: { selector: '#readme h4', default_value: 'abc' },
           text: '#readme p, #readme li, #readme code'
         },
         selectors_exclude: ['#readme .deep-link']
@@ -125,8 +197,12 @@ describe('crawl', function() {
     expect(isSameOrigin('http://same')).toBeFalsy()
   })
 
-  it('should isSameOrigin when fromUrl', function () {
-    expect(isSameOrigin('http://www.baidu.com', 'http://www.baidu.com')).toBeTruthy()
-    expect(isSameOrigin('http://www.baidu.com/wdwwa', 'http://www.baidu.com/ajha')).toBeTruthy()
-  });
+  it('should isSameOrigin when fromUrl', function() {
+    expect(
+      isSameOrigin('http://www.baidu.com', 'http://www.baidu.com')
+    ).toBeTruthy()
+    expect(
+      isSameOrigin('http://www.baidu.com/wdwwa', 'http://www.baidu.com/ajha')
+    ).toBeTruthy()
+  })
 })
