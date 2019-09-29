@@ -17,7 +17,7 @@ import DocumentNode from 'wowsearch-parse/types/DocumentNode'
 
 const debug = require('debug')('wowsearch:crawl')
 
-const protocolPorts = new Map<any, number>([
+const protocolPorts = new Map<string, number>([
   ['https:', 443],
   ['http:', 80],
   [null, null]

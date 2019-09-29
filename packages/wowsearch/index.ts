@@ -10,7 +10,6 @@ import match, { isRule, Rule } from 'wowsearch-parse/match'
 import parseSitemap from './src/parseSitemap'
 const debug = require('debug')('wowsearch')
 
-import * as preduce from 'p-reduce'
 import pLimit from 'p-limit'
 import * as uniq from 'lodash.uniq'
 import makeCheck from './src/makeCheckUrl'
@@ -40,57 +39,58 @@ export async function getUrlList(config: Config) {
     })
   }
 
-  if (sitemap_urls.length) {
-    // limit(async (url) => {
-    //   const urls = await parseSitemap(url)
-    //   urls.filter(sitemapUrl => {
-    //     return sitemap_urls_patterns.some(p => match(p, sitemapUrl))
-    //   })
-    // })
+  await Promise.all(
+    sitemap_urls.map(url => {
+      return limit(async () => {
+        const urlList = (await parseSitemap(url)).filter(sitemapUrl => {
+          return sitemap_urls_patterns.some(p => match(p, sitemapUrl))
+        })
+        urls = urls.concat(urlList)
+      })
+    })
+  )
 
-    urls = urls.concat(
-      await preduce(
-        sitemap_urls,
-        async (urls, url) => {
-          return urls.concat(
-
-          )
-        },
-        []
-      )
-    )
-    urls = uniq(urls)
-    if (!force_sitemap_urls_crawling) {
-      urls = urls.filter(check)
-    }
-    debug('sitemap filled urls:', urls)
-  }
   urls = uniq(urls)
+  if (!force_sitemap_urls_crawling) {
+    urls = urls.filter(check)
+  }
+  debug('sitemap filled urls:', urls)
 
   return urls
 }
 
 export default async function wowsearch(config: Config): Promise<{}> {
   config = normalize(config)
+  const { concurrency } = config
 
   const docMap = {}
   const urls = await getUrlList(config)
+  const limit = pLimit(concurrency)
 
-  const history = []
-  while (!!urls.length) {
-    const url = urls.shift()
-    history.push(url)
-    const { documentNode, smartCrawlingUrls } = await crawlByUrl(url, config)
-    if (!documentNode) continue
+  const history = new Map()
+  const createTask = (url, limit) => {
+    return limit(async () => {
+      history.set(url, true)
+      const { documentNode, smartCrawlingUrls } = await crawlByUrl(url, config)
+      if (!documentNode) return
+      docMap[url] = documentNode
 
-    docMap[url] = documentNode
-    if (smartCrawlingUrls) {
-      const notWalkedUrls = smartCrawlingUrls.filter(
-        smartUrl => history.indexOf(smartUrl) < 0
-      )
-      urls.push(...notWalkedUrls)
-    }
+      if (smartCrawlingUrls && smartCrawlingUrls.length) {
+        const notWalkedUrls = smartCrawlingUrls.filter(
+          smartUrl => !history.has(smartUrl)
+        )
+
+        const innerLimit = pLimit(concurrency)
+        return Promise.all(
+          notWalkedUrls.map(url => {
+            return createTask(url, innerLimit)
+          })
+        )
+      }
+    })
   }
+
+  await Promise.all(urls.map(url => createTask(url, limit)))
 
   return docMap
 }

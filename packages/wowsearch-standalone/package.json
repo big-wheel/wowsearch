@@ -1,7 +1,8 @@
 {
-  "name": "wowsearch-elastic-adaptor",
+  "name": "wowsearch-standalone",
   "author": "imcuttle",
-  "description": "wowsearch adaptor for elastic",
+  "private": true,
+  "description": "wowsearch standalone for production",
   "publishConfig": {
     "access": "public"
   },
@@ -17,25 +18,19 @@
     "type": "git",
     "url": "git+https://github.com/big-wheel/wowsearch.git"
   },
-  "main": "dist/index.js",
-  "typings": "dist/index.d.js",
-  "devDependencies": {
-    "wowsearch": "^1.0.0"
-  },
   "keywords": [
     "imcuttle",
-    "wowsearch-elastic-adaptor",
+    "wowsearch-standalone",
     "wowsearch"
   ],
   "engines": {
     "node": ">=6"
   },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.js",
   "version": "1.0.0",
   "dependencies": {
-    "ky-universal": "^0.3.0",
-    "url-join": "^4.0.1",
-    "wowsearch-parse": "^1.0.0",
-    "@moyuyc/visit-tree": "^2.0.1",
-    "lodash.template": "^4.5.0"
+    "globby": "^10.0.1",
+    "wowsearch": "^1.0.0"
   }
 }

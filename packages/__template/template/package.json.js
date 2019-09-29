@@ -10,7 +10,7 @@ module.exports = ({ _, name, description }) => {
     },
     license: 'MIT',
     scripts: {
-      dist: 'tsc',
+      dist: 'rimraf dist && tsc',
       test: 'jest',
       dev: 'npm run dist -- -w',
       prepublishOnly: 'npm run dist',
@@ -24,8 +24,8 @@ module.exports = ({ _, name, description }) => {
     engines: {
       node: '>=6'
     },
-    main: 'index.js',
-    typings: 'index.d.js',
+    main: 'dist/index.js',
+    typings: 'dist/index.d.js',
     version: '1.0.0'
   }
 }
