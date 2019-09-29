@@ -8,14 +8,12 @@ import { CrawlerConfig } from 'wowsearch-parse/types/Config'
 import * as fetch from 'isomorphic-fetch'
 import { JSDOM } from 'jsdom'
 import * as each from 'lodash.foreach'
-import * as got from 'got'
 
 import makeCheck from './makeCheckUrl'
 import * as u from 'url'
 import parseElementTree from 'wowsearch-parse'
 import selectVal, { selectAll } from 'wowsearch-parse/selectVal'
 import DocumentNode from 'wowsearch-parse/types/DocumentNode'
-import flattenDocumentNode from './flattenDocumentNode'
 
 const debug = require('debug')('wowsearch:crawl')
 
@@ -158,15 +156,11 @@ export async function pushDocumentNode(
   config: CrawlerConfig
 ) {
   const { url_tpl, source_adaptor } = config
-  const list = flattenDocumentNode(documentNode, { url_tpl })
 
   // Push
   const pushAdaptor = require(source_adaptor.name)(source_adaptor.options)
-  const promiseList = list.map((item, i, list) =>
-    Promise.resolve(pushAdaptor(got, item, i, list))
-  )
-  const resultList = await Promise.all(promiseList)
-  return resultList.every(result => result !== false)
+  const result = await pushAdaptor(documentNode, config)
+  return result !== false
 }
 
 export async function push(text: string, config: CrawlerConfig, fromUrl?) {

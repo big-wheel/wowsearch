@@ -18,7 +18,8 @@
     "url": "git+https://github.com/big-wheel/wowsearch.git"
   },
   "devDependencies": {
-    "wowsearch-parse": "^1.0.0"
+    "wowsearch-parse": "^1.0.0",
+    "wowsearch": "^1.0.0"
   },
   "keywords": [
     "imcuttle",
@@ -32,6 +33,7 @@
   "typings": "index.d.js",
   "version": "1.0.0",
   "dependencies": {
+    "ky-universal": "^0.3.0",
     "url-join": "^4.0.1"
   }
 }

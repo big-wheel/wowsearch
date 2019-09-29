@@ -7,15 +7,17 @@
 import { Config, normalize } from 'wowsearch-parse/types/Config'
 import { crawl, crawlByUrl } from './src/crawl'
 import match, { isRule, Rule } from 'wowsearch-parse/match'
-import parse from './src/parseSitemap'
+import parseSitemap from './src/parseSitemap'
 const debug = require('debug')('wowsearch')
 
 import * as preduce from 'p-reduce'
+import pLimit from 'p-limit'
 import * as uniq from 'lodash.uniq'
 import makeCheck from './src/makeCheckUrl'
 
 export async function getUrlList(config: Config) {
   const {
+    concurrency,
     start_urls,
     stop_urls,
     smart_crawling,
@@ -25,6 +27,7 @@ export async function getUrlList(config: Config) {
     force_sitemap_urls_crawling
   } = config
   const check = makeCheck({ start_urls, stop_urls })
+  const limit = pLimit(concurrency)
 
   let urls = []
   if (start_urls.length) {
@@ -38,14 +41,19 @@ export async function getUrlList(config: Config) {
   }
 
   if (sitemap_urls.length) {
+    // limit(async (url) => {
+    //   const urls = await parseSitemap(url)
+    //   urls.filter(sitemapUrl => {
+    //     return sitemap_urls_patterns.some(p => match(p, sitemapUrl))
+    //   })
+    // })
+
     urls = urls.concat(
       await preduce(
         sitemap_urls,
         async (urls, url) => {
           return urls.concat(
-            (await parse(url)).filter(sitemapUrl => {
-              return sitemap_urls_patterns.some(p => match(p, sitemapUrl))
-            })
+
           )
         },
         []

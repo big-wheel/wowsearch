@@ -7,6 +7,7 @@
 import * as w from 'walli'
 import * as each from 'lodash.foreach'
 import * as clone from 'lodash.clonedeep'
+import {cpus} from 'os'
 import { Rule, walliRule } from '../match'
 import { normalizeSelector } from '../selectVal'
 
@@ -56,6 +57,7 @@ export type Selectors = {
 }
 
 export type CrawlerConfig = CommonConfig & {
+  concurrency?: number
   js_render?: boolean
   js_waitfor?: string | number | Function
   start_urls?: Array<Rule | { url: Rule }>
@@ -80,6 +82,7 @@ export type Config = CrawlerConfig & {
 }
 
 const WalliDef = w.leq({
+  concurrency: w.number.optional,
   js_render: w.boolean.optional,
   js_waitfor: w.oneOf([w.string, w.number, w.function_]).optional,
   strip_chars: w.string.optional,
@@ -112,6 +115,7 @@ export function normalize(config: Config) {
 
   config = Object.assign(
     {
+      concurrency: cpus().length - 1,
       strip_chars: ' .,;:§¶',
       js_render: false,
       js_waitfor: 0,

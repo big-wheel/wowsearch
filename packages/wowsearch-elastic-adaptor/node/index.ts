@@ -5,6 +5,8 @@
  *
  */
 import * as join from 'url-join'
+import ky from 'ky-universal'
+import flattenDocumentNode from '../flattenDocumentNode'
 
 export type ElasticConfig = {
   index_name?: string
@@ -25,17 +27,18 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
     throw new Error('"endpoint" is required, but ' + endpoint)
   }
 
-  return (got, data, index, list) => {
-    if (index === list.length - 1) {
-      return got
-        .post(join(endpoint, index_name, '_bulk'), {
-          query: {
-            refresh: ''
-          },
-          headers: {
-            'content-type': 'application/json'
-          },
-          body: list
+  return (data, config) => {
+    const list = flattenDocumentNode(data, { url_tpl: config.url_tpl })
+    return ky
+      .post(join(endpoint, index_name, '_bulk'), {
+        searchParams: {
+          refresh: ''
+        },
+        headers: {
+          'content-type': 'application/json'
+        },
+        body:
+          list
             .map((item, id) => {
               return [
                 JSON.stringify({ index: { _id: '' + id } }),
@@ -43,11 +46,13 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
               ].join('\n')
             })
             .join('\n') + '\n',
-          ...rest
-        })
-        .then(response => {
-          console.log(response.body)
-        })
-    }
+        ...rest
+      })
+      .then(response => {
+        return response.json()
+      })
+      .then(body => {
+        console.log(body)
+      })
   }
 }

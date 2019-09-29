@@ -1,18 +1,14 @@
-0 silly input [ 'preduce' ]
-1 silly flags { _: [ 'add' ],
-1 silly flags   'reject-cycles': false,
-1 silly flags   rejectCycles: false,
-1 silly flags   scope: 'wowsearch',
-1 silly flags   _onRejected: [Function: _onRejected],
-1 silly flags   args: [ 'preduce' ] }
+0 silly argv { _: [ 'add' ],
+0 silly argv   scope: 'wowsearch-ui',
+0 silly argv   dev: true,
+0 silly argv   D: true,
+0 silly argv   globs: [],
+0 silly argv   lernaVersion: '3.3.0',
+0 silly argv   '$0': 'lerna',
+0 silly argv   pkg: 'less@~3.9.3' }
+1 notice cli v3.3.0
 2 verbose rootPath /Users/yucong02/self/wowsearch
-3 info version 2.7.1
-4 silly isInitialized
-5 silly isInitialized true
-6 silly existsSync /Users/yucong02/self/wowsearch/VERSION
-7 info scope wowsearch
-8 silly initialize attempt
-9 error initialize callback with error
-10 error Error: Package `preduce` doesn't exist
-10 error     at got.then.catch.err (/Users/yucong02/.nvm/versions/node/v9.2.0/lib/node_modules/lerna/node_modules/package-json/index.js:62:11)
-10 error     at <anonymous>
+3 error less: No matching version found for less@~3.9.3
+3 error     at pickManifest (/Users/yucong02/.nvm/versions/node/v9.2.0/lib/node_modules/lerna/node_modules/npm-pick-manifest/index.js:65:11)
+3 error     at fetchPackument.then.packument (/Users/yucong02/.nvm/versions/node/v9.2.0/lib/node_modules/lerna/node_modules/pacote/lib/fetchers/registry/manifest.js:21:14)
+3 error     at <anonymous>

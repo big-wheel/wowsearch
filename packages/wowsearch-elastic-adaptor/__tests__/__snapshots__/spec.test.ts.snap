@@ -1,0 +1,428 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`flattenDocumentNode should flattenDocumentNode spec 1`] = `
+Array [
+  Object {
+    "anchor": null,
+    "content": "robots.js",
+    "level": 0,
+    "parents": Array [],
+    "tags": Array [],
+    "type": "lvl",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "robots.js — is parser for robots.txt files for node.js.",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": null,
+    "content": "Installation",
+    "level": 2,
+    "parents": Array [
+      "robots.js",
+    ],
+    "tags": Array [],
+    "type": "lvl",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "It's recommended to install via npm:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Installation",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "$ npm install -g robots",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Installation",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": null,
+    "content": "Usage",
+    "level": 2,
+    "parents": Array [
+      "robots.js",
+    ],
+    "tags": Array [],
+    "type": "lvl",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Here's an example of using robots.js:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "var robots = require('robots')  , parser = new robots.RobotsParser(); parser.setUrl('http://nodeguide.ru/robots.txt', function(parser, success) {  if(success) {    parser.canFetch('*', '/doc/dailyjs-nodepad/', function (access) {      if (access) {        // parse url      }    });  }});",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Default crawler user-agent is:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Mozilla/5.0 (X11; Linux i686; rv:5.0) Gecko/20100101 Firefox/5.0
+",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Here's an example of using another user-agent and more detailed callback:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "var robots = require('robots')  , parser = new robots.RobotsParser(                'http://nodeguide.ru/robots.txt',                'Mozilla/5.0 (compatible; RobotTxtBot/1.0)',                after_parse            );            function after_parse(parser, success) {  if(success) {    parser.canFetch('*', '/doc/dailyjs-nodepad/', function (access, url, reason) {      if (access) {        console.log(' url: '+url+', access: '+access);        // parse url ...      }    });  }};",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Here's an example of getting list of sitemaps:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "var robots = require('robots')  , parser = new robots.RobotsParser(); parser.setUrl('http://nodeguide.ru/robots.txt', function(parser, success) {  if(success) {    parser.getSitemaps(function(sitemaps) {      // sitemaps — array    });  }});",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Here's an example of getCrawlDelay usage:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "    var robots = require('robots')      , parser = new robots.RobotsParser();     // for example:    //    // $ curl -s http://nodeguide.ru/robots.txt    //    // User-agent: Google-bot    // Disallow: /     // Crawl-delay: 2    //    // User-agent: *    // Disallow: /    // Crawl-delay: 2     parser.setUrl('http://nodeguide.ru/robots.txt', function(parser, success) {      if(success) {        var GoogleBotDelay = parser.getCrawlDelay(\\"Google-bot\\");        // ...      }    });",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "An example of passing options to the HTTP request:",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "var options = {  headers:{    Authorization:\\"Basic \\" + new Buffer(\\"username:password\\").toString(\\"base64\\")}} var robots = require('robots')  , parser = new robots.RobotsParser(null, options); parser.setUrl('http://nodeguide.ru/robots.txt', function(parser, success) {  ...});",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Usage",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": null,
+    "content": "API",
+    "level": 2,
+    "parents": Array [
+      "robots.js",
+    ],
+    "tags": Array [],
+    "type": "lvl",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "RobotsParser — main class. This class provides a set of methods to read,
+    parse and answer questions about a single robots.txt file.",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "setUrl(url, read) — sets the URL referring to a robots.txt file.
+      by default, invokes read() method.
+      If read is a function, it is called once the remote file is downloaded and parsed, and it
+      takes in two arguments: the first is the parser itself, and the second is a boolean
+      which is True if the the remote file was successfully parsed.",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "read(after_parse) — reads the robots.txt URL and feeds it to the parser",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "parse(lines) — parse the input lines from a robots.txt file",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "canFetch(userAgent, url, callback) — using the parsed robots.txt decide if
+      userAgent can fetch url. Callback function:
+      function callback(access, url, reason) { ... }
+      where:
+      
+        access — can this url be fetched. true/false.
+        url — target url
+        reason — reason for access. Object:
+          
+            type — valid values: 'statusCode', 'entry', 'defaultEntry', 'noRule'
+            entry — an instance of lib/Entry.js:. Only for types: 'entry', 'defaultEntry'
+            statusCode — http response status code for url. Only for type 'statusCode'
+          
+        
+      
+    ",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "canFetchSync(userAgent, url) — using the parsed robots.txt decide if
+      userAgent can fetch url. Return true/false.",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "getCrawlDelay(userAgent) — returns Crawl-delay for the certain userAgent",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "getSitemaps(sitemaps) — gets Sitemaps from parsed robots.txt",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "getDisallowedPaths(userAgent) — gets paths explictly disallowed for the user agent specified AND *",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "API",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": null,
+    "content": "License",
+    "level": 2,
+    "parents": Array [
+      "robots.js",
+    ],
+    "tags": Array [],
+    "type": "lvl",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "See LICENSE
+    file.",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "License",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": null,
+    "content": "Resources",
+    "level": 1,
+    "parents": Array [
+      "robots.js",
+    ],
+    "tags": Array [],
+    "type": "lvl",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Robots.txt Specifications by Google",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Resources",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "Robots.txt parser for python",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Resources",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+  Object {
+    "anchor": undefined,
+    "content": "A Standard for Robot Exclusion",
+    "level": undefined,
+    "parents": Array [
+      "robots.js",
+      "Resources",
+    ],
+    "tags": Array [],
+    "type": "text",
+    "url": "#",
+  },
+]
+`;
