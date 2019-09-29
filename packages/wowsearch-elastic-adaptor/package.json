@@ -32,6 +32,7 @@
   },
   "version": "1.0.0",
   "dependencies": {
+    "ky": "^0.14.0",
     "ky-universal": "^0.3.0",
     "url-join": "^4.0.1",
     "wowsearch-parse": "^1.0.0",
