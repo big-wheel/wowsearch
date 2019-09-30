@@ -20,7 +20,8 @@ export default function SearchOption({className, title, crumbs = [], url, conten
     <div className={cn('right')}>
       <div className={cn('header')}>
         {crumbs.map((crumb, i) => {
-          return <span key={i} className={cn('crumb')}>{crumb}</span>
+          const preCrumb = i > 0 ? ' > ' : ''
+          return <span key={i} className={cn('crumb')}>{preCrumb}{crumb}</span>
         })}
       </div>
       <div className={cn('body')}>
