@@ -2,6 +2,11 @@
 
 @search-prefix: ~'wowsearch-search-option';
 
+// @todo 去掉select组件的max-height: 200 行内样式 有更好的方法吗？
+#rc_select_0_list + div {
+  max-height: 500px !important;
+}
+
 .search-input-without-border() {
   .@{select-prefix}-selection-search-input {
     border: none;
