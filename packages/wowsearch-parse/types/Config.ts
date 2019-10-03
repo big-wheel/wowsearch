@@ -58,6 +58,7 @@ export type Selectors = {
 
 export type CrawlerConfig = CommonConfig & {
   concurrency?: number
+  timeout?: number
   js_render?: boolean
   js_waitfor?: string | number | Function
   start_urls?: Array<Rule | { url: Rule }>
@@ -83,10 +84,14 @@ export type Config = CrawlerConfig & {
 
 const WalliDef = w.leq({
   concurrency: w.number.optional,
+  timeout: w.number.optional,
   js_render: w.boolean.optional,
   js_waitfor: w.oneOf([w.string, w.number, w.function_]).optional,
   strip_chars: w.string.optional,
-  source_adaptor: w.string.optional,
+  source_adaptor: w.leq({
+    name: w.string,
+    options: w.any.optional,
+  }),
   url_tpl: w.string.optional,
   start_urls: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })]))
     .optional,
@@ -116,6 +121,7 @@ export function normalize(config: Config) {
   config = Object.assign(
     {
       concurrency: cpus().length - 1,
+      timeout: 5000,
       strip_chars: ' .,;:§¶',
       js_render: false,
       js_waitfor: 0,

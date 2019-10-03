@@ -4,16 +4,16 @@
  * @date 2018/6/10
  * @description
  */
-import { CrawlerConfig } from 'wowsearch-parse/types/Config'
-import * as fetch from 'isomorphic-fetch'
+import { CrawlerConfig } from 'wowsearch-parse/dist/types/Config'
+import * as got from 'got'
 import { JSDOM } from 'jsdom'
 import * as each from 'lodash.foreach'
 
 import makeCheck from './makeCheckUrl'
 import * as u from 'url'
 import parseElementTree from 'wowsearch-parse'
-import selectVal, { selectAll } from 'wowsearch-parse/selectVal'
-import DocumentNode from 'wowsearch-parse/types/DocumentNode'
+import selectVal, { selectAll } from 'wowsearch-parse/dist/selectVal'
+import DocumentNode from 'wowsearch-parse/dist/types/DocumentNode'
 
 const debug = require('debug')('wowsearch:crawl')
 
@@ -22,6 +22,9 @@ const protocolPorts = new Map<string, number>([
   ['http:', 80],
   [null, null]
 ])
+export type DocumentNodeMap = {
+  [url: string]: DocumentNode
+}
 
 export function isSameOrigin(valueUrl: string, fromUrl?: string) {
   valueUrl = valueUrl.trim()
@@ -78,11 +81,11 @@ type CrawlResult = {
   smartCrawlingUrls?: string[]
 }
 
-export async function crawl(
+export function crawl(
   text: string,
   config: CrawlerConfig,
   fromUrl?
-): Promise<CrawlResult> {
+): CrawlResult {
   const { document } = new JSDOM(text, { url: fromUrl }).window
   const {
     start_urls,
@@ -119,10 +122,30 @@ export async function crawl(
   }
 }
 
+export async function pushDocumentNode(
+  documentNode: DocumentNode,
+  config: CrawlerConfig
+) {
+  const map: DocumentNodeMap = {[documentNode.href]: documentNode}
+  return pushDocumentNodeMap(map, config)
+}
+
+export async function pushDocumentNodeMap(
+  documentNodeMap: DocumentNodeMap,
+  config: CrawlerConfig
+) {
+  const { url_tpl, source_adaptor } = config
+  // Push
+  const pushAdaptor = require(source_adaptor.name)(source_adaptor.options, config)
+  const result = await pushAdaptor(documentNodeMap, config)
+  return result !== false
+}
+
 export async function crawlByUrl(
   url: string,
   config: CrawlerConfig
 ): Promise<CrawlResult> {
+  url = encodeURI(url)
   let html
   if (config.js_render) {
     const puppeteer = require('puppeteer')
@@ -131,7 +154,7 @@ export async function crawlByUrl(
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     })
     const page = await browser.newPage()
-    await page.goto(url, { waitUntil: 'networkidle2', timeout: 100000 })
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: config.timeout })
     config.js_waitfor && (await page.waitFor(config.js_waitfor))
     html = await page.evaluate(() => {
       return document.documentElement.outerHTML
@@ -139,28 +162,18 @@ export async function crawlByUrl(
     await browser.close()
   } else {
     try {
-      let res = await fetch(url)
-      html = await res.text()
+      let res = await got.get(url, {timeout: config.timeout})
+      html = res.body
     } catch (e) {
       console.error(`URL: ${url}`, String(e))
-      return null
+      return {
+        smartCrawlingUrls: []
+      }
     }
   }
   debug('html: %s', html)
 
   return crawl(html, config, url)
-}
-
-export async function pushDocumentNode(
-  documentNode: DocumentNode,
-  config: CrawlerConfig
-) {
-  const { url_tpl, source_adaptor } = config
-
-  // Push
-  const pushAdaptor = require(source_adaptor.name)(source_adaptor.options)
-  const result = await pushAdaptor(documentNode, config)
-  return result !== false
 }
 
 export async function push(text: string, config: CrawlerConfig, fromUrl?) {

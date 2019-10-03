@@ -10,10 +10,6 @@ import { readFileSync } from 'fs'
 import { makeFixture } from './help'
 import { crawl, push, isSameOrigin, crawlByUrl } from '../src/crawl'
 
-jest.mock('got')
-
-import * as got from 'got'
-
 describe('push', function() {
   it('should push', async function() {
     const result = await push(
@@ -44,12 +40,6 @@ describe('push', function() {
     )
 
     expect(result).toBeTruthy()
-    expect(got.post.mock.calls.length).toBe(1)
-
-    const calls = got.post.mock.calls[0]
-    expect(calls.length).toBe(2)
-    expect(calls[0]).toMatchInlineSnapshot(`"http://localhost:9200/temp/_bulk"`)
-    expect(calls[1]).toMatchSnapshot()
   })
 })
 

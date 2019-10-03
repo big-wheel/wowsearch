@@ -4,10 +4,10 @@
  * @date 2019/9/23
  *
  */
-import DocumentNode from 'wowsearch-parse/types/DocumentNode'
+import DocumentNode from 'wowsearch-parse/dist/types/DocumentNode'
 import * as visit from '@moyuyc/visit-tree'
-import ContentNode from 'wowsearch-parse/types/ContentNode'
-import LvlNode from 'wowsearch-parse/types/LvlNode'
+import ContentNode from 'wowsearch-parse/dist/types/ContentNode'
+import LvlNode from 'wowsearch-parse/dist/types/LvlNode'
 import { parseLvlTypeLevel } from 'wowsearch-parse'
 import * as template from 'lodash.template'
 
@@ -45,17 +45,19 @@ export default (documentNode: DocumentNode, {
       const parents = flattenedNode.parents.slice()
       if (node.type === 'document') {
         const global = (node as DocumentNode).global || new Map()
-        for (const [key, value] of global.entries()) {
+
+        global.forEach((value, key) => {
           const level = parseLvlTypeLevel(key)
           if (level !== null) {
             parents[level] = value
           }
           nodes.push({
             ...flattenedNode,
+            parents: parents.filter(Boolean),
             content: value,
             level
           })
-        }
+        })
       } else {
         nodes.push(flattenedNode)
       }

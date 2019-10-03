@@ -4,9 +4,9 @@
  * @date 2018/6/10
  * @description
  */
-import { Config, normalize } from 'wowsearch-parse/types/Config'
-import { crawl, crawlByUrl } from './src/crawl'
-import match, { isRule, Rule } from 'wowsearch-parse/match'
+import { Config, normalize } from 'wowsearch-parse/dist/types/Config'
+import {crawl, crawlByUrl, pushDocumentNode, pushDocumentNodeMap} from './src/crawl'
+import match, { isRule, Rule } from 'wowsearch-parse/dist/match'
 import parseSitemap from './src/parseSitemap'
 const debug = require('debug')('wowsearch')
 
@@ -54,7 +54,7 @@ export async function getUrlList(config: Config) {
   if (!force_sitemap_urls_crawling) {
     urls = urls.filter(check)
   }
-  debug('sitemap filled urls:', urls)
+  debug('sitemap urls:', urls)
 
   return urls
 }
@@ -62,6 +62,8 @@ export async function getUrlList(config: Config) {
 export default async function wowsearch(config: Config): Promise<{}> {
   config = normalize(config)
   const { concurrency } = config
+
+  debug('Config: %O', config)
 
   const docMap = {}
   const urls = await getUrlList(config)
@@ -74,6 +76,7 @@ export default async function wowsearch(config: Config): Promise<{}> {
       const { documentNode, smartCrawlingUrls } = await crawlByUrl(url, config)
       if (!documentNode) return
       docMap[url] = documentNode
+      debug('Done crawl page: %s, smartCrawlingUrls: %O', url, smartCrawlingUrls)
 
       if (smartCrawlingUrls && smartCrawlingUrls.length) {
         const notWalkedUrls = smartCrawlingUrls.filter(
@@ -91,6 +94,6 @@ export default async function wowsearch(config: Config): Promise<{}> {
   }
 
   await Promise.all(urls.map(url => createTask(url, limit)))
-
-  return docMap
+  debug('Start pushing')
+  return await pushDocumentNodeMap(docMap, config)
 }

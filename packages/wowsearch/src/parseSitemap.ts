@@ -8,6 +8,7 @@ import * as fetch from 'isomorphic-fetch'
 import { parseString } from 'xml2js'
 import * as pify from 'pify'
 import * as uniq from 'lodash.uniq'
+const debug = require('debug')('wowsearch:sitemap')
 
 export function parseSitemapXML(text: string): Promise<any> {
   return pify(parseString)(text)
@@ -21,18 +22,19 @@ export function parseSitemapTXT(text: string): string[] {
 }
 
 export default async function parseFromUrl(url: string) {
-  // console.log(url)
+  debug('fetching %s', url)
   const res = await fetch(url)
   const text = await res.text()
-
-  if (res.headers.get('content-type') === 'application/xml' || url.toLowerCase().endsWith('.xml')) {
+  if (
+    res.headers.get('content-type') === 'application/xml' ||
+    url.toLowerCase().endsWith('.xml')
+  ) {
     let obj = await parseSitemapXML(text)
     let urls = []
     obj.urlset.url.forEach(({ loc }) => {
       if (Array.isArray(loc)) {
         urls.push(...loc)
-      }
-      else {
+      } else {
         urls.push(loc)
       }
     })

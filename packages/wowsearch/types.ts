@@ -5,4 +5,4 @@
  *
  */
 
-export * from 'wowsearch-parse/types/Config'
+export * from 'wowsearch-parse/dist/types/Config'

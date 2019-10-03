@@ -8,10 +8,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "dist": "tsc",
     "test": "jest",
-    "dev": "npm run dist -- -w",
-    "prepublishOnly": "npm run dist",
     "version": "npm test"
   },
   "repository": {
@@ -26,10 +23,11 @@
   "engines": {
     "node": ">=6"
   },
-  "main": "dist/index.js",
-  "typings": "dist/index.d.js",
+  "main": "index.js",
   "version": "1.0.0",
   "dependencies": {
+    "wowsearch-elastic-adaptor": "^1.0.0",
+    "dotenv": "^8.1.0",
     "globby": "^10.0.1",
     "wowsearch": "^1.0.0"
   }

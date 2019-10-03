@@ -7,6 +7,7 @@
 import * as join from 'url-join'
 import ky from 'ky-universal'
 import flattenDocumentNode from '../flattenDocumentNode'
+import DocumentNode from 'wowsearch-parse/dist/types/DocumentNode'
 
 export type ElasticConfig = {
   index_name?: string
@@ -27,8 +28,22 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
     throw new Error('"endpoint" is required, but ' + endpoint)
   }
 
-  return (data, config) => {
-    const list = flattenDocumentNode(data, { url_tpl: config.url_tpl })
+  return async (data, config) => {
+    let summeryList = []
+
+    for (const [href, docNode] of Object.entries(data)) {
+      const list = flattenDocumentNode(docNode as DocumentNode, {
+        url_tpl: config.url_tpl
+      })
+      if (list && list.length) {
+        summeryList = summeryList.concat(list)
+      }
+    }
+    if (!summeryList.length) return
+
+    // delete index
+    await ky.delete(join(endpoint, index_name), {})
+
     return ky
       .post(join(endpoint, index_name, '_bulk'), {
         searchParams: {
@@ -38,7 +53,7 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
           'content-type': 'application/json'
         },
         body:
-          list
+          summeryList
             .map((item, id) => {
               return [
                 JSON.stringify({ index: { _id: '' + id } }),
@@ -52,7 +67,7 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
         return response.json()
       })
       .then(body => {
-        console.log(body)
+        // console.log(body)
       })
   }
 }

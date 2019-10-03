@@ -11,7 +11,7 @@ import SearchUI from '../src'
 
 ReactDOM.render(
   <SearchUI
-    {...browserAdaptor({index_name: 'temp'})}
+    {...browserAdaptor({index_name: 'imcuttle_github_io'})}
   />,
   window.root
 )

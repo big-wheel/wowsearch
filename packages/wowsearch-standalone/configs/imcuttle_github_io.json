@@ -1,52 +1,28 @@
 {
-  "index_name": "imcuttle_github_io",
   "start_urls": [
-    "https://picidaejs.github.io/picidae-theme-haier/guides/installation",
-    {
-      "url": "https://picidaejs.github.io/picidae-theme-haier/guides/.+?_zh",
-      "tags": [
-        "zh"
-      ]
-    },
-    {
-      "url": "https://picidaejs.github.io/picidae-theme-haier/docs/.+?_zh",
-      "tags": [
-        "zh"
-      ]
-    },
-    {
-      "url": "https://picidaejs.github.io/picidae-theme-haier/docs/",
-      "tags": [
-        "en"
-      ]
-    },
-    {
-      "url": "https://picidaejs.github.io/picidae-theme-haier/guides/",
-      "tags": [
-        "en"
-      ]
-    }
   ],
-  "sitemap_urls": "",
+  "sitemap_urls": [
+    "https://imcuttle.github.io/sitemap.xml"
+  ],
+  "concurrency": 5,
   "stop_urls": [],
+  "force_sitemap_urls_crawling": true,
+  "source_adaptor": {
+    "name": "wowsearch-elastic-adaptor/node",
+    "options": {
+      "index_name": "imcuttle_github_io"
+    }
+  },
   "selectors": {
     "lvl0": {
-      "selector": "//*[contains(@class,'navGroupActive')]//a[contains(@class,'navItemActive')]/preceding::h3[1]",
-      "type": "xpath",
+      "selector": ".post-title",
       "global": true,
       "default_value": "Documentation"
     },
-    "lvl1": ".post h1",
-    "lvl2": ".post h2",
-    "lvl3": ".post h3",
-    "lvl4": ".post h4",
-    "text": ".post article p, .post article li"
-  },
-  "selectors_exclude": [
-    ".hash-link"
-  ],
-  "conversation_id": [
-    "523611397"
-  ],
-  "nb_hits": 113
+    "lvl1": ".post-content h1",
+    "lvl2": ".post-content h2",
+    "lvl3": ".post-content h3",
+    "lvl4": ".post-content h4",
+    "text": ".post-content article p, .post-content article li, .post-content article pre"
+  }
 }

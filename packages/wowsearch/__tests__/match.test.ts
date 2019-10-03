@@ -4,7 +4,7 @@
  * @date 2018/6/10
  * @description
  */
-import match from '../../wowsearch-parse/match'
+import match from 'wowsearch-parse/match'
 
 describe('match', function() {
   it('when match rule is string', async function() {
