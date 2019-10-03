@@ -14,6 +14,7 @@ import * as u from 'url'
 import parseElementTree from 'wowsearch-parse'
 import selectVal, { selectAll } from 'wowsearch-parse/dist/selectVal'
 import DocumentNode from 'wowsearch-parse/dist/types/DocumentNode'
+import {func} from "prop-types";
 
 const debug = require('debug')('wowsearch:crawl')
 
@@ -122,11 +123,20 @@ export function crawl(
   }
 }
 
+export async function createBrowser(timeout) {
+  const puppeteer = require('puppeteer')
+  return await puppeteer.launch({
+    headless: !process.env.WOWSEARCH_NO_HEADLESS,
+    timeout,
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  })
+}
+
 export async function pushDocumentNode(
   documentNode: DocumentNode,
   config: CrawlerConfig
 ) {
-  const map: DocumentNodeMap = {[documentNode.href]: documentNode}
+  const map: DocumentNodeMap = { [documentNode.href]: documentNode }
   return pushDocumentNodeMap(map, config)
 }
 
@@ -136,39 +146,48 @@ export async function pushDocumentNodeMap(
 ) {
   const { url_tpl, source_adaptor } = config
   // Push
-  const pushAdaptor = require(source_adaptor.name)(source_adaptor.options, config)
+  const pushAdaptor = require(source_adaptor.name)(
+    source_adaptor.options,
+    config
+  )
   const result = await pushAdaptor(documentNodeMap, config)
   return result !== false
 }
 
 export async function crawlByUrl(
   url: string,
-  config: CrawlerConfig
+  config: CrawlerConfig,
+  browser?: any
 ): Promise<CrawlResult> {
   url = encodeURI(url)
   let html
-  if (config.js_render) {
-    const puppeteer = require('puppeteer')
-    const browser = await puppeteer.launch({
-      timeout: 100000,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    })
-    const page = await browser.newPage()
-    await page.goto(url, { waitUntil: 'networkidle2', timeout: config.timeout })
-    config.js_waitfor && (await page.waitFor(config.js_waitfor))
-    html = await page.evaluate(() => {
-      return document.documentElement.outerHTML
-    })
-    await browser.close()
-  } else {
-    try {
-      let res = await got.get(url, {timeout: config.timeout})
+  let useBrowser
+  try {
+    if (config.js_render) {
+      // @ts-ignore
+      useBrowser = browser || await createBrowser(config.timeout)
+      const page = await useBrowser.newPage()
+      await page.goto(url, {
+        waitUntil: 'networkidle2',
+        timeout: config.timeout
+      })
+      config.js_waitfor && (await page.waitFor(config.js_waitfor))
+      html = await page.evaluate(() => {
+        return document.documentElement.outerHTML
+      })
+      await page.close()
+    } else {
+      let res = await got.get(url, { timeout: config.timeout })
       html = res.body
-    } catch (e) {
-      console.error(`URL: ${url}`, String(e))
-      return {
-        smartCrawlingUrls: []
-      }
+    }
+  } catch (e) {
+    console.error(`URL: ${url}`, String(e))
+    return {
+      smartCrawlingUrls: []
+    }
+  } finally {
+    if (useBrowser !== browser) {
+      await useBrowser.close()
     }
   }
   debug('html: %s', html)

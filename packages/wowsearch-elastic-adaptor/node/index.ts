@@ -17,7 +17,7 @@ export type ElasticConfig = {
 module.exports = (wowsearchConfig: ElasticConfig = {}) => {
   const {
     index_name,
-    endpoint = 'http://localhost:9200/',
+    endpoint = process.env.WOWSEARCH_ELASTIC_ADAPTOR_ENDPOINT || 'http://localhost:9200/',
     ...rest
   } = wowsearchConfig
 
@@ -41,8 +41,12 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
     }
     if (!summeryList.length) return
 
-    // delete index
-    await ky.delete(join(endpoint, index_name), {})
+    try {
+      // delete index
+      await ky.delete(join(endpoint, index_name), {})
+    } catch (e) {
+      console.error('Delete index, error happens: %s', String(e))
+    }
 
     return ky
       .post(join(endpoint, index_name, '_bulk'), {

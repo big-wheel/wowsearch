@@ -5,7 +5,7 @@
  * @description
  */
 import { Config, normalize } from 'wowsearch-parse/dist/types/Config'
-import {crawl, crawlByUrl, pushDocumentNode, pushDocumentNodeMap} from './src/crawl'
+import {crawl, crawlByUrl, pushDocumentNode, createBrowser, pushDocumentNodeMap} from './src/crawl'
 import match, { isRule, Rule } from 'wowsearch-parse/dist/match'
 import parseSitemap from './src/parseSitemap'
 const debug = require('debug')('wowsearch')
@@ -68,12 +68,16 @@ export default async function wowsearch(config: Config): Promise<{}> {
   const docMap = {}
   const urls = await getUrlList(config)
   const limit = pLimit(concurrency)
-
   const history = new Map()
+  let browser
+  if (config.js_render) {
+    browser = await createBrowser(config.timeout)
+  }
+
   const createTask = (url, limit) => {
     return limit(async () => {
       history.set(url, true)
-      const { documentNode, smartCrawlingUrls } = await crawlByUrl(url, config)
+      const { documentNode, smartCrawlingUrls } = await crawlByUrl(url, config, browser)
       if (!documentNode) return
       docMap[url] = documentNode
       debug('Done crawl page: %s, smartCrawlingUrls: %O', url, smartCrawlingUrls)
@@ -94,6 +98,7 @@ export default async function wowsearch(config: Config): Promise<{}> {
   }
 
   await Promise.all(urls.map(url => createTask(url, limit)))
+  browser && await browser.close()
   debug('Start pushing')
   return await pushDocumentNodeMap(docMap, config)
 }
