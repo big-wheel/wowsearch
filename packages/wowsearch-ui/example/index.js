@@ -11,7 +11,7 @@ import SearchUI from '../src'
 
 ReactDOM.render(
   <SearchUI
-    {...browserAdaptor({index_name: '_all', endpoint: 'https://es.dev.weiyun.baidu.com:8913/'})}
+    {...browserAdaptor({index_name: '_all', endpoint: ''})}
   />,
   window.root
 )
