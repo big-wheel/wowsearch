@@ -8,6 +8,7 @@
   },
   "license": "MIT",
   "scripts": {
+    "example": "DEBUG=wowsearch node example/index.js",
     "test": "jest",
     "version": "npm test"
   },
@@ -26,9 +27,10 @@
   "main": "index.js",
   "version": "1.0.0",
   "dependencies": {
-    "wowsearch-elastic-adaptor": "^1.0.0",
     "dotenv": "^8.1.0",
+    "find-up": "^4.1.0",
     "globby": "^10.0.1",
-    "wowsearch": "^1.0.0"
+    "wowsearch": "^1.0.0",
+    "wowsearch-elastic-adaptor": "^1.0.0"
   }
 }

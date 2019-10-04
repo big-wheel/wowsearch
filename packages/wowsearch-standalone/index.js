@@ -4,20 +4,23 @@
  *
  */
 
-require('dotenv').config()
 const nps = require('path')
 const globby = require('globby')
-const wowsearch = require('wowsearch').default
+const findUp = require('find-up')
 
-const { CONFIG_FILE_GLOB } = process.env
+module.exports = async ({ cwd = process.cwd(), configRootPath = nps.join(cwd, 'configs') } = {}) => {
+  const path = findUp.sync('.env', { cwd })
+  path && require('dotenv').config({ path })
 
-const configFiles = globby.sync(CONFIG_FILE_GLOB, {
-  onlyFiles: true,
-  absolute: true,
-  cwd: nps.join(__dirname, 'configs')
-})
+  const wowsearch = require('wowsearch').default
+  const { CONFIG_FILE_GLOB = '*.{js,json}' } = process.env
 
-;(async () => {
+  const configFiles = globby.sync(CONFIG_FILE_GLOB, {
+    onlyFiles: true,
+    absolute: true,
+    cwd: configRootPath
+  })
+
   for (const configFile of configFiles) {
     const config = require(configFile)
     try {
@@ -26,6 +29,4 @@ const configFiles = globby.sync(CONFIG_FILE_GLOB, {
       console.error(e)
     }
   }
-})()
-
-
+}
