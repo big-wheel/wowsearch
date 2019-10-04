@@ -1,0 +1,32 @@
+{
+  "start_urls": [
+    "http://erp-comps.dev.weiyun.baidu.com:8431/pages/ui-demo-shared.html"
+  ],
+  "sitemap_urls": [
+  ],
+  "js_render": true,
+  "concurrency": 5,
+  "stop_urls": [],
+  "url_tpl": "${url}",
+  "smart_crawling": true,
+  "force_sitemap_urls_crawling": false,
+  "source_adaptor": {
+    "name": "wowsearch-elastic-adaptor/node",
+    "options": {
+      "index_name": "erp_comp"
+    }
+  },
+  "selectors": {
+    "lvl0": {
+      "selector": ".erp-side-menu-item.erp-side-menu-item-active",
+      "global": true,
+      "default_value": "Component"
+    },
+    "lvl1": ".page-module-wrapper .erp-section-title .erp-section-title-label",
+    "lvl2": ".page-module-wrapper h1",
+    "lvl3": ".page-module-wrapper h2",
+    "lvl4": ".page-module-wrapper h3",
+    "lvl5": ".page-module-wrapper h4",
+    "text": ".page-module-wrapper .demo-code-highlight, .page-module-wrapper .demo-description p, .page-module-wrapper .demo-description li, .page-module-wrapper .demo-description pre"
+  }
+}

@@ -8,7 +8,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "example": "DEBUG=wowsearch node example/index.js",
+    "example": "DEBUG=wowsearch* node example/index.js",
     "test": "jest",
     "version": "npm test"
   },

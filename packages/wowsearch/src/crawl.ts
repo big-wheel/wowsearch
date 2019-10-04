@@ -14,7 +14,6 @@ import * as u from 'url'
 import parseElementTree from 'wowsearch-parse'
 import selectVal, { selectAll } from 'wowsearch-parse/dist/selectVal'
 import DocumentNode from 'wowsearch-parse/dist/types/DocumentNode'
-import {func} from "prop-types";
 
 const debug = require('debug')('wowsearch:crawl')
 
@@ -56,11 +55,11 @@ function getCrawlingUrls(
     let href = node.getAttribute('href')
     if (href && isSameOrigin(href, fromUrl)) {
       href = u.resolve(fromUrl, href)
-      let o = u.parse(href)
+      // let o = u.parse(href)
       // delete o.query
-      delete o.search
-      delete o.hash
-      href = u.format(o)
+      // delete o.search
+      // delete o.hash
+      // href = u.format(o)
 
       debug('checked href: %s, isSameOrigin', href)
       if (force_crawling_urls || check(href)) {
@@ -103,6 +102,7 @@ export function crawl(
   let smartCrawlingUrls = []
   if (smart_crawling) {
     smartCrawlingUrls = getCrawlingUrls(document, { fromUrl, config })
+    debug('smartCrawlingUrls: %o', smartCrawlingUrls)
   }
 
   // TODO
@@ -159,7 +159,6 @@ export async function crawlByUrl(
   config: CrawlerConfig,
   browser?: any
 ): Promise<CrawlResult> {
-  url = encodeURI(url)
   let html
   let useBrowser
   try {
@@ -177,7 +176,7 @@ export async function crawlByUrl(
       })
       await page.close()
     } else {
-      let res = await got.get(url, { timeout: config.timeout })
+      let res = await got.get(encodeURI(url), { timeout: config.timeout })
       html = res.body
     }
   } catch (e) {

@@ -10,7 +10,7 @@ import match, { isRule, Rule } from 'wowsearch-parse/dist/match'
 import parseSitemap from './src/parseSitemap'
 const debug = require('debug')('wowsearch')
 
-import pLimit from 'p-limit'
+import PQueue from 'p-queue'
 import * as uniq from 'lodash.uniq'
 import makeCheck from './src/makeCheckUrl'
 
@@ -26,7 +26,7 @@ export async function getUrlList(config: Config) {
     force_sitemap_urls_crawling
   } = config
   const check = makeCheck({ start_urls, stop_urls })
-  const limit = pLimit(concurrency)
+  const queue = new PQueue({concurrency})
 
   let urls = []
   if (start_urls.length) {
@@ -39,14 +39,14 @@ export async function getUrlList(config: Config) {
     })
   }
 
-  await Promise.all(
+  await queue.addAll(
     sitemap_urls.map(url => {
-      return limit(async () => {
+      return async () => {
         const urlList = (await parseSitemap(url)).filter(sitemapUrl => {
           return sitemap_urls_patterns.some(p => match(p, sitemapUrl))
         })
         urls = urls.concat(urlList)
-      })
+      }
     })
   )
 
@@ -67,15 +67,16 @@ export default async function wowsearch(config: Config): Promise<{}> {
 
   const docMap = {}
   const urls = await getUrlList(config)
-  const limit = pLimit(concurrency)
+  const queue = new PQueue({concurrency})
   const history = new Map()
   let browser
   if (config.js_render) {
     browser = await createBrowser(config.timeout)
   }
 
-  const createTask = (url, limit) => {
-    return limit(async () => {
+  const createTask = (url) => {
+    return async () => {
+      if (history.has(url)) return
       history.set(url, true)
       const { documentNode, smartCrawlingUrls } = await crawlByUrl(url, config, browser)
       if (!documentNode) return
@@ -86,18 +87,15 @@ export default async function wowsearch(config: Config): Promise<{}> {
         const notWalkedUrls = smartCrawlingUrls.filter(
           smartUrl => !history.has(smartUrl)
         )
+        // const innerLimit = pLimit(concurrency)
 
-        const innerLimit = pLimit(concurrency)
-        return Promise.all(
-          notWalkedUrls.map(url => {
-            return createTask(url, innerLimit)
-          })
-        )
+        queue.addAll(notWalkedUrls.map(url => createTask(url)))
       }
-    })
+    }
   }
 
-  await Promise.all(urls.map(url => createTask(url, limit)))
+  await queue.addAll(urls.map(url => createTask(url)))
+  await queue.onIdle()
   browser && await browser.close()
   debug('Start pushing')
   return await pushDocumentNodeMap(docMap, config)
