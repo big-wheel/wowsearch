@@ -1,7 +1,6 @@
 {
   "name": "wowsearch-standalone",
   "author": "imcuttle",
-  "private": true,
   "description": "wowsearch standalone for production",
   "publishConfig": {
     "access": "public"
