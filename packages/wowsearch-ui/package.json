@@ -1,6 +1,6 @@
 {
   "name": "wowsearch-ui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "scripts": {
     "example": "webpack-dev-server --config=webpack.example.config.js"
   },
