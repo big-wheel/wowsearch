@@ -3,11 +3,8 @@
  * @author imcuttle
  * @description
  */
-import wowsearchStandalone from '../'
+const wowsearchStandalone = require('../')
 
-
-describe.skip('wowsearchStandalone', function () {
-  it('should ', () => {
-
-  })
+describe.skip('wowsearchStandalone', function() {
+  it('should ', () => {})
 })

@@ -30,13 +30,13 @@
   "engines": {
     "node": ">=6"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "dependencies": {
     "@moyuyc/visit-tree": "^2.0.1",
     "ky": "^0.14.0",
     "ky-universal": "^0.3.0",
     "lodash.template": "^4.5.0",
     "url-join": "^4.0.1",
-    "wowsearch-parse": "^0.0.2"
+    "wowsearch-parse": "^0.0.3"
   }
 }
