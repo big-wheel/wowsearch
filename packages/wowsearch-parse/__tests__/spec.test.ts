@@ -15,7 +15,7 @@ const parse = (html, config) => {
 }
 
 // TODO performance
-describe('parseElementTree', function() {
+describe.skip('parseElementTree', function() {
   it('spec edam', async function() {
     const docNode = await parse(
       readFileSync(makeFixture('edam.html')).toString(),
