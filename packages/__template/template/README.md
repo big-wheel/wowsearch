@@ -1,22 +1,22 @@
-# @rcp/{{{name}}}
+# {{{name}}}
 
-[![NPM version](https://img.shields.io/npm/v/@rcp/{{{name}}}.svg?style=flat-square)](https://www.npmjs.com/package/@rcp/{{{name}}})
-[![NPM Downloads](https://img.shields.io/npm/dm/@rcp/{{{name}}}.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/@rcp/{{{name}}})
+[![NPM version](https://img.shields.io/npm/v/{{{name}}}.svg?style=flat-square)](https://www.npmjs.com/package/{{{name}}})
+[![NPM Downloads](https://img.shields.io/npm/dm/{{{name}}}.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/{{{name}}})
 
 {{{description}}}
 
 ## Installation
 
 ```bash
-npm install @rcp/{{{name}}}
+npm install {{{name}}}
 # or use yarn
-yarn add @rcp/{{{name}}}
+yarn add {{{name}}}
 ```
 
 ## Usage
 
 ```javascript
-import {{{camelCase name}}} from '@rcp/{{{name}}}'
+import {{{camelCase name}}} from '{{{name}}}'
 ```
 
 ## API

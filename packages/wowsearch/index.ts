@@ -33,7 +33,6 @@ export async function getUrlList(
     start_urls_patterns,
     stop_urls_patterns,
     smart_crawling,
-    force_crawling_urls,
     sitemap_urls
   } = config
   const check = makeCheck(start_urls_patterns, stop_urls_patterns)

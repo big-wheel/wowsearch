@@ -26,6 +26,6 @@ module.exports = ({ _, name, description }) => {
     },
     main: 'dist/index.js',
     typings: 'dist/index.d.js',
-    version: '1.0.0'
+    version: require('../../../lerna').version
   }
 }

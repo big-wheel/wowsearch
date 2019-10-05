@@ -108,7 +108,6 @@ export function crawl(
     selectors,
     selectors_exclude,
     smart_crawling,
-    url_tpl,
     source_adaptor,
     force_crawling_urls
   } = config
@@ -158,7 +157,7 @@ export async function pushDocumentNodeMap(
   documentNodeMap: DocumentNodeMap,
   config: CrawlerConfig
 ) {
-  const { url_tpl, source_adaptor } = config
+  const { source_adaptor } = config
   // Push
   const pushAdaptor = require(source_adaptor.name)(
     source_adaptor.options,

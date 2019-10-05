@@ -7,7 +7,7 @@
 import * as w from 'walli'
 import * as each from 'lodash.foreach'
 import * as clone from 'lodash.clonedeep'
-import {cpus} from 'os'
+import { cpus } from 'os'
 import { Rule, walliRule } from '../match'
 import { normalizeSelector } from '../selectVal'
 
@@ -18,7 +18,7 @@ type CommonConfig = {
 }
 
 export type MatchedUrlEntity = {
-  url: string,
+  url: string
   rule: Rule
 }
 
@@ -69,13 +69,12 @@ export type CrawlerConfig = CommonConfig & {
   start_urls?: Array<string>
   start_urls_patterns?: Array<Rule>
   stop_urls_patterns?: Array<Rule>
-  url_tpl?: string
+  selectors: Selectors
+
   source_adaptor?: {
     name: string
     options?: any
   }
-
-  selectors: Selectors
 
   selectors_exclude?: string[]
   smart_crawling?: boolean
@@ -95,15 +94,15 @@ const WalliDef = w.leq({
   strip_chars: w.string.optional,
   source_adaptor: w.leq({
     name: w.string,
-    options: w.any.optional,
+    options: w.any.optional
   }),
-  url_tpl: w.string.optional,
   smart_crawling: w.boolean.optional,
   smart_crawling_selector: walliSelector.optional,
-  start_urls: w.arrayOf(w.string)
+  start_urls: w.arrayOf(w.string).optional,
+  start_urls_patterns: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })]))
     .optional,
-  start_urls_patterns: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })])).optional,
-  stop_urls_patterns: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })])).optional,
+  stop_urls_patterns: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })]))
+    .optional,
   stop_urls: w.arrayOf(w.string).optional,
 
   selectors: {
@@ -170,7 +169,9 @@ export function normalize(config: Config) {
       )
     }
   })
-  config.smart_crawling_selector = normalizeSelector(config.smart_crawling_selector)
+  config.smart_crawling_selector = normalizeSelector(
+    config.smart_crawling_selector
+  )
 
   return config
 }

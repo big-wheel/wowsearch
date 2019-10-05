@@ -1,22 +1,22 @@
-# @rcp/wowsearch-standalone
+# wowsearch-standalone
 
-[![NPM version](https://img.shields.io/npm/v/@rcp/wowsearch-standalone.svg?style=flat-square)](https://www.npmjs.com/package/@rcp/wowsearch-standalone)
-[![NPM Downloads](https://img.shields.io/npm/dm/@rcp/wowsearch-standalone.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/@rcp/wowsearch-standalone)
+[![NPM version](https://img.shields.io/npm/v/wowsearch-standalone.svg?style=flat-square)](https://www.npmjs.com/package/wowsearch-standalone)
+[![NPM Downloads](https://img.shields.io/npm/dm/wowsearch-standalone.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/wowsearch-standalone)
 
 wowsearch standalone for production
 
 ## Installation
 
 ```bash
-npm install @rcp/wowsearch-standalone
+npm install wowsearch-standalone
 # or use yarn
-yarn add @rcp/wowsearch-standalone
+yarn add wowsearch-standalone
 ```
 
 ## Usage
 
 ```javascript
-import wowsearchStandalone from '@rcp/wowsearch-standalone'
+import wowsearchStandalone from 'wowsearch-standalone'
 ```
 
 ## API

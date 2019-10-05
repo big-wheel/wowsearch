@@ -9,7 +9,7 @@ import * as w from "walli";
 import * as isObj from "is-plain-object";
 
 export type StrictRule = RegExp | Function | string
-export type Rule = StrictRule | {test: Rule, [key: string]: any}
+export type Rule = StrictRule | {test: StrictRule, [key: string]: any}
 export const walliStrictRule = w.oneOf([w.instanceOf(RegExp), w.function_, w.string])
 export const walliRule = w.oneOf([
   walliStrictRule,

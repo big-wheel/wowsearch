@@ -12,12 +12,15 @@ import DocumentNode from 'wowsearch-parse/dist/types/DocumentNode'
 export type ElasticConfig = {
   index_name?: string
   endpoint?: string
+  url_tpl?: string
 }
 
 module.exports = (wowsearchConfig: ElasticConfig = {}) => {
   const {
     index_name,
-    endpoint = process.env.WOWSEARCH_ELASTIC_ADAPTOR_ENDPOINT || 'http://localhost:9200/',
+    url_tpl = '${url}#${anchor}',
+    endpoint = process.env.WOWSEARCH_ELASTIC_ADAPTOR_ENDPOINT ||
+      'http://localhost:9200/',
     ...rest
   } = wowsearchConfig
 
@@ -33,7 +36,7 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
 
     for (const [href, docNode] of Object.entries(data)) {
       const list = flattenDocumentNode(docNode as DocumentNode, {
-        url_tpl: config.url_tpl
+        url_tpl
       })
       if (list && list.length) {
         summeryList = summeryList.concat(list)

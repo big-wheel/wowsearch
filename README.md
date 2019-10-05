@@ -5,26 +5,35 @@
 [![NPM version](https://img.shields.io/npm/v/wowsearch.svg?style=flat-square)](https://www.npmjs.com/package/wowsearch)
 [![NPM Downloads](https://img.shields.io/npm/dm/wowsearch.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/wowsearch)
 
-The search's workflow like docsearch.
-
-**⚠ Working in progress**
+一个开源的，基于爬虫的文档搜索工作流
 
 ## 介绍
 
 这是一个搜索网页的玩意，适合于网页上内容索引（搜索）。  
-核心的工作流程为：  
- 爬虫引擎 == 解析网页 ==> 数据适配 ==> 推送数据至数据索引服务（如 [elasticsearch](https://github.com/elastic/elasticsearch)，[algolia](https://www.algolia.com/)）
- 
- 同时提供前端 ui（不同的平台，数据获取方式不同），类似于 [docsearch](https://github.com/algolia/docsearch)
- 
-## 应该有哪些东西
+核心的工作流程为：
 
-- 爬虫引擎 - 如 [docsearch-scraper](https://github.com/algolia/docsearch-scraper)
-- 数据适配
-  - elasticsearch 1.x
-- 前端UI - 如 [docsearch](https://github.com/algolia/docsearch)
-  - 不同数据来源
+```text
+爬虫引擎 == 解析网页 ==> 数据适配 ==> 推送数据至数据索引服务 或 数据库（如 [elasticsearch](https://github.com/elastic/elasticsearch)，[algolia](https://www.algolia.com/)）
+```
 
-## 开发注意点
+同时索引服务提供 Web API 用于搜索数据，并提供 UI 界面提供搜索交互 #1 使用户方便接入使用
 
-- 使用 TypeScript
+### 怎么使用？
+
+在 `npm i wowsearch` 之后，如下代码使用
+
+```javascript
+import wowsearch from 'wowsearch'
+
+const passed = await wowsearch({
+  // Write config here
+})
+passed && console.log('wowsearch! 完成了站点数据爬取，同时推送至了远端')
+```
+
+[配置说明点这](./packages/wowsearch)
+[查看配置案例](./packages/wowsearch-standalone/example)
+
+### Todo
+
+- [ ] cookie 权限？保密性+ 用户
