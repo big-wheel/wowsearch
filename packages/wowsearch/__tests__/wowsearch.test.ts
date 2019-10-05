@@ -14,12 +14,11 @@ describe('wowsearch', function() {
   it('getUrlList', async function() {
     const urls = await getUrlList(
       {
-        sitemap_urls_patterns: [/.*/],
         selectors: {},
         start_urls_patterns: [/.*/],
         sitemap_urls: ['https://imcuttle.github.io/sitemap.xml']
       }
     )
-    expect(urls).toMatchSnapshot()
+    expect(urls.map(x => x.url)).toMatchSnapshot()
   })
 })

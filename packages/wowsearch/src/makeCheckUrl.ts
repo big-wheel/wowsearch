@@ -10,7 +10,7 @@ import match from 'wowsearch-parse/dist/match'
 
 export function makeIsInStartUrls(start_urls) {
   return function isInStartUrls(url) {
-    return start_urls.some(rule => {
+    return start_urls.find(rule => {
       if (isRule(rule)) {
         return match(<Rule>rule, url)
       }
@@ -23,7 +23,8 @@ export default function check(start_urls = [], stop_urls = []) {
   const isInStartUrls = makeIsInStartUrls(start_urls)
   const isInStopUrls = makeIsInStopUrls(stop_urls)
   return function check(url) {
-    return isInStartUrls(url) && !isInStopUrls(url)
+    const matchedRule = isInStartUrls(url)
+    return matchedRule && !isInStopUrls(url) ? matchedRule : false
   }
 }
 

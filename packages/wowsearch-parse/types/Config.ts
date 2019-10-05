@@ -17,6 +17,11 @@ type CommonConfig = {
   anchor_selector?: Selector
 }
 
+export type MatchedUrlEntity = {
+  url: string,
+  rule: Rule
+}
+
 export type Selector = string | StrictSelector
 
 export type StrictSelector = CommonConfig & {
@@ -74,13 +79,12 @@ export type CrawlerConfig = CommonConfig & {
 
   selectors_exclude?: string[]
   smart_crawling?: boolean
+  smart_crawling_selector?: Selector
   force_crawling_urls?: boolean
 }
 
 export type Config = CrawlerConfig & {
   sitemap_urls?: string[]
-  sitemap_urls_patterns?: Rule[]
-  force_sitemap_urls_crawling?: boolean
 }
 
 const WalliDef = w.leq({
@@ -94,6 +98,8 @@ const WalliDef = w.leq({
     options: w.any.optional,
   }),
   url_tpl: w.string.optional,
+  smart_crawling: w.boolean.optional,
+  smart_crawling_selector: walliSelector.optional,
   start_urls: w.arrayOf(w.string)
     .optional,
   start_urls_patterns: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })])).optional,
@@ -135,9 +141,8 @@ export function normalize(config: Config) {
       stop_urls_patterns: [],
       selectors_exclude: [],
       sitemap_urls: [],
-      sitemap_urls_patterns: [/.*/],
-      force_sitemap_urls_crawling: false,
       smart_crawling: false,
+      smart_crawling_selector: 'a[href]',
       force_crawling_urls: false
     },
     config
@@ -165,6 +170,7 @@ export function normalize(config: Config) {
       )
     }
   })
+  config.smart_crawling_selector = normalizeSelector(config.smart_crawling_selector)
 
   return config
 }

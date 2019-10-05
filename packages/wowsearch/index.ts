@@ -4,7 +4,11 @@
  * @date 2018/6/10
  * @description
  */
-import { Config, normalize } from 'wowsearch-parse/dist/types/Config'
+import {
+  Config,
+  MatchedUrlEntity,
+  normalize
+} from 'wowsearch-parse/dist/types/Config'
 import {
   crawl,
   crawlByUrl,
@@ -20,7 +24,9 @@ import PQueue from 'p-queue'
 import * as uniq from 'lodash.uniq'
 import makeCheck from './src/makeCheckUrl'
 
-export async function getUrlList(config: Config) {
+export async function getUrlList(
+  config: Config
+): Promise<Array<MatchedUrlEntity>> {
   const {
     concurrency = 1,
     start_urls,
@@ -28,9 +34,7 @@ export async function getUrlList(config: Config) {
     stop_urls_patterns,
     smart_crawling,
     force_crawling_urls,
-    sitemap_urls,
-    sitemap_urls_patterns,
-    force_sitemap_urls_crawling
+    sitemap_urls
   } = config
   const check = makeCheck(start_urls_patterns, stop_urls_patterns)
   const queue = new PQueue({ concurrency })
@@ -47,19 +51,26 @@ export async function getUrlList(config: Config) {
   await queue.addAll(
     sitemap_urls.map(url => {
       return async () => {
-        const urlList = (await parseSitemap(url)).filter(sitemapUrl => {
-          return sitemap_urls_patterns.some(p => match(p, sitemapUrl))
-        })
+        const urlList = await parseSitemap(url)
         urls = urls.concat(urlList)
       }
     })
   )
 
   urls = uniq(urls)
-  if (!force_sitemap_urls_crawling) {
-    urls = urls.filter(check)
-  }
-  debug('sitemap urls:', urls)
+  urls = urls
+    .map(url => {
+      const rule = check(url)
+      if (rule) {
+        return {
+          url,
+          rule
+        }
+      }
+      return null
+    })
+    .filter(Boolean)
+  debug('sitemap urls:', urls.map(u => u.url))
 
   return urls
 }
@@ -73,13 +84,14 @@ export default async function wowsearch(config: Config): Promise<{}> {
   const docMap = {}
   const urls = await getUrlList(config)
   const queue = new PQueue({ concurrency })
-  const history = new Map()
+  const history = new Map<string, any>()
   let browser
   if (config.js_render) {
     browser = await createBrowser(config.timeout)
   }
 
-  const createTask = url => {
+  const createTask = (ent: MatchedUrlEntity) => {
+    const { url, rule } = ent
     return async () => {
       if (history.has(url)) return
       history.set(url, true)
@@ -89,21 +101,20 @@ export default async function wowsearch(config: Config): Promise<{}> {
         browser
       )
       if (documentNode) {
+        documentNode.urlRule = rule
         docMap[url] = documentNode
       }
       debug(
         'Done crawl page: %s, smartCrawlingUrls: %O',
         url,
-        smartCrawlingUrls
+        smartCrawlingUrls.map(x => x.url)
       )
 
       if (smartCrawlingUrls && smartCrawlingUrls.length) {
         const notWalkedUrls = smartCrawlingUrls.filter(
-          smartUrl => !history.has(smartUrl)
+          ({ url }) => !history.has(url)
         )
-        // const innerLimit = pLimit(concurrency)
-
-        queue.addAll(notWalkedUrls.map(url => createTask(url)))
+        queue.addAll(notWalkedUrls.map(ent => createTask(ent)))
       }
     }
   }

@@ -10,12 +10,39 @@ import parseElementTree from '..'
 import { JSDOM } from 'jsdom'
 
 const parse = (html, config) => {
-  const {document} = new JSDOM(html).window
+  const { document } = new JSDOM(html).window
   return parseElementTree(document, config)
 }
 
 // TODO performance
-describe.skip('parseElementTree', function() {
+describe('parseElementTree', function() {
+  it('spec edam', async function() {
+    const docNode = await parse(
+      readFileSync(makeFixture('edam.html')).toString(),
+      {
+        lvl0: {
+          selector:
+            "//*[contains(@class,'navGroupActive')]//a[contains(@class,'navItemActive')]/preceding::h3[1]",
+          type: 'xpath',
+          global: true,
+          default_value: 'Documentation'
+        },
+        lvl1: {
+          type: 'css',
+          global: true,
+          selector: '.post h1'
+        },
+        lvl2: '.post article h1',
+        lvl3: '.post article h2',
+        lvl4: '.post article h3',
+        lvl5: '.post article h4',
+        text: '.post article p, .post article li'
+      }
+    )
+
+    expect(docNode).toMatchSnapshot()
+  })
+
   it('spec', async function() {
     const docNode = await parse(
       readFileSync(makeFixture('text.html')).toString(),
@@ -61,5 +88,4 @@ describe.skip('parseElementTree', function() {
 
     expect(docNode).toMatchSnapshot()
   })
-
 })

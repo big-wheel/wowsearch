@@ -187,6 +187,258 @@ DocumentNode {
 }
 `;
 
+exports[`parseElementTree spec edam 1`] = `
+DocumentNode {
+  "children": Array [
+    TextNode {
+      "type": "text",
+      "value": "Template is the most significant concept. the processing is follows.",
+    },
+    TextNode {
+      "type": "text",
+      "value": "Get user's answers by prompts.",
+    },
+    TextNode {
+      "type": "text",
+      "value": null,
+    },
+    TextNode {
+      "type": "text",
+      "value": "Read root files, filter the files by ignore.",
+    },
+    TextNode {
+      "type": "text",
+      "value": null,
+    },
+    TextNode {
+      "type": "text",
+      "value": "Transform file content using Loader",
+    },
+    TextNode {
+      "type": "text",
+      "value": "Rule one(top priority): matching the text from the file's first line.",
+    },
+    TextNode {
+      "type": "text",
+      "value": "Rule two(normal priority): matching loader from the test field of mappers.",
+    },
+    TextNode {
+      "type": "text",
+      "value": "// @loader \${LOADER_NAME}?\${QUERY}
+/* @loader \${LOADER_NAME}?\${QUERY} */
+# @loader \${LOADER_NAME}?\${QUERY}
+    <!-- @loader \${LOADER_NAME}?\${QUERY} -->",
+    },
+    TextNode {
+      "type": "text",
+      "value": "Adjust files struction by copy and move.",
+    },
+    TextNode {
+      "type": "text",
+      "value": null,
+    },
+    TextNode {
+      "type": "text",
+      "value": "Trigger usefulHook then post hooks",
+    },
+    TextNode {
+      "type": "text",
+      "value": null,
+    },
+    TextNode {
+      "type": "text",
+      "value": "Note：The order of fields in package.json is that edam:main is superior to main. (>=3.1)",
+    },
+    LvlNode {
+      "anchor": null,
+      "children": Array [
+        TextNode {
+          "type": "text",
+          "value": "Allows exporting config object directly, or callable.",
+        },
+        TextNode {
+          "type": "text",
+          "value": "module.exports = { /*config*/ } module.exports = edam => ({ /*config*/ })",
+        },
+        LvlNode {
+          "anchor": null,
+          "children": Array [
+            TextNode {
+              "type": "text",
+              "value": "edam >= 2.0.1 Returns the object which excludes prompts.",
+            },
+            TextNode {
+              "type": "text",
+              "value": "type: function",
+            },
+            TextNode {
+              "type": "text",
+              "value": "Eg：",
+            },
+          ],
+          "level": 4,
+          "type": "lvl",
+          "value": "process",
+        },
+        LvlNode {
+          "anchor": null,
+          "children": Array [
+            TextNode {
+              "type": "text",
+              "value": "User's interaction definition.",
+            },
+            TextNode {
+              "type": "text",
+              "value": "type: []references to inquirer.js",
+            },
+          ],
+          "level": 4,
+          "type": "lvl",
+          "value": "prompts",
+        },
+        LvlNode {
+          "anchor": null,
+          "children": Array [
+            TextNode {
+              "type": "text",
+              "value": "Template files' root.",
+            },
+            TextNode {
+              "type": "text",
+              "value": "type: string",
+            },
+            TextNode {
+              "type": "text",
+              "value": "default: ./template",
+            },
+          ],
+          "level": 4,
+          "type": "lvl",
+          "value": "root",
+        },
+        LvlNode {
+          "anchor": null,
+          "children": Array [
+            TextNode {
+              "type": "text",
+              "value": "Files' filter",
+            },
+            TextNode {
+              "type": "text",
+              "value": "type: string[]Or answers => [",
+            },
+          ],
+          "level": 4,
+          "type": "lvl",
+          "value": "ignore",
+        },
+        LvlNode {
+          "anchor": null,
+          "children": Array [
+            TextNode {
+              "type": "text",
+              "value": "type {}",
+            },
+            TextNode {
+              "type": "text",
+              "value": "example{
+    date: new Date(),
+    val: 'abc'
+}
+    // or
+(answers) => ({})",
+            },
+          ],
+          "level": 4,
+          "type": "lvl",
+          "value": "variables",
+        },
+        LvlNode {
+          "anchor": null,
+          "children": Array [],
+          "level": 4,
+          "type": "lvl",
+          "value": "hooks",
+        },
+        LvlNode {
+          "anchor": null,
+          "children": Array [
+            TextNode {
+              "type": "text",
+              "value": "Check out Write a loader",
+            },
+          ],
+          "level": 4,
+          "type": "lvl",
+          "value": "loaders 和 mappers",
+        },
+        LvlNode {
+          "anchor": null,
+          "children": Array [
+            TextNode {
+              "type": "text",
+              "value": "or (answers) => ({})",
+            },
+          ],
+          "level": 4,
+          "type": "lvl",
+          "value": "move",
+        },
+        LvlNode {
+          "anchor": null,
+          "children": Array [
+            TextNode {
+              "type": "text",
+              "value": "like move",
+            },
+          ],
+          "level": 4,
+          "type": "lvl",
+          "value": "copy",
+        },
+        LvlNode {
+          "anchor": null,
+          "children": Array [
+            TextNode {
+              "type": "text",
+              "value": "Some useful shortcuts of post hook.",
+            },
+            TextNode {
+              "type": "text",
+              "value": "gitInitgit inittype: booleandefault: false",
+            },
+            TextNode {
+              "type": "text",
+              "value": "installDependenciesinstall dependencies of package.jsontype: booleandefault: false",
+            },
+            TextNode {
+              "type": "text",
+              "value": "installDevDependenciesinstall devDependencies of package.jsontype: booleandefault: false",
+            },
+            TextNode {
+              "type": "text",
+              "value": "或者 (answers) => ({})",
+            },
+          ],
+          "level": 4,
+          "type": "lvl",
+          "value": "usefulHook",
+        },
+      ],
+      "level": 3,
+      "type": "lvl",
+      "value": "Config",
+    },
+  ],
+  "global": Map {
+    "lvl0" => "Advanced",
+    "lvl1" => "Write a template",
+  },
+  "type": "document",
+  "value": null,
+}
+`;
+
 exports[`parseElementTree spec without global 1`] = `
 DocumentNode {
   "children": Array [

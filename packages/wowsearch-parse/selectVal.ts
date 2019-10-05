@@ -22,7 +22,7 @@ export function selectAll(
 
   if (selectorItem.selector) {
     if (selectorItem.type === 'css' || !selectorItem.type) {
-      return document.querySelectorAll(selectorItem.selector)
+      return [].slice.apply(document.querySelectorAll(selectorItem.selector))
     } else {
       const documentElem = document.ownerDocument || document
       const selfNode = document
@@ -46,7 +46,6 @@ export function selectAll(
   return []
 }
 
-// @ts-ignore
 export function selectOne(document, selectorItem): Element {
   selectorItem = normalizeSelector(selectorItem)
   if (!selectorItem) return null

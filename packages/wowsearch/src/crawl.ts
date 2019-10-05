@@ -4,7 +4,10 @@
  * @date 2018/6/10
  * @description
  */
-import { CrawlerConfig } from 'wowsearch-parse/dist/types/Config'
+import {
+  CrawlerConfig,
+  MatchedUrlEntity
+} from 'wowsearch-parse/dist/types/Config'
 import * as got from 'got'
 import { JSDOM } from 'jsdom'
 import * as each from 'lodash.foreach'
@@ -46,13 +49,19 @@ export function isSameOrigin(valueUrl: string, fromUrl?: string) {
 function getCrawlingUrls(
   document,
   { fromUrl = '', config }: { fromUrl?: string; config?: CrawlerConfig } = {}
-) {
-  const { start_urls_patterns, stop_urls_patterns, force_crawling_urls } = config
+): MatchedUrlEntity[] {
+  const {
+    start_urls_patterns,
+    smart_crawling_selector,
+    stop_urls_patterns,
+    force_crawling_urls
+  } = config
 
   const check = makeCheck(start_urls_patterns, stop_urls_patterns)
   const smartCrawlingUrls = []
-  ;[].slice.apply(document.querySelectorAll('a')).map(function(node) {
+  selectAll(document, smart_crawling_selector).map(function(node) {
     let href = node.getAttribute('href')
+    let res
     if (href && isSameOrigin(href, fromUrl)) {
       href = u.resolve(fromUrl, href)
       // let o = u.parse(href)
@@ -61,23 +70,30 @@ function getCrawlingUrls(
       // delete o.hash
       // href = u.format(o)
       debug('checked href: %s, isSameOrigin', href)
-      if (force_crawling_urls || check(href)) {
+      if ((res = check(href)) || force_crawling_urls) {
         fromUrl !== href &&
           smartCrawlingUrls.indexOf(href) < 0 &&
-          smartCrawlingUrls.push(href)
+          smartCrawlingUrls.push({
+            url: href,
+            rule: res
+          })
       }
     } else {
       debug('checked href: %s, not matched', href)
     }
   })
 
-  debug('smartCrawlingUrls: %o, from url: %s', smartCrawlingUrls, fromUrl)
+  debug(
+    'smartCrawlingUrls: %o, from url: %s',
+    smartCrawlingUrls.map(u => u.url),
+    fromUrl
+  )
   return smartCrawlingUrls
 }
 
 type CrawlResult = {
   documentNode?: DocumentNode
-  smartCrawlingUrls?: string[]
+  smartCrawlingUrls?: MatchedUrlEntity[]
 }
 
 export function crawl(
@@ -100,7 +116,7 @@ export function crawl(
   let smartCrawlingUrls = []
   if (smart_crawling) {
     smartCrawlingUrls = getCrawlingUrls(document, { fromUrl, config })
-    debug('smartCrawlingUrls: %o', smartCrawlingUrls)
+    debug('smartCrawlingUrls: %o', smartCrawlingUrls.map(x => x.url))
   }
 
   // TODO

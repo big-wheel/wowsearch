@@ -6,15 +6,23 @@
  */
 import * as mm from 'minimatch'
 import * as w from "walli";
+import * as isObj from "is-plain-object";
 
-export type Rule = RegExp | Function | string
-export const walliRule = w.oneOf([w.instanceOf(RegExp), w.function_, w.string])
+export type StrictRule = RegExp | Function | string
+export type Rule = StrictRule | {test: Rule, [key: string]: any}
+export const walliStrictRule = w.oneOf([w.instanceOf(RegExp), w.function_, w.string])
+export const walliRule = w.oneOf([
+  walliStrictRule,
+  w.leq({
+    test: walliStrictRule
+  })
+])
 
 export function isRule(rule) {
   return walliRule.ok(rule)
 }
 
-function match(rule: Rule, value: string) {
+export function matchStrictRule(rule: StrictRule, value: string) {
   if (rule instanceof RegExp) {
     return rule.test(value)
   }
@@ -24,4 +32,12 @@ function match(rule: Rule, value: string) {
   return mm(value, rule, { matchBase: true })
 }
 
-export default match
+
+export default function matchRule(rule: any, value: string) {
+  // @ts-ignore
+  if (rule && rule.test && isObj(rule)) {
+    return matchStrictRule(rule.test as StrictRule, value) && rule
+  }
+
+  return matchStrictRule(rule as StrictRule, value) && rule
+}

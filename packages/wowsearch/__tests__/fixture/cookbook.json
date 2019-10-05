@@ -5,7 +5,6 @@
   "sitemap_urls": [
     "http://origin.eux.baidu.com:8666/sitemap.xml"
   ],
-  "force_sitemap_urls_crawling": true,
   "selectors": {
     "lvl0": {
       "selector": "//*[contains(@class,'sidebar')]//*[contains(@class,'node-item-parent-active')]/../../*[contains(@class,'sidebar-node-content')]// *[contains(@class,'link-post') or contains(@class,'link-catalog')]",
