@@ -61,8 +61,9 @@ export type CrawlerConfig = CommonConfig & {
   timeout?: number
   js_render?: boolean
   js_waitfor?: string | number | Function
-  start_urls?: Array<Rule | { url: Rule }>
-  stop_urls?: Rule[]
+  start_urls?: Array<string>
+  start_urls_patterns?: Array<Rule>
+  stop_urls_patterns?: Array<Rule>
   url_tpl?: string
   source_adaptor?: {
     name: string
@@ -93,9 +94,11 @@ const WalliDef = w.leq({
     options: w.any.optional,
   }),
   url_tpl: w.string.optional,
-  start_urls: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })]))
+  start_urls: w.arrayOf(w.string)
     .optional,
-  stop_urls: w.arrayOf(walliRule).optional,
+  start_urls_patterns: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })])).optional,
+  stop_urls_patterns: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })])).optional,
+  stop_urls: w.arrayOf(w.string).optional,
 
   selectors: {
     lvl0: walliSelector.optional,
@@ -127,8 +130,9 @@ export function normalize(config: Config) {
       js_waitfor: 0,
       anchor_selector: 'a[id]',
       anchor_attribute_name: 'id',
-      start_urls: [/.*/],
-      stop_urls: [],
+      start_urls: [],
+      start_urls_patterns: [/.*/],
+      stop_urls_patterns: [],
       selectors_exclude: [],
       sitemap_urls: [],
       sitemap_urls_patterns: [/.*/],

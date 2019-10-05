@@ -15,7 +15,6 @@ describe('wowsearch', function() {
     const urls = await getUrlList(
       {
         sitemap_urls_patterns: [/.*/],
-        stop_urls: [],
         selectors: {},
         start_urls: [/.*/],
         sitemap_urls: ['https://imcuttle.github.io/sitemap.xml']

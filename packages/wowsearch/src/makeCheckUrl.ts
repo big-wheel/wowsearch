@@ -19,7 +19,7 @@ export function makeIsInStartUrls(start_urls) {
   }
 }
 
-export default function check({ start_urls = [], stop_urls = [] } = {}) {
+export default function check(start_urls = [], stop_urls = []) {
   const isInStartUrls = makeIsInStartUrls(start_urls)
   const isInStopUrls = makeIsInStopUrls(stop_urls)
   return function check(url) {

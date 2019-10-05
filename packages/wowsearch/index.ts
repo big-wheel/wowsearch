@@ -5,7 +5,13 @@
  * @description
  */
 import { Config, normalize } from 'wowsearch-parse/dist/types/Config'
-import {crawl, crawlByUrl, pushDocumentNode, createBrowser, pushDocumentNodeMap} from './src/crawl'
+import {
+  crawl,
+  crawlByUrl,
+  pushDocumentNode,
+  createBrowser,
+  pushDocumentNodeMap
+} from './src/crawl'
 import match, { isRule, Rule } from 'wowsearch-parse/dist/match'
 import parseSitemap from './src/parseSitemap'
 const debug = require('debug')('wowsearch')
@@ -18,23 +24,22 @@ export async function getUrlList(config: Config) {
   const {
     concurrency,
     start_urls,
-    stop_urls,
+    start_urls_patterns,
+    stop_urls_patterns,
     smart_crawling,
     force_crawling_urls,
     sitemap_urls,
     sitemap_urls_patterns,
     force_sitemap_urls_crawling
   } = config
-  const check = makeCheck({ start_urls, stop_urls })
-  const queue = new PQueue({concurrency})
+  const check = makeCheck(start_urls_patterns, stop_urls_patterns)
+  const queue = new PQueue({ concurrency })
 
   let urls = []
   if (start_urls.length) {
     start_urls.forEach(u => {
       if (typeof u === 'string') {
         urls.push(u)
-      } else if (u && typeof (<any>u).url === 'string') {
-        urls.push((<any>u).url)
       }
     })
   }
@@ -67,21 +72,31 @@ export default async function wowsearch(config: Config): Promise<{}> {
 
   const docMap = {}
   const urls = await getUrlList(config)
-  const queue = new PQueue({concurrency})
+  const queue = new PQueue({ concurrency })
   const history = new Map()
   let browser
   if (config.js_render) {
     browser = await createBrowser(config.timeout)
   }
 
-  const createTask = (url) => {
+  const createTask = url => {
     return async () => {
       if (history.has(url)) return
       history.set(url, true)
-      const { documentNode, smartCrawlingUrls } = await crawlByUrl(url, config, browser)
-      if (!documentNode) return
-      docMap[url] = documentNode
-      debug('Done crawl page: %s, smartCrawlingUrls: %O', url, smartCrawlingUrls)
+      const { documentNode, smartCrawlingUrls } = await crawlByUrl(
+        url,
+        config,
+        browser
+      )
+      console.log(documentNode)
+      if (documentNode) {
+        docMap[url] = documentNode
+      }
+      debug(
+        'Done crawl page: %s, smartCrawlingUrls: %O',
+        url,
+        smartCrawlingUrls
+      )
 
       if (smartCrawlingUrls && smartCrawlingUrls.length) {
         const notWalkedUrls = smartCrawlingUrls.filter(
@@ -96,7 +111,7 @@ export default async function wowsearch(config: Config): Promise<{}> {
 
   await queue.addAll(urls.map(url => createTask(url)))
   await queue.onIdle()
-  browser && await browser.close()
+  browser && (await browser.close())
   debug('Start pushing')
   return await pushDocumentNodeMap(docMap, config)
 }

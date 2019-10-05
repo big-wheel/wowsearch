@@ -47,9 +47,9 @@ function getCrawlingUrls(
   document,
   { fromUrl = '', config }: { fromUrl?: string; config?: CrawlerConfig } = {}
 ) {
-  const { start_urls, stop_urls, force_crawling_urls } = config
+  const { start_urls_patterns, stop_urls_patterns, force_crawling_urls } = config
 
-  const check = makeCheck({ start_urls: start_urls.concat('**'), stop_urls })
+  const check = makeCheck(start_urls_patterns, stop_urls_patterns)
   const smartCrawlingUrls = []
   ;[].slice.apply(document.querySelectorAll('a')).map(function(node) {
     let href = node.getAttribute('href')
@@ -60,7 +60,6 @@ function getCrawlingUrls(
       // delete o.search
       // delete o.hash
       // href = u.format(o)
-
       debug('checked href: %s, isSameOrigin', href)
       if (force_crawling_urls || check(href)) {
         fromUrl !== href &&
@@ -89,7 +88,6 @@ export function crawl(
   const { document } = new JSDOM(text, { url: fromUrl }).window
   const {
     start_urls,
-    stop_urls,
     strip_chars,
     selectors,
     selectors_exclude,
@@ -164,7 +162,7 @@ export async function crawlByUrl(
   try {
     if (config.js_render) {
       // @ts-ignore
-      useBrowser = browser || await createBrowser(config.timeout)
+      useBrowser = browser || (await createBrowser(config.timeout))
       const page = await useBrowser.newPage()
       await page.goto(url, {
         waitUntil: 'networkidle2',

@@ -1,6 +1,6 @@
 {
   "name": "wowsearch-ui",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "scripts": {
     "example": "webpack-dev-server --config=webpack.example.config.js"
   },
@@ -27,7 +27,7 @@
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.1",
     "webpack-merge": "^4.2.2",
-    "wowsearch-elastic-adaptor": "^1.0.0"
+    "wowsearch-elastic-adaptor": "^0.0.1"
   },
   "dependencies": {
     "memoize-fn": "^1.0.1",

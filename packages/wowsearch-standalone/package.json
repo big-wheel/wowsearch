@@ -25,12 +25,12 @@
     "node": ">=6"
   },
   "main": "index.js",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "dependencies": {
     "dotenv": "^8.1.0",
     "find-up": "^4.1.0",
     "globby": "^10.0.1",
-    "wowsearch": "^1.0.0",
-    "wowsearch-elastic-adaptor": "^1.0.0"
+    "wowsearch": "^0.0.1",
+    "wowsearch-elastic-adaptor": "^0.0.1"
   }
 }

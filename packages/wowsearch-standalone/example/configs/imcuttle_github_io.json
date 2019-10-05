@@ -5,7 +5,6 @@
     "https://imcuttle.github.io/sitemap.xml"
   ],
   "concurrency": 5,
-  "stop_urls": [],
   "force_sitemap_urls_crawling": true,
   "source_adaptor": {
     "name": "wowsearch-elastic-adaptor/node",
