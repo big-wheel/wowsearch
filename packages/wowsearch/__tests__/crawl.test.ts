@@ -43,7 +43,7 @@ describe.skip('push', function() {
   })
 })
 
-describe('crawl', function() {
+describe.skip('crawl', function() {
   it('crawl text', async function() {
     const texts = await crawl(
       readFileSync(makeFixture('text.html')).toString(),

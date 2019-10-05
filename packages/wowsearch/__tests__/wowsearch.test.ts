@@ -16,20 +16,10 @@ describe('wowsearch', function() {
       {
         sitemap_urls_patterns: [/.*/],
         selectors: {},
-        start_urls: [/.*/],
+        start_urls_patterns: [/.*/],
         sitemap_urls: ['https://imcuttle.github.io/sitemap.xml']
       }
     )
     expect(urls).toMatchSnapshot()
   })
-
-  it('crawl text with js_render', async function() {
-    jest.setTimeout(1000 * 60)
-    const map = await wowsearch(
-      readJSONSync(makeFixture('haier2.json'))
-    )
-
-    console.log(inspect(map, {depth: 10}))
-  })
-
 })

@@ -22,7 +22,7 @@ import makeCheck from './src/makeCheckUrl'
 
 export async function getUrlList(config: Config) {
   const {
-    concurrency,
+    concurrency = 1,
     start_urls,
     start_urls_patterns,
     stop_urls_patterns,
@@ -36,7 +36,7 @@ export async function getUrlList(config: Config) {
   const queue = new PQueue({ concurrency })
 
   let urls = []
-  if (start_urls.length) {
+  if (start_urls && start_urls.length) {
     start_urls.forEach(u => {
       if (typeof u === 'string') {
         urls.push(u)
@@ -66,7 +66,7 @@ export async function getUrlList(config: Config) {
 
 export default async function wowsearch(config: Config): Promise<{}> {
   config = normalize(config)
-  const { concurrency } = config
+  const { concurrency = 1 } = config
 
   debug('Config: %O', config)
 
@@ -88,7 +88,6 @@ export default async function wowsearch(config: Config): Promise<{}> {
         config,
         browser
       )
-      console.log(documentNode)
       if (documentNode) {
         docMap[url] = documentNode
       }

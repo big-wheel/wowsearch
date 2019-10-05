@@ -27,7 +27,4 @@ describe('parseSitemap', function() {
     ])
   })
 
-  it('should parse from url', async function() {
-    console.log(await parse('http://origin.eux.baidu.com:8666/sitemap.xml'))
-  })
 })

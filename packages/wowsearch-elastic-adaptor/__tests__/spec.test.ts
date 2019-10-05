@@ -8,9 +8,6 @@ import { readFileSync } from 'fs'
 import { makeFixture } from './help'
 import flattenDocumentNode from '../flattenDocumentNode'
 
-describe('wowsearchElasticAdaptor', function() {
-  it('should ', () => {})
-})
 
 describe('flattenDocumentNode', function() {
   it('should flattenDocumentNode spec', async function() {

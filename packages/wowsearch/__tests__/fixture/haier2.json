@@ -7,6 +7,9 @@
   "smart_crawling": true,
   "anchor_selector": "a[name]",
   "anchor_attribute_name": "name",
+  "source_adaptor": {
+    "name": ""
+  },
   "selectors": {
     "lvl0": {
       "selector": "//*[contains(@class,'navGroupActive')]//a[contains(@class,'navItemActive')]/preceding::h3[1]",

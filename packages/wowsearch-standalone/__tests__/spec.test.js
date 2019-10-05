@@ -6,7 +6,7 @@
 import wowsearchStandalone from '../'
 
 
-describe('wowsearchStandalone', function () {
+describe.skip('wowsearchStandalone', function () {
   it('should ', () => {
 
   })
