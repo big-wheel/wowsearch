@@ -8,14 +8,14 @@ const nps = require('path')
 const globby = require('globby')
 const findUp = require('find-up')
 
-module.exports = async ({ cwd = process.cwd(), configRootPath = nps.join(cwd, 'configs'), transformConfig } = {}) => {
+module.exports = async ({ cwd = process.cwd(), configRootPath = nps.join(cwd, 'configs'), transformConfig, configFileGlob } = {}) => {
   const path = findUp.sync('.env', { cwd })
   path && require('dotenv').config({ path })
 
   const wowsearch = require('wowsearch').default
-  const { CONFIG_FILE_GLOB = '*.{js,json}' } = process.env
+  configFileGlob = configFileGlob || process.env.CONFIG_FILE_GLOB
 
-  const configFiles = globby.sync(CONFIG_FILE_GLOB, {
+  const configFiles = globby.sync(configFileGlob, {
     onlyFiles: true,
     absolute: true,
     cwd: configRootPath

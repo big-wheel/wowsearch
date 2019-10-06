@@ -24,9 +24,9 @@ export function parseSitemapTXT(text: string): string[] {
 export default async function parseFromUrl(url: string) {
   debug('fetching %s', url)
   const res = await fetch(encodeURI(url))
-  const text = await res.body
+  const text = res.body
   if (
-    res.headers.get('content-type') === 'application/xml' ||
+    res.headers['content-type'] === 'application/xml' ||
     url.toLowerCase().endsWith('.xml')
   ) {
     let obj = await parseSitemapXML(text)

@@ -52,6 +52,12 @@ module.exports = ({
           res.end('ok')
         }
       })
+      .post('/run/:glob', (req, res) => {
+        if (child) {
+          child.send({ type: 'run', value: req.params.glob })
+          res.end('ok ' + req.params.glob)
+        }
+      })
       .get('/run-date-list', (req, res) => {
         res.json(runDateList)
       })
