@@ -29,6 +29,7 @@ export type StrictSelector = CommonConfig & {
   type?: 'xpath' | 'css'
   global?: boolean
   anchor_attribute_name?: string
+  multiple?: boolean
   anchor_selector?: AnchorSelector | string
   default_value?: any
 }
@@ -64,6 +65,8 @@ export type Selectors = {
 export type CrawlerConfig = CommonConfig & {
   concurrency?: number
   timeout?: number
+  request_headers?: {}
+  request_cookie?: string
   js_render?: boolean
   js_waitfor?: string | number | Function
   start_urls?: Array<string>
@@ -92,6 +95,8 @@ const WalliDef = w.leq({
   js_render: w.boolean.optional,
   js_waitfor: w.oneOf([w.string, w.number, w.function_]).optional,
   strip_chars: w.string.optional,
+  request_cookie: w.string.optional,
+  request_headers: w.object.optional,
   source_adaptor: w.leq({
     name: w.string,
     options: w.any.optional
@@ -116,7 +121,7 @@ const WalliDef = w.leq({
     text: walliSelector.optional
   },
 
-  selectors_exclude: w.arrayOf(w.string).optional
+  selectors_exclude: w.arrayOf(walliSelector).optional
 })
 
 export function normalize(config: Config) {

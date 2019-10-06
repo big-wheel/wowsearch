@@ -3,6 +3,7 @@
   "version": "0.0.5",
   "dependencies": {
     "debug": "^3.1.0",
+    "filter-obj": "^2.0.1",
     "got": "^9.6.0",
     "jsdom": "^15.1.1",
     "lodash.foreach": "^4.5.0",
@@ -23,9 +24,9 @@
     "version": "npm test"
   },
   "devDependencies": {
-    "wowsearch-elastic-adaptor": "^0.0.5",
     "read-json-sync": "^2.0.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
+    "wowsearch-elastic-adaptor": "^0.0.5"
   },
   "jest": {
     "testEnvironment": "node",

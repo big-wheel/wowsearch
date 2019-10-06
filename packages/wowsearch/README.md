@@ -78,7 +78,7 @@
 
 忽略的节点选择器，一般用于省略一些不需要分析的节点
 
-- Type: `string[]`
+- Type: `Selector[]`
 
 #### `selectors`
 
@@ -121,6 +121,12 @@
 
 - Type: `boolean`
 - Default: `false`
+
+#### `request_cookie`
+
+爬取页面时候，需要注入的 cookie 信心，如有些站点需要用户校验
+
+- Type: `string`
 
 #### `source_adaptor`
 

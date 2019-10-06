@@ -49,7 +49,7 @@ describe('wowsearch-server', () => {
 
         request(app)
           .post('/run')
-          .end((err) => {
+          .end(err => {
             if (err) {
               return done(err)
             }
@@ -62,6 +62,7 @@ describe('wowsearch-server', () => {
       transformConfig(
         {
           a: {
+            hh: 'a csds',
             value: cry.encrypt('foo')
           },
           b: cry.encrypt('bar')
@@ -71,6 +72,7 @@ describe('wowsearch-server', () => {
     ).toMatchInlineSnapshot(`
 Object {
   "a": Object {
+    "hh": "a csds",
     "value": "foo",
   },
   "b": "bar",

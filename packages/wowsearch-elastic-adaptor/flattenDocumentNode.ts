@@ -8,6 +8,7 @@ import DocumentNode from 'wowsearch-parse/dist/types/DocumentNode'
 import * as visit from '@moyuyc/visit-tree'
 import ContentNode from 'wowsearch-parse/dist/types/ContentNode'
 import LvlNode from 'wowsearch-parse/dist/types/LvlNode'
+import * as isObj from "is-plain-object";
 import { parseLvlTypeLevel } from 'wowsearch-parse'
 import * as template from 'lodash.template'
 
@@ -32,7 +33,13 @@ export default (
   let urlGetter = template(url_tpl)
 
   const rule = documentNode.urlRule as any
-  const tags = rule && rule.tags
+
+  let extraMeta = {}
+  // @ts-ignore
+  if (rule && isObj(rule)) {
+    const extraMeta = {...rule}
+    delete extraMeta.test
+  }
 
   const filterNode = node => node && node.value
 
@@ -64,10 +71,11 @@ export default (
         type: node.type,
         content: node.value,
         parents: parents.map(x => x.value),
-        tags
+        ...extraMeta
       } as FlattenedNode
       if (node.type === 'document') {
         const global = (node as DocumentNode).global || new Map()
+        const tasks = []
         Array.from(global.keys())
           .sort()
           .forEach(key => {
@@ -75,14 +83,22 @@ export default (
             const level = parseLvlTypeLevel(key)
             if (level !== null) {
               parents[level] = { value: value }
+            } else {
+              extraMeta[key] = value
             }
-            nodes.push({
-              ...flattenedNode,
-              parents: parents.filter(filterNode).map(x => x.value),
-              content: value,
-              level
+
+            tasks.push(() => {
+              nodes.push({
+                ...flattenedNode,
+                parents: parents.filter(filterNode).map(x => x.value),
+                content: value,
+                level,
+                ...extraMeta
+              })
             })
           })
+
+        tasks.forEach(task => task())
       } else {
         nodes.push(flattenedNode)
       }

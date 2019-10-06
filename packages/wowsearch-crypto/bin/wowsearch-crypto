@@ -11,20 +11,28 @@ const cmd = require('optimist')
     version: false,
     publicKeyPath: wowsearchCrypto.defaultOptions.publicKeyPath,
     privateKeyPath: wowsearchCrypto.defaultOptions.privateKeyPath,
+    privateKey: wowsearchCrypto.defaultOptions.privateKey,
+    publicKey: wowsearchCrypto.defaultOptions.publicKey
   })
   .describe({
     help: 'Show help',
     version: 'Show version',
     encrypt: 'Encrypt input',
     decrypt: 'Decrypt input',
-    publicKeyPath: 'Assign the public key file, use $WOWSEARCH_CRYPTO_PUBLIC_KEY_PATH by default',
-    privateKeyPath: 'Assign the private key file, use $WOWSEARCH_CRYPTO_PRIVATE_KEY_PATH by default',
+    publicKey:
+      'Assign the public key, use $WOWSEARCH_CRYPTO_PUBLIC_KEY by default',
+    publicKeyPath:
+      'Assign the public key file, use $WOWSEARCH_CRYPTO_PUBLIC_KEY_PATH by default',
+    privateKey:
+      'Assign the private key file, use $WOWSEARCH_CRYPTO_PRIVATE_KEY by default',
+    privateKeyPath:
+      'Assign the private key file, use $WOWSEARCH_CRYPTO_PRIVATE_KEY_PATH by default'
   })
   .alias({
     help: 'h',
     version: 'v',
     encrypt: 'e',
-    decrypt: 'd',
+    decrypt: 'd'
   })
   .boolean(['encrypt', 'decrypt', 'help', 'version'])
 
@@ -33,17 +41,21 @@ if (cmd.argv.help) {
 } else if (cmd.argv.version) {
   console.log(require('../package').version)
 } else {
-  process.stdin.pipe(concat(string => {
-    const input = String(string)
-    const cry = wowsearchCrypto({
-      publicKeyPath: cmd.argv.publicKeyPath,
-      privateKeyPath: cmd.argv.privateKeyPath
-    })
+  process.stdin.pipe(
+    concat(string => {
+      const input = String(string)
+      const cry = wowsearchCrypto({
+        publicKeyPath: cmd.argv.publicKeyPath,
+        publicKey: cmd.argv.publicKey,
+        privateKeyPath: cmd.argv.privateKeyPath,
+        privateKey: cmd.argv.privateKey
+      })
 
-    if (cmd.argv.decrypt) {
-      console.log(cry.decrypt(input))
-    } else {
-      console.log(cry.encrypt(input))
-    }
-  }))
+      if (cmd.argv.decrypt) {
+        process.stdout.write(cry.decrypt(input))
+      } else {
+        process.stdout.write(cry.encrypt(input))
+      }
+    })
+  )
 }

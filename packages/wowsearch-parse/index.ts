@@ -10,6 +10,8 @@ import {
 } from './types/Config'
 import selectVal, {
   normalizeSelector,
+  selectAll,
+  selectAllVal,
   selectOne,
   transformVal
 } from './selectVal'
@@ -36,7 +38,10 @@ export const LVL_TYPES = [
   'lvl3',
   'lvl4',
   'lvl5',
-  'lvl6'
+  'lvl6',
+  'lvl7',
+  'lvl8',
+  'lvl9'
 ]
 
 function matchSelector(
@@ -97,7 +102,7 @@ function generateLvlNode(
   startElem: Element,
   selectors: Selectors,
   walk?: Function
-): {lvlNode: LvlNode, endElement: Element} {
+): { lvlNode: LvlNode; endElement: Element } {
   const selectorItem = normalizeSelector(selectors[selectorKey])
   if (!selectorItem) return null
   const level = parseLvlTypeLevel(selectorKey)
@@ -107,8 +112,10 @@ function generateLvlNode(
   }
 
   const selectorKeys = uniq(LVL_TYPES.concat(Object.keys(selectors)))
-  const selectorEntryList = selectorKeys.map(key => ({key, selector: selectors[key]})).filter(({selector}) => selector)
-  const selectorList = selectorEntryList.map(({selector}) => selector)
+  const selectorEntryList = selectorKeys
+    .map(key => ({ key, selector: selectors[key] }))
+    .filter(({ selector }) => selector)
+  const selectorList = selectorEntryList.map(({ selector }) => selector)
   const lvlNode = new LvlNode(level)
 
   walk && walk(startElem)
@@ -122,16 +129,23 @@ function generateLvlNode(
     let isBreak
     let isContinue
 
-    runUntilEq((current) => {
+    runUntilEq(current => {
       let matches
       if ((matches = matchSelector(current, selectorList))) {
-        const matchedSelectorKey = selectorEntryList[matches.selectorIndex] && selectorEntryList[matches.selectorIndex].key
+        const matchedSelectorKey =
+          selectorEntryList[matches.selectorIndex] &&
+          selectorEntryList[matches.selectorIndex].key
         if (isLvlType(matchedSelectorKey)) {
           if (level < parseLvlTypeLevel(matchedSelectorKey)) {
             // callbackList.forEach(fn => fn())
             // callbackList = []
 
-            const childObj = generateLvlNode(matchedSelectorKey, matches.node, selectors, walk)
+            const childObj = generateLvlNode(
+              matchedSelectorKey,
+              matches.node,
+              selectors,
+              walk
+            )
             children.push(childObj.lvlNode)
             // matches.node.remove()
             curr = childObj.endElement
@@ -145,11 +159,11 @@ function generateLvlNode(
           }
         } else if (matchedSelectorKey === 'text') {
           walk && walk(matches.node)
-          children.push(generateTextNode(matches.node, matches.selector))
+          const node = generateTextNode(matches.node, matches.selector)
+          node && node.value && children.push(node)
           callbackList.push(() => {
             matches.node.remove()
           })
-
         }
 
         return matches.node
@@ -201,7 +215,9 @@ export default function parseElementTree(
     if (selectorItem.global) {
       documentNode.global.set(
         selectorKey,
-        selectVal(selectorItem, document).text
+        selectorItem.multiple
+          ? selectAllVal(selectorItem, document).texts
+          : selectVal(selectorItem, document).text
       )
     }
   })
@@ -235,14 +251,18 @@ export default function parseElementTree(
           const { selector, key } = selectorList[matched.selectorIndex]
           if (selector.type) {
             if (key === 'text') {
-              documentNode.children.push(
-                generateTextNode(matchedNode, selector)
-              )
+              const node = generateTextNode(matchedNode, selector)
+              node && node.value && documentNode.children.push(node)
               // ctx.skip()
             } else if (isLvlType(key)) {
-              const {lvlNode, endElement} = generateLvlNode(key, matchedNode, selectors, (elem) => {
-                track.set(elem, true)
-              })
+              const { lvlNode, endElement } = generateLvlNode(
+                key,
+                matchedNode,
+                selectors,
+                elem => {
+                  track.set(elem, true)
+                }
+              )
               documentNode.children.push(lvlNode)
               // ctx.skip()
             }
@@ -250,8 +270,7 @@ export default function parseElementTree(
         }
         ctx.node.remove()
         return matched.node.remove()
-      }
-      else {
+      } else {
         ctx.skip()
         // childNode.remove && childNode.remove()
       }

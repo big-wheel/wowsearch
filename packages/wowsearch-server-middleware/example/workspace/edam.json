@@ -6,11 +6,11 @@
   "start_urls_patterns": [
     {
       "test": "https://imcuttle.github.io/edam/**/*_zh",
-      "tags": ["zh"]
+      "lang": "zh"
     },
     {
       "test": "https://imcuttle.github.io/edam/**/*",
-      "tags": ["en"]
+      "lang": "en"
     }
   ],
   "sitemap_urls": [],

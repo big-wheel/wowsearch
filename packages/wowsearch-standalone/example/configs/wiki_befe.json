@@ -1,0 +1,50 @@
+{
+  "start_urls": [
+    "http://wiki.baidu.com/pages/viewpage.action?pageId=21430274"
+  ],
+  "cookie": "",
+  "start_urls_patterns": [
+    "http://wiki.baidu.com/pages/viewpage.action*"
+  ],
+  "request_cookie": "UUAP_P_TOKEN=PT-464194-TNNhZoZzmnUecSJkj4DAVpLgwcIP47saDaK-uuap; BAIDUID=E9AD9E338624D85EB2B1E3395E1E4158:FG=1; JSESSIONID=8A9F6B2721AD672460459273AA6EC015.wiki006; _wiki.confluence=Q1nXEWYBBC5qginsNTD6ZiooZfQz/rcczi8UIUbw6UMdFFRSqX43j5ajoNgJHEcgTLPzdNxf+Ag-1",
+  "sitemap_urls": [
+  ],
+  "js_render": true,
+  "concurrency": 5,
+  "smart_crawling": true,
+  "smart_crawling_selector": {
+    "type": "xpath",
+    "selector": "//*[@id='children198937783-0']/..//a[@href]"
+  },
+  "source_adaptor": {
+    "name": "wowsearch-elastic-adaptor/node",
+    "options": {
+      "index_name": "wiki_befe"
+    }
+  },
+  "selectors_exclude": [
+    {
+      "type": "xpath",
+      "selector": "//*[@id='childrenspan37758489-0']/../.."
+    }
+  ],
+  "selectors": {
+    "author": {
+      "global": true,
+      "selector": ".page-metadata .author"
+    },
+    "lvl0": {
+      "selector": "#breadcrumbs > li:last-child a",
+      "global": true
+    },
+    "lvl1": {
+      "selector": "#title-text",
+      "global": true
+    },
+    "lvl2": ".wiki-content h1",
+    "lvl3": ".wiki-content h2",
+    "lvl4": ".wiki-content h3",
+    "lvl5": ".wiki-content h4",
+    "text": ".wiki-content p, .wiki-content li, .wiki-content pre, .wiki-content table"
+  }
+}

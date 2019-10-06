@@ -12,7 +12,9 @@ const cp = require('child_process')
 const MAX_SIZE = 100
 
 module.exports = ({
+  publicKey,
   publicKeyPath,
+  privateKey,
   privateKeyPath,
   scheduleInput,
   runTaskFile,
@@ -22,7 +24,9 @@ module.exports = ({
     nps.join(__dirname, 'worker.js'),
     [
       JSON.stringify({
+        publicKey,
         publicKeyPath,
+        privateKey,
         privateKeyPath,
         scheduleInput,
         runTaskFile,

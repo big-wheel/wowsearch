@@ -27,10 +27,12 @@ const transformConfig = (config, transformValue) => {
 module.exports = function runTask({
   workPath,
   configFileGlob,
+  publicKey,
+  privateKey,
   publicKeyPath,
   privateKeyPath
 }) {
-  const cry = crypto({ privateKeyPath, publicKeyPath })
+  const cry = crypto({ privateKey, publicKey, privateKeyPath, publicKeyPath })
 
   return standalone({
     configFileGlob,

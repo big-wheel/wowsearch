@@ -33,6 +33,7 @@
   "version": "0.0.5",
   "dependencies": {
     "@moyuyc/visit-tree": "^2.0.1",
+    "is-plain-object": "^3.0.0",
     "ky": "^0.14.0",
     "ky-universal": "^0.3.0",
     "lodash.template": "^4.5.0",

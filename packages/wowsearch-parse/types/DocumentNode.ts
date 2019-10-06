@@ -10,7 +10,7 @@ import { Rule } from '../match'
 
 export default class DocumentNode extends WithChildrenNode {
   public urlRule: Rule
-  public global = new Map<string, string>()
+  public global = new Map<string, string | string[]>()
   public readonly type = 'document'
 
   public href: string

@@ -19,6 +19,7 @@ import {
 import match, { isRule, Rule } from 'wowsearch-parse/dist/match'
 import parseSitemap from './src/parseSitemap'
 const debug = require('debug')('wowsearch')
+const smartDebug = require('debug')('wowsearch:smart')
 
 import PQueue from 'p-queue'
 import * as uniq from 'lodash.uniq'
@@ -103,18 +104,21 @@ export default async function wowsearch(config: Config): Promise<{}> {
         documentNode.urlRule = rule
         docMap[url] = documentNode
       }
-      debug(
-        'Done crawl page: %s, smartCrawlingUrls: %O',
-        url,
-        smartCrawlingUrls.map(x => x.url)
-      )
 
       if (smartCrawlingUrls && smartCrawlingUrls.length) {
         const notWalkedUrls = smartCrawlingUrls.filter(
           ({ url }) => !history.has(url)
         )
+        smartDebug('notWalkedUrls: %O from %s', notWalkedUrls, url)
         queue.addAll(notWalkedUrls.map(ent => createTask(ent)))
       }
+
+      debug(
+        'Done crawl page: %s, left %s tasks',
+        url,
+        // except self
+        queue.size + queue.pending - 1
+      )
     }
   }
 

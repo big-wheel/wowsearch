@@ -200,15 +200,7 @@ DocumentNode {
     },
     TextNode {
       "type": "text",
-      "value": null,
-    },
-    TextNode {
-      "type": "text",
       "value": "Read root files, filter the files by ignore.",
-    },
-    TextNode {
-      "type": "text",
-      "value": null,
     },
     TextNode {
       "type": "text",
@@ -235,15 +227,7 @@ DocumentNode {
     },
     TextNode {
       "type": "text",
-      "value": null,
-    },
-    TextNode {
-      "type": "text",
       "value": "Trigger usefulHook then post hooks",
-    },
-    TextNode {
-      "type": "text",
-      "value": null,
     },
     TextNode {
       "type": "text",
@@ -433,6 +417,102 @@ DocumentNode {
   "global": Map {
     "lvl0" => "Advanced",
     "lvl1" => "Write a template",
+  },
+  "type": "document",
+  "value": null,
+}
+`;
+
+exports[`parseElementTree spec wiki 1`] = `
+DocumentNode {
+  "children": Array [
+    LvlNode {
+      "anchor": "BEFE新手指南-VisualizedIntroduction-BEFE团队介绍：",
+      "children": Array [],
+      "level": 1,
+      "type": "lvl",
+      "value": "BEFE团队介绍：",
+    },
+    TextNode {
+      "type": "text",
+      "value": "EUX与BPIT的关系：为BPIT的UI（用户界面）, FE（前端应用）和UE（用户体验）需求提供资源池。",
+    },
+    TextNode {
+      "type": "text",
+      "value": "EUX团队内部目前正在开发的项目以及团队交互关系。",
+    },
+    TextNode {
+      "type": "text",
+      "value": "PM: 项目经理 - 分析用户需求，并设计出对应的产品（RD有时也会参与PM的项目设计，担当技术顾问）。",
+    },
+    TextNode {
+      "type": "text",
+      "value": "UE: 用户体验 - 对产品提供流程及逻辑可行性方面的分析，并提供交互稿。",
+    },
+    TextNode {
+      "type": "text",
+      "value": "UI: 用户界面 - 对产品的用户界面进行设计，并提供美观、人性化、和新颖的UI稿。",
+    },
+    TextNode {
+      "type": "text",
+      "value": "FE: 前端开发 - 产生html(css/less),JS等实际代码来实现UE/UI设计的界面及用户体验。",
+    },
+    TextNode {
+      "type": "text",
+      "value": "RD: 后端研发 - 产生后端实际代码来实现PM/UE设计的用户需求和用户体验。",
+    },
+    TextNode {
+      "type": "text",
+      "value": "QA：质量保证 - 对FE/RD团队完成的代码进行测试，代码必须依次通过测试环境和预上线环境才能上线。",
+    },
+    TextNode {
+      "type": "text",
+      "value": "角色术语介绍",
+    },
+    LvlNode {
+      "anchor": "BEFE新手指南-VisualizedIntroduction-BaiduBEFE入职必备：",
+      "children": Array [
+        TextNode {
+          "type": "text",
+          "value": "基础信息设置：erp.baidu.com/family.baidu.com/ ",
+        },
+        TextNode {
+          "type": "text",
+          "value": "度生活以及饭卡充值： 扫二维码以下载移动端app：http://life.family.baidu.com/core/index.jsp?chc=324281933 进入“度生活”选“充饭卡”",
+        },
+        TextNode {
+          "type": "text",
+          "value": " git设置： 通过http://gitlab.baidu.com/ 加入团队git git版本管理可视化-Sourcetree: https://www.sourcetreeapp.com/ spotlight搜索加强-Alfred：https://www.alfredapp.com/",
+        },
+        TextNode {
+          "type": "text",
+          "value": " BEFE视频教程：http://athena.eux.baidu.com/befe-video",
+        },
+        TextNode {
+          "type": "text",
+          "value": " BEFE代码规范：http://styleguide.baidu.com/http://agroup.baidu.com/fe-styleguide/md/article/62439http://agroup.baidu.com/fe-styleguide/md/article/62453",
+        },
+        LvlNode {
+          "anchor": "BEFE新手指南-VisualizedIntroduction-p.s.友情链接：新人必读by陈承星",
+          "children": Array [
+            TextNode {
+              "type": "text",
+              "value": " ",
+            },
+          ],
+          "level": 2,
+          "type": "lvl",
+          "value": "p.s. 友情链接：新人必读 by 陈承星",
+        },
+      ],
+      "level": 1,
+      "type": "lvl",
+      "value": "Baidu BEFE入职必备：",
+    },
+  ],
+  "global": Map {
+    "lvl0" => "新人必读",
+    "author" => "     郑亮亮",
   },
   "type": "document",
   "value": null,

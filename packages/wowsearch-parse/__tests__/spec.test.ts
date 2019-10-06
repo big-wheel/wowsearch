@@ -15,7 +15,30 @@ const parse = (html, config) => {
 }
 
 // TODO performance
-describe.skip('parseElementTree', function() {
+describe('parseElementTree', function() {
+  it('spec wiki', async function () {
+    const docNode = await parse(
+      readFileSync(makeFixture('wiki.html')).toString(),
+      {
+        "author": {
+          "global": true,
+          "selector": ".page-metadata .author"
+        },
+        "lvl0": {
+          "selector": "#breadcrumbs > li:last-child a",
+          "global": true
+        },
+        "lvl1": ".wiki-content h1",
+        "lvl2": ".wiki-content h2",
+        "lvl3": ".wiki-content h3",
+        "lvl4": ".wiki-content h4",
+        "text": ".wiki-content p, .wiki-content li, .wiki-content pre"
+      }
+    )
+
+    expect(docNode).toMatchSnapshot()
+  });
+
   it('spec edam', async function() {
     const docNode = await parse(
       readFileSync(makeFixture('edam.html')).toString(),

@@ -13,14 +13,20 @@ function wowsearchServerMiddleware(
     token,
     enableDelete = true,
     runTaskFile,
-    scheduleInput,
+    scheduleInput = '0 0 * * 0',
     browserViewRoute = '/fileman',
     publicKeyPath,
-    privateKeyPath
+    publicKey,
+    privateKeyPath,
+    privateKey,
   } = {}
 ) {
-  if (!publicKeyPath || !privateKeyPath) {
-    throw new Error('publicKeyPath and privateKeyPath is required')
+  if (!publicKeyPath || !publicKey) {
+    throw new Error('publicKeyPath or publicKey is required')
+  }
+
+  if (!privateKeyPath || !privateKey) {
+    throw new Error('privateKeyPath or privateKey is required')
   }
 
   return [
@@ -28,6 +34,8 @@ function wowsearchServerMiddleware(
       workPath,
       runTaskFile,
       scheduleInput,
+      privateKey,
+      publicKey,
       publicKeyPath,
       privateKeyPath
     }),

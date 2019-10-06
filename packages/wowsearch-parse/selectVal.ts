@@ -1,4 +1,5 @@
 import { CrawlerConfig, StrictSelector } from './types/Config'
+import {func} from "prop-types";
 
 const debug = require('debug')('wowsearch:select')
 
@@ -88,19 +89,35 @@ export default function selectVal(
     debug('selector: %s, matched: %o.', selectorItem.selector, text)
   }
 
+  return {
+    node,
+    text: text && transformText(text, selectorItem)
+  }
+}
+
+function transformText(text, selectorItem) {
   let strip_chars = selectorItem.strip_chars || ''
-  text = text
+  return text
     ? text.replace(
-        new RegExp(`(^[${strip_chars}]+)|(${strip_chars}]+$)`, 'g'),
-        ''
-      )
+      new RegExp(`(^[${strip_chars}]+)|(${strip_chars}]+$)`, 'g'),
+      ''
+    )
     : selectorItem.hasOwnProperty('default_value')
       ? selectorItem.default_value
       : null
+}
+
+export function selectAllVal(
+  selectorItem,
+  document
+): { nodes: Node[], texts: string[] } {
+  selectorItem = normalizeSelector(selectorItem)
+
+  let nodes = selectAll(document, selectorItem)
 
   return {
-    node,
-    text
+    nodes,
+    texts: nodes.map(node => transformText(node.textContent, selectorItem))
   }
 }
 

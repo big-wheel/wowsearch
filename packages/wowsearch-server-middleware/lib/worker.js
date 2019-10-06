@@ -12,7 +12,7 @@ const queueFn = require('./queueMemFn')
 if (typeof process.send === 'function') {
   const [input] = process.argv.slice(2)
   const arg = JSON.parse(input)
-  const { publicKeyPath, privateKeyPath, scheduleInput, workPath, runTaskFile = require.resolve('./runTask.js') } = arg
+  const { scheduleInput, runTaskFile = require.resolve('./runTask.js') } = arg
 
   const run = queueFn(async (arg, glob) => {
     const ent = {}

@@ -11,8 +11,10 @@ import {
 import * as got from 'got'
 import { JSDOM } from 'jsdom'
 import * as each from 'lodash.foreach'
+import * as filterObj from 'filter-obj'
 
 import makeCheck from './makeCheckUrl'
+import { parseString } from './parseCookie'
 import * as u from 'url'
 import parseElementTree from 'wowsearch-parse'
 import selectVal, { selectAll } from 'wowsearch-parse/dist/selectVal'
@@ -174,22 +176,51 @@ export async function crawlByUrl(
 ): Promise<CrawlResult> {
   let html
   let useBrowser
+  let cookie = config.request_cookie && config.request_cookie.trim()
+  const headers = filterObj(
+    {
+      ...config.request_headers,
+      cookie: cookie
+    },
+    (key, value) => !!value
+  )
   try {
     if (config.js_render) {
       // @ts-ignore
       useBrowser = browser || (await createBrowser(config.timeout))
       const page = await useBrowser.newPage()
+      await page.setExtraHTTPHeaders(headers)
+      if (cookie) {
+        const cookies = parseString(cookie)
+
+        for (const cookie of cookies) {
+          await page.setCookie({
+            domain: u.parse(url).hostname,
+            path: '/',
+            expires: -1,
+            httpOnly: true,
+            secure: false,
+            session: false,
+            size: cookie.value.length + cookie.name.length,
+            ...cookie,
+          })
+        }
+      }
       await page.goto(url, {
         waitUntil: 'networkidle2',
         timeout: config.timeout
       })
+
       config.js_waitfor && (await page.waitFor(config.js_waitfor))
       html = await page.evaluate(() => {
         return document.documentElement.outerHTML
       })
       await page.close()
     } else {
-      let res = await got.get(encodeURI(url), { timeout: config.timeout })
+      let res = await got.get(encodeURI(url), {
+        headers: headers,
+        timeout: config.timeout
+      })
       html = res.body
     }
   } catch (e) {

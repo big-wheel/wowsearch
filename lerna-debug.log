@@ -1,19 +1,21 @@
-0 silly argv { _: [ 'create' ],
+0 silly argv { _: [ 'run' ],
+0 silly argv   scope: 'wowsearch-server-middleware',
 0 silly argv   lernaVersion: '3.16.4',
-0 silly argv   '$0': 'lerna',
-0 silly argv   name: 'wowsearch-crypto' }
+0 silly argv   '$0': 'node_modules/.bin/lerna',
+0 silly argv   script: 'example' }
 1 notice cli v3.16.4
 2 verbose rootPath /Users/yucong02/self/wowsearch
-3 error Error: canceled
-3 error     at Interface.<anonymous> (/Users/yucong02/self/wowsearch/node_modules/read/lib/read.js:66:13)
-3 error     at Interface.emit (events.js:159:13)
-3 error     at Interface._ttyWrite (readline.js:786:16)
-3 error     at ReadStream.onkeypress (readline.js:165:10)
-3 error     at ReadStream.emit (events.js:159:13)
-3 error     at emitKeys (internal/readline.js:420:14)
-3 error     at emitKeys.next (<anonymous>)
-3 error     at ReadStream.onData (readline.js:1022:36)
-3 error     at ReadStream.emit (events.js:159:13)
-3 error     at addChunk (_stream_readable.js:265:12)
-3 error     at readableAddChunk (_stream_readable.js:252:11)
-3 error     at ReadStream.Readable.push (_stream_readable.js:209:10)
+3 info filter [ 'wowsearch-server-middleware' ]
+4 info Executing command in 1 package: "npm run example"
+5 silly npmRunScript.stream [ 'example', [], 'wowsearch-server-middleware' ]
+6 silly getExecOpts /Users/yucong02/self/wowsearch/packages/wowsearch-server-middleware undefined
+7 error MaxBufferError: stderr maxBuffer exceeded
+7 error     at PassThrough.stream.on (/Users/yucong02/self/wowsearch/node_modules/@lerna/child-process/node_modules/get-stream/index.js:41:19)
+7 error     at PassThrough.emit (events.js:164:20)
+7 error     at addChunk (_stream_readable.js:265:12)
+7 error     at readableAddChunk (_stream_readable.js:248:13)
+7 error     at PassThrough.Readable.push (_stream_readable.js:209:10)
+7 error     at PassThrough.Transform.push (_stream_transform.js:146:32)
+7 error     at PassThrough.afterTransform (_stream_transform.js:87:10)
+7 error     at PassThrough._transform (_stream_passthrough.js:42:3)
+7 error     at PassThrough.Transform._read (_stream_transform.js:185:10)
