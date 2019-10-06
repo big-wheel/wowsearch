@@ -1,0 +1,24 @@
+{
+  "sitemap_urls": [
+    "https://imcuttle.github.io/sitemap.xml"
+  ],
+  "concurrency": 5,
+  "source_adaptor": {
+    "name": "wowsearch-elastic-adaptor/node",
+    "options": {
+      "index_name": "imcuttle_github_io"
+    }
+  },
+  "selectors": {
+    "lvl0": {
+      "selector": ".post-title",
+      "global": true,
+      "default_value": "Documentation"
+    },
+    "lvl1": ".post-content h1",
+    "lvl2": ".post-content h2",
+    "lvl3": ".post-content h3",
+    "lvl4": ".post-content h4",
+    "text": ".post-content article p, .post-content article li, .post-content article pre"
+  }
+}

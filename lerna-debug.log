@@ -1,104 +1,19 @@
-0 silly input [ 'publish' ]
-1 silly flags { _: [ 'publish' ], 'reject-cycles': false, rejectCycles: false }
+0 silly argv { _: [ 'create' ],
+0 silly argv   lernaVersion: '3.16.4',
+0 silly argv   '$0': 'lerna',
+0 silly argv   name: 'wowsearch-crypto' }
+1 notice cli v3.16.4
 2 verbose rootPath /Users/yucong02/self/wowsearch
-3 info version 2.11.0
-4 silly isInitialized
-5 silly isInitialized true
-6 silly existsSync /Users/yucong02/self/wowsearch/VERSION
-7 silly initialize attempt
-8 info current version 0.0.3
-9 silly isDetachedHead
-10 silly getCurrentBranch
-11 verbose getCurrentBranch master
-12 verbose isDetachedHead false
-13 silly getCurrentBranch
-14 verbose getCurrentBranch master
-15 silly getUpdates
-16 info Checking for updated packages...
-17 silly hasTags
-18 verbose hasTags false
-19 info Comparing with initial commit.
-20 verbose updated wowsearch-elastic-adaptor
-21 verbose updated wowsearch-parse
-22 verbose updated wowsearch-standalone
-23 verbose updated wowsearch-ui
-24 verbose updated wowsearch
-25 info Checking for prereleased packages...
-26 silly collectDependents
-27 silly isPackageDependentOf wowsearch-elastic-adaptor wowsearch-elastic-adaptor
-28 silly isPackageDependentOf wowsearch-elastic-adaptor wowsearch-parse
-29 silly isPackageDependentOf wowsearch-elastic-adaptor wowsearch-standalone
-30 silly isPackageDependentOf wowsearch-elastic-adaptor wowsearch-ui
-31 silly isPackageDependentOf wowsearch-elastic-adaptor wowsearch
-32 silly isPackageDependentOf wowsearch-parse wowsearch-elastic-adaptor
-33 silly isPackageDependentOf wowsearch-parse wowsearch-parse
-34 silly isPackageDependentOf wowsearch-parse wowsearch-standalone
-35 silly isPackageDependentOf wowsearch-parse wowsearch-ui
-36 silly isPackageDependentOf wowsearch-parse wowsearch
-37 silly isPackageDependentOf wowsearch-standalone wowsearch-elastic-adaptor
-38 silly isPackageDependentOf wowsearch wowsearch-elastic-adaptor
-39 silly isPackageDependentOf wowsearch-standalone wowsearch-parse
-40 silly isPackageDependentOf wowsearch wowsearch-parse
-41 silly isPackageDependentOf wowsearch-standalone wowsearch-standalone
-42 silly isPackageDependentOf wowsearch wowsearch-standalone
-43 silly isPackageDependentOf wowsearch-standalone wowsearch-ui
-44 silly isPackageDependentOf wowsearch wowsearch-ui
-45 silly isPackageDependentOf wowsearch-standalone wowsearch
-46 verbose dependent wowsearch-standalone depends on wowsearch
-47 silly isPackageDependentOf wowsearch-ui wowsearch-elastic-adaptor
-48 silly isPackageDependentOf wowsearch-ui wowsearch-parse
-49 silly isPackageDependentOf wowsearch-ui wowsearch-standalone
-50 silly isPackageDependentOf wowsearch-ui wowsearch-ui
-51 silly isPackageDependentOf wowsearch-ui wowsearch
-52 silly isPackageDependentOf wowsearch wowsearch-elastic-adaptor
-53 silly isPackageDependentOf wowsearch wowsearch-parse
-54 silly isPackageDependentOf wowsearch wowsearch-standalone
-55 silly isPackageDependentOf wowsearch wowsearch-ui
-56 silly isPackageDependentOf wowsearch wowsearch
-57 silly collectUpdates
-58 verbose has filtered update wowsearch-elastic-adaptor
-59 verbose has filtered update wowsearch-parse
-60 verbose has filtered update wowsearch-standalone
-61 verbose has filtered update wowsearch-ui
-62 verbose has filtered update wowsearch
-63 silly initialize success
-64 silly execute attempt
-65 silly addFile /Users/yucong02/self/wowsearch/lerna.json
-66 silly runScriptSync preversion wowsearch
-67 silly runScriptSync preversion wowsearch-elastic-adaptor
-68 silly runScriptSync version wowsearch-elastic-adaptor
-69 silly runScriptInDirSync version [] wowsearch-elastic-adaptor
-70 silly getExecOpts { cwd: '/Users/yucong02/self/wowsearch/packages/wowsearch-elastic-adaptor' }
-71 silly runScriptSync preversion wowsearch-parse
-72 silly runScriptSync version wowsearch-parse
-73 silly runScriptInDirSync version [] wowsearch-parse
-74 silly getExecOpts { cwd: '/Users/yucong02/self/wowsearch/packages/wowsearch-parse' }
-75 silly runScriptSync preversion wowsearch-standalone
-76 silly runScriptSync version wowsearch-standalone
-77 silly runScriptInDirSync version [] wowsearch-standalone
-78 silly getExecOpts { cwd: '/Users/yucong02/self/wowsearch/packages/wowsearch-standalone' }
-79 silly runScriptSync preversion wowsearch-ui
-80 silly runScriptSync version wowsearch-ui
-81 silly runScriptSync preversion wowsearch
-82 silly runScriptSync version wowsearch
-83 silly runScriptInDirSync version [] wowsearch
-84 silly getExecOpts { cwd: '/Users/yucong02/self/wowsearch/packages/wowsearch' }
-85 silly runScriptSync version wowsearch
-86 silly addFile /Users/yucong02/self/wowsearch/packages/wowsearch-elastic-adaptor/package.json
-87 silly addFile /Users/yucong02/self/wowsearch/packages/wowsearch-parse/package.json
-88 error execute caught error
-89 error Error: fatal: Unable to create '/Users/yucong02/self/wowsearch/.git/index.lock': File exists.
-89 error
-89 error Another git process seems to be running in this repository, e.g.
-89 error an editor opened by 'git commit'. Please make sure all processes
-89 error are terminated then try again. If it still fails, a git process
-89 error may have crashed in this repository earlier:
-89 error remove the file manually to continue.
-89 error
-89 error     at Function.module.exports.sync (/Users/yucong02/self/wowsearch/node_modules/lerna/node_modules/execa/index.js:303:26)
-89 error     at Function.execSync (/Users/yucong02/self/wowsearch/node_modules/lerna/lib/ChildProcessUtilities.js:59:30)
-89 error     at Function.addFile (/Users/yucong02/self/wowsearch/node_modules/lerna/lib/GitUtilities.js:78:39)
-89 error     at /Users/yucong02/self/wowsearch/node_modules/lerna/lib/commands/PublishCommand.js:709:41
-89 error     at Array.forEach (<anonymous>)
-89 error     at PublishCommand.updateUpdatedPackages (/Users/yucong02/self/wowsearch/node_modules/lerna/lib/commands/PublishCommand.js:708:22)
-89 error     at PublishCommand.execute (/Users/yucong02/self/wowsearch/node_modules/lerna/lib/commands/PublishCommand.js:326:12)
+3 error Error: canceled
+3 error     at Interface.<anonymous> (/Users/yucong02/self/wowsearch/node_modules/read/lib/read.js:66:13)
+3 error     at Interface.emit (events.js:159:13)
+3 error     at Interface._ttyWrite (readline.js:786:16)
+3 error     at ReadStream.onkeypress (readline.js:165:10)
+3 error     at ReadStream.emit (events.js:159:13)
+3 error     at emitKeys (internal/readline.js:420:14)
+3 error     at emitKeys.next (<anonymous>)
+3 error     at ReadStream.onData (readline.js:1022:36)
+3 error     at ReadStream.emit (events.js:159:13)
+3 error     at addChunk (_stream_readable.js:265:12)
+3 error     at readableAddChunk (_stream_readable.js:252:11)
+3 error     at ReadStream.Readable.push (_stream_readable.js:209:10)

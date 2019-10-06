@@ -4,7 +4,7 @@
  * @date 2018/6/10
  * @description
  */
-import * as fetch from 'isomorphic-fetch'
+import * as fetch from 'got'
 import { parseString } from 'xml2js'
 import * as pify from 'pify'
 import * as uniq from 'lodash.uniq'
@@ -23,8 +23,8 @@ export function parseSitemapTXT(text: string): string[] {
 
 export default async function parseFromUrl(url: string) {
   debug('fetching %s', url)
-  const res = await fetch(url)
-  const text = await res.text()
+  const res = await fetch(encodeURI(url))
+  const text = await res.body
   if (
     res.headers.get('content-type') === 'application/xml' ||
     url.toLowerCase().endsWith('.xml')

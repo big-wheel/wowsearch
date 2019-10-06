@@ -1,31 +1,42 @@
 {
-	"name": "wowsearch-elastic-adaptor",
-	"author": "imcuttle",
-	"description": "wowsearch adaptor for elastic",
-	"publishConfig": {
-		"access": "public"
-	},
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/big-wheel/wowsearch.git"
-	},
-	"main": "dist/index.js",
-	"typings": "dist/index.d.js",
-	"keywords": [
-		"imcuttle",
-		"wowsearch-elastic-adaptor",
-		"wowsearch"
-	],
-	"engines": {
-		"node": ">=6"
-	},
-	"version": "0.0.5",
-	"dependencies": {
-		"@moyuyc/visit-tree": "^2.0.1",
-		"ky": "^0.14.0",
-		"ky-universal": "^0.3.0",
-		"lodash.template": "^4.5.0",
-		"url-join": "^4.0.1"
-	}
+  "name": "wowsearch-elastic-adaptor",
+  "author": "imcuttle",
+  "description": "wowsearch adaptor for elastic",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dist": "tsc",
+    "test": "jest",
+    "dev": "npm run dist -- -w",
+    "prepublishOnly": "npm run dist",
+    "version": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/big-wheel/wowsearch.git"
+  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.js",
+  "devDependencies": {
+    "wowsearch": "^0.0.5"
+  },
+  "keywords": [
+    "imcuttle",
+    "wowsearch-elastic-adaptor",
+    "wowsearch"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "version": "0.0.5",
+  "dependencies": {
+    "@moyuyc/visit-tree": "^2.0.1",
+    "ky": "^0.14.0",
+    "ky-universal": "^0.3.0",
+    "lodash.template": "^4.5.0",
+    "url-join": "^4.0.1",
+    "wowsearch-parse": "^0.0.5"
+  }
 }

@@ -23,6 +23,7 @@
     "version": "npm test"
   },
   "devDependencies": {
+    "wowsearch-elastic-adaptor": "^0.0.5",
     "read-json-sync": "^2.0.0",
     "typescript": "^3.6.3"
   },

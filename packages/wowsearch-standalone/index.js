@@ -8,7 +8,7 @@ const nps = require('path')
 const globby = require('globby')
 const findUp = require('find-up')
 
-module.exports = async ({ cwd = process.cwd(), configRootPath = nps.join(cwd, 'configs') } = {}) => {
+module.exports = async ({ cwd = process.cwd(), configRootPath = nps.join(cwd, 'configs'), transformConfig } = {}) => {
   const path = findUp.sync('.env', { cwd })
   path && require('dotenv').config({ path })
 
@@ -22,11 +22,17 @@ module.exports = async ({ cwd = process.cwd(), configRootPath = nps.join(cwd, 'c
   })
 
   for (const configFile of configFiles) {
-    const config = require(configFile)
+    let config = require(configFile)
+    if (typeof transformConfig === 'function') {
+      config = await transformConfig(configFile, config)
+    }
+    delete require.cache[configFile]
+
     try {
-      console.log(await wowsearch(config))
+      return await wowsearch(config)
     } catch (e) {
       console.error(e)
+      throw e
     }
   }
 }

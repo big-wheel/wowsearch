@@ -1,0 +1,48 @@
+{
+  "start_urls": [
+    "https://imcuttle.github.io/edam/index",
+    "https://imcuttle.github.io/edam/index_zh"
+  ],
+  "start_urls_patterns": [
+    {
+      "test": "https://imcuttle.github.io/edam/**/*_zh",
+      "tags": ["zh"]
+    },
+    {
+      "test": "https://imcuttle.github.io/edam/**/*",
+      "tags": ["en"]
+    }
+  ],
+  "sitemap_urls": [],
+  "js_render": false,
+  "anchor_selector": "a[name]",
+  "anchor_attribute_name": "name",
+  "concurrency": 5,
+  "smart_crawling": true,
+  "smart_crawling_selector": ".toc a[href], .headerWrapper a[href]",
+  "source_adaptor": {
+    "name": "wowsearch-elastic-adaptor/node",
+    "options": {
+      "index_name": "edam_doc"
+    }
+  },
+  "selectors": {
+    "lvl0": {
+      "selector": "//*[contains(@class,'navGroupActive')]//a[contains(@class,'navItemActive')]/preceding::h3[1]",
+      "type": "xpath",
+      "global": true,
+      "default_value": "Documentation"
+    },
+    "lvl1": {
+      "type": "css",
+      "global": true,
+      "selector": ".post h1"
+    },
+    "lvl2": ".post article h1",
+    "lvl3": ".post article h2",
+    "lvl4": ".post article h3",
+    "lvl5": ".post article h4",
+    "text": ".post article p, .post article li"
+  },
+  "selectors_exclude": [".hash-link"]
+}
