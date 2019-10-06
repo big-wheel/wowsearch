@@ -30,6 +30,6 @@
     "find-up": "^4.1.0",
     "globby": "^10.0.1",
     "wowsearch": "^0.0.5",
-    "wowsearch-elastic-adaptor": "^0.0.1"
+    "wowsearch-elastic-adaptor": "^0.0.5"
   }
 }
