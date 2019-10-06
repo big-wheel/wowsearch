@@ -47,16 +47,8 @@ module.exports = [
     plugins: []
   },
   {
-    externals,
-    output: {
-      filename: `${name}.esm.js`,
-      library: 'LIB',
-      libraryTarget: 'var'
-    },
-    plugins: [new EsmWebpackPlugin()]
-  },
-  {
     mode: 'production',
+    entry: './standalone.js',
     output: {
       filename: `${name}.standalone.js`,
       library: libraryName,

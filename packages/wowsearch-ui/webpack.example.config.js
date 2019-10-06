@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 
 module.exports = merge(require('./webpack.config'), {
+  devtool: 'source-map',
   entry: {
     example: './example/index.js'
   },

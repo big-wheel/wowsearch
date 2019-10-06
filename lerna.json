@@ -10,6 +10,9 @@
         "**/*.md"
       ]
     },
+    "run": {
+      "parallel": true
+    },
     "bootstrap": {
       "hoist": true,
       "nohoist": "wowsearch-ui",

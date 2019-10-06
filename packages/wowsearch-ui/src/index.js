@@ -25,7 +25,7 @@ export default function SearchUI({ fetcher }) {
   const fetchData = async value => {
     // todo error handler
     const list = await mFetcher(value);
-    setDataSource(list.results);
+    setDataSource(list);
   };
 
   const onChange = value => {
