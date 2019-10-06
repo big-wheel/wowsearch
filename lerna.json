@@ -12,6 +12,7 @@
     },
     "bootstrap": {
       "hoist": true,
+      "nohoist": "wowsearch-ui",
       "npmClientArgs": [
         "--no-package-lock"
       ]

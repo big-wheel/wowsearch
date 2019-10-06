@@ -11,13 +11,20 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 module.exports = {
   plugins: [
     new MiniCSSPlugin({
-      filename: '',
+      filename: 'style.css',
       chunkFilename: '[name].[id].css'
       // disable: isDev
     })
   ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        chunks: 'all'
+      }
+    }
+  },
+  context: __dirname,
   output: {
-    libraryTarget: 'umd'
   },
   devServer: {
     hot: true
