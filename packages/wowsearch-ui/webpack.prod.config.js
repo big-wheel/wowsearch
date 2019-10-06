@@ -56,13 +56,14 @@ module.exports = [
     plugins: [new EsmWebpackPlugin()]
   },
   {
+    mode: 'production',
     output: {
       filename: `${name}.standalone.js`,
       library: libraryName,
       libraryTarget: 'umd'
     },
   }
-].map(config => merge(require('./webpack.config'), config, {
+].map(config => merge(require('./webpack.config'), {
   devtool: false,
   mode: 'development'
-}))
+}, config))

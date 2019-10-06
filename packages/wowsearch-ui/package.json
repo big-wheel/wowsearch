@@ -6,6 +6,11 @@
     "dist": "rimraf dist && webpack --config=webpack.prod.config.js",
     "dev": "npm run dist"
   },
+  "browser": "dist/wowsearch-ui.umd.js",
+  "module": "dist/wowsearch-ui.esm.js",
+  "main": "dist/wowsearch-ui.cjs.js",
+  "cdn": "dist/wowsearch-ui.standalone.js",
+  "unpkg": "dist/wowsearch-ui.standalone.js",
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@purtuga/esm-webpack-plugin": "^1.1.1",
