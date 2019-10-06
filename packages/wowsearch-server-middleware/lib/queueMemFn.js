@@ -10,24 +10,11 @@ const PQueue = require('p-queue').default
 module.exports = (fn, { concurrency, isEqual = () => false } = {}) => {
   const queue = new PQueue({ concurrency })
   const cache = new Map()
-  const mFn = robust(fn, {cache})
-
-  return function() {
-    const argvs = Array.from(arguments)
-
-    queue.clear()
-
-    console.error(cache)
-
-    for (const key of cache.keys()) {
-      if (cache.get(key).this === this && isEqual(argvs, key)) {
-        return cache.get(key).result
-      }
-    }
-
+  const mFn = robust(function () {
     return queue.add(async () => {
+      const argvs = Array.from(arguments)
       try {
-        return await mFn.apply(this, arguments)
+        return await fn.apply(this, arguments)
       } finally {
         for (const key of cache.keys()) {
           if (cache.get(key).this === this && isEqual(argvs, key)) {
@@ -36,5 +23,18 @@ module.exports = (fn, { concurrency, isEqual = () => false } = {}) => {
         }
       }
     })
+  }, {cache})
+
+
+
+  return function() {
+    const argvs = Array.from(arguments)
+    for (const key of cache.keys()) {
+      if (cache.get(key).this === this && isEqual(argvs, key)) {
+        return cache.get(key).result
+      }
+    }
+
+    return mFn.apply(this, arguments)
   }
 }

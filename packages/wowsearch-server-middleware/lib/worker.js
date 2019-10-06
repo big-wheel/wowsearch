@@ -7,7 +7,7 @@
 const schedule = require('node-schedule')
 const {robust} = require('memoize-fn')
 const isEq = require('lodash.isequal')
-const queueFn = require('./queueFn')
+const queueFn = require('./queueMemFn')
 
 if (typeof process.send === 'function') {
   const [input] = process.argv.slice(2)
@@ -18,7 +18,7 @@ if (typeof process.send === 'function') {
     const ent = {}
     ent.start = new Date()
     try {
-      ent.result = await require(runTaskFile)(Object.assign(arg, {configFileGlob: glob}))
+      ent.result = await require(runTaskFile)(Object.assign({}, arg, {configFileGlob: glob}))
     } catch (e) {
       ent.error = e
     }

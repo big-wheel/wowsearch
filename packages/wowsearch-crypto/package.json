@@ -1,0 +1,38 @@
+{
+  "name": "wowsearch-crypto",
+  "version": "0.0.5",
+  "description": "Now I’m the model of a modern major general / The venerated Virginian veteran whose men are all / Lining up, to put me up on a pedestal / Writin’ letters to relatives / Embellishin’ my elegance and eloquence / But the elephant is in the room / The truth is in ya face when ya hear the British cannons go / BOOM",
+  "keywords": [],
+  "author": "imcuttle <moyuyc95@gmail.com>",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "bin": {
+    "wowsearch-crypto": "bin/wowsearch-crypto"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npm.taobao.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/big-wheel/wowsearch.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "optimist": "^0.6.1",
+    "concat-stream": "^2.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/big-wheel/wowsearch/issues"
+  },
+  "homepage": "https://github.com/big-wheel/wowsearch#readme"
+}

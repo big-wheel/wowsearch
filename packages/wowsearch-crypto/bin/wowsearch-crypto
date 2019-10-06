@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+
+const wowsearchCrypto = require('..')
+const concat = require('concat-stream')
+const cmd = require('optimist')
+  .usage('Usage: cat file | $0 -e [-d]')
+  .default({
+    encrypt: true,
+    decrypt: false,
+    help: false,
+    version: false,
+    publicKeyPath: wowsearchCrypto.defaultOptions.publicKeyPath,
+    privateKeyPath: wowsearchCrypto.defaultOptions.privateKeyPath,
+  })
+  .describe({
+    help: 'Show help',
+    version: 'Show version',
+    encrypt: 'Encrypt input',
+    decrypt: 'Decrypt input',
+    publicKeyPath: 'Assign the public key file, use $WOWSEARCH_CRYPTO_PUBLIC_KEY_PATH by default',
+    privateKeyPath: 'Assign the private key file, use $WOWSEARCH_CRYPTO_PRIVATE_KEY_PATH by default',
+  })
+  .alias({
+    help: 'h',
+    version: 'v',
+    encrypt: 'e',
+    decrypt: 'd',
+  })
+  .boolean(['encrypt', 'decrypt', 'help', 'version'])
+
+if (cmd.argv.help) {
+  return cmd.showHelp()
+} else if (cmd.argv.version) {
+  console.log(require('../package').version)
+} else {
+  process.stdin.pipe(concat(string => {
+    const input = String(string)
+    const cry = wowsearchCrypto({
+      publicKeyPath: cmd.argv.publicKeyPath,
+      privateKeyPath: cmd.argv.privateKeyPath
+    })
+
+    if (cmd.argv.decrypt) {
+      console.log(cry.decrypt(input))
+    } else {
+      console.log(cry.encrypt(input))
+    }
+  }))
+}
