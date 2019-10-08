@@ -15,7 +15,7 @@ const parse = (html, config) => {
 }
 
 // TODO performance
-describe('parseElementTree', function() {
+describe.only('parseElementTree', function() {
   it('spec wiki', async function () {
     const docNode = await parse(
       readFileSync(makeFixture('wiki.html')).toString(),
