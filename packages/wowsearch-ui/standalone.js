@@ -11,6 +11,6 @@ import UI from './src'
 
 const exported = pizza(UI)
 
-exported.elasticAdaptor = escape
+exported.elasticAdaptor = elastic
 
-export default exported
+module.exports = exported
