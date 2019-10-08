@@ -27,6 +27,7 @@ if (typeof process.send === 'function') {
           Object.assign({}, arg, { configFileGlob: glob })
         )
       } catch (e) {
+        console.error(e)
         ent.error = e
       }
       ent.end = new Date()
