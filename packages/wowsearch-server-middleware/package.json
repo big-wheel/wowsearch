@@ -1,7 +1,6 @@
 {
   "name": "wowsearch-server-middleware",
   "version": "0.0.5",
-  "private": true,
   "description": "> TODO: description",
   "author": "imcuttle <moyuyc95@gmail.com>",
   "homepage": "https://github.com/big-wheel/wowsearch#readme",
