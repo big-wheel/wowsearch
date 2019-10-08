@@ -11,6 +11,7 @@ import {
 import * as got from 'got'
 import { JSDOM } from 'jsdom'
 import * as each from 'lodash.foreach'
+// @ts-ignore
 import * as filterObj from 'filter-obj'
 
 import makeCheck from './makeCheckUrl'

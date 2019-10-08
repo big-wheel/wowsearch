@@ -20,7 +20,8 @@
   "scripts": {
     "dist": "rimraf dist && tsc",
     "dev": "npm run dist -- -w",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "npm run dist"
   },
   "devDependencies": {
     "read-json-sync": "^2.0.0",
@@ -44,5 +45,5 @@
       "**/__test{s,}__/*.(spec|test).{t,j}s{x,}"
     ]
   },
-  "gitHead": "f75c52b203fa1b8c1a085a2800495566a1e1ab02"
+  "gitHead": "7b4bde8b2f6a93a606f5cd8bb1503b9d2be23e27"
 }

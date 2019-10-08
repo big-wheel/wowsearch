@@ -3,7 +3,8 @@
   "version": "0.0.7",
   "scripts": {
     "example": "webpack-dev-server --config=webpack.example.config.js",
-    "dist": "rimraf dist && webpack --config=webpack.prod.config.js"
+    "dist": "rimraf dist && webpack --config=webpack.prod.config.js",
+    "prepublishOnly": "npm run dist"
   },
   "browser": "dist/wowsearch-ui.umd.js",
   "main": "dist/wowsearch-ui.cjs.js",
@@ -40,5 +41,5 @@
     "rc-select": "^10.0.0-alpha.24",
     "react-pizza": "^0.1.2"
   },
-  "gitHead": "f75c52b203fa1b8c1a085a2800495566a1e1ab02"
+  "gitHead": "7b4bde8b2f6a93a606f5cd8bb1503b9d2be23e27"
 }

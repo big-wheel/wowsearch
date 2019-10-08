@@ -6,7 +6,6 @@
  */
 const path = require('path')
 const merge = require('webpack-merge')
-const EsmWebpackPlugin = require('@purtuga/esm-webpack-plugin')
 const { name } = require('./package')
 
 const externals =
