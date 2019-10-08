@@ -33,7 +33,7 @@
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.1",
     "webpack-merge": "^4.2.2",
-    "wowsearch-elastic-adaptor": "^0.0.5"
+    "wowsearch-elastic-adaptor": "^0.0.8"
   },
   "dependencies": {
     "memoize-fn": "^1.0.1",
@@ -41,5 +41,5 @@
     "rc-select": "^10.0.0-alpha.24",
     "react-pizza": "^0.1.2"
   },
-  "gitHead": "7b4bde8b2f6a93a606f5cd8bb1503b9d2be23e27"
+  "gitHead": "7e374068a358f2987457fd03d8178dbdcee78b85"
 }

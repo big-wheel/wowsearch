@@ -28,8 +28,8 @@
     "dotenv": "^8.1.0",
     "find-up": "^4.1.0",
     "globby": "^10.0.1",
-    "wowsearch": "^0.0.5",
-    "wowsearch-elastic-adaptor": "^0.0.5"
+    "wowsearch": "^0.0.8",
+    "wowsearch-elastic-adaptor": "^0.0.8"
   },
   "gitHead": "7b4bde8b2f6a93a606f5cd8bb1503b9d2be23e27"
 }
