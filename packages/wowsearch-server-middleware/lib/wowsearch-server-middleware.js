@@ -16,10 +16,12 @@ function wowsearchServerMiddleware(
     runTaskFile,
     scheduleInput = '0 0 * * 0',
     browserViewRoute = '/fileman',
+    browserViewOptions = '/fileman',
     publicKeyPath,
     publicKey,
     privateKeyPath,
-    privateKey
+    privateKey,
+    disableFileman
   } = {}
 ) {
   return [
@@ -33,6 +35,6 @@ function wowsearchServerMiddleware(
       publicKeyPath,
       privateKeyPath
     }),
-    fileman(workPath, { token: token, enableDelete, browserViewRoute })
-  ]
+    !disableFileman && fileman(workPath, { token: token, enableDelete, browserViewRoute, browserViewOptions })
+  ].filter(Boolean)
 }
