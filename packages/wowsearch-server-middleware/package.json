@@ -18,6 +18,7 @@
     "supertest": "^4.0.2"
   },
   "dependencies": {
+    "map-obj": "^4.1.0",
     "express": "^4.17.1",
     "express-restful-fileman": "^3.2.3",
     "lodash.isequal": "^4.5.0",
