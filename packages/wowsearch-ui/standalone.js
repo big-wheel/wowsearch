@@ -13,4 +13,4 @@ const exported = pizza(UI)
 
 exported.elasticAdaptor = elastic
 
-module.exports = exported
+export default exported

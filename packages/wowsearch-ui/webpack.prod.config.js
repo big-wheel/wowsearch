@@ -47,8 +47,10 @@ module.exports = [
   },
   {
     mode: 'production',
+    devtool: 'source-map',
     entry: './standalone.js',
     output: {
+      libraryExport: 'default',
       filename: `${name}.standalone.js`,
       library: libraryName,
       libraryTarget: 'umd'
