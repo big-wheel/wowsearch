@@ -124,7 +124,7 @@ export default async function wowsearch(config: Config): Promise<{}> {
 
   await queue.addAll(urls.map(url => createTask(url)))
   await queue.onIdle()
-  browser && (await browser.close())
+  !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] && browser && (await browser.close())
   debug('Start pushing')
   return await pushDocumentNodeMap(docMap, config)
 }

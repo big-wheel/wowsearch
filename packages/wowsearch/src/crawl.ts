@@ -215,7 +215,7 @@ export async function crawlByUrl(
       html = await page.evaluate(() => {
         return document.documentElement.outerHTML
       })
-      await page.close()
+      !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] && await page.close()
     } else {
       let res = await got.get(encodeURI(url), {
         headers: headers,
@@ -230,7 +230,7 @@ export async function crawlByUrl(
     }
   } finally {
     if (useBrowser !== browser) {
-      await useBrowser.close()
+      !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] && await useBrowser.close()
     }
   }
   debug('html: %s', html)

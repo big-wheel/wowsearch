@@ -1,0 +1,29 @@
+{
+  "sitemap_urls": [
+    "http://linky.dev.weiyun.baidu.com:8339/api/linky/sitemap.txt"
+  ],
+  "js_render": true,
+  "js_waitfor": ".linky-main-wrapper .node-markdown-content",
+  "concurrency": 2,
+  "smart_crawling": false,
+  "timeout": 3000,
+  "source_adaptor": {
+    "name": "wowsearch-elastic-adaptor/node",
+    "options": {
+      "index_name": "linky",
+      "url_tpl": "${url}"
+    }
+  },
+  "anchor_attribute_name": null,
+  "selectors": {
+    "lvl0": {
+      "global": true,
+      "selector": ".linky-main-wrapper .node-markdown-content > h1:first-child"
+    },
+    "lvl1": ".linky-main-wrapper .node-markdown-content > h1:not(:first-child)",
+    "lvl2": ".linky-main-wrapper .node-markdown-content > h2",
+    "lvl3": ".linky-main-wrapper .node-markdown-content > h3",
+    "lvl4": ".linky-main-wrapper .node-markdown-content > h4",
+    "text": ".linky-main-wrapper .node-markdown-content p, .linky-main-wrapper .node-markdown-content li, .linky-main-wrapper .node-markdown-content pre, .linky-main-wrapper .node-markdown-content table"
+  }
+}

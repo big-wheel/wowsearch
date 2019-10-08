@@ -5,7 +5,12 @@
  *
  */
 import * as pizza from 'react-pizza'
+import elastic from 'wowsearch-elastic-adaptor/browser'
 
 import UI from './src'
 
-export default pizza(UI)
+const exported = pizza(UI)
+
+exported.elasticAdaptor = escape
+
+export default exported

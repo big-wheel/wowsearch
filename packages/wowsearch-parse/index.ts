@@ -80,9 +80,11 @@ function getAnchor(elem: Element, selectorItem: StrictSelector) {
     anchor_selector = 'a[id]',
     anchor_attribute_name = 'id'
   } = selectorItem
+  if (!anchor_attribute_name) return
+
   let anchor = elem.getAttribute(anchor_attribute_name)
   if (!anchor) {
-    let tmpNode = selectOne(elem, anchor_selector)
+    let tmpNode = anchor_selector && selectOne(elem, anchor_selector)
     if (tmpNode) {
       return tmpNode.getAttribute(anchor_attribute_name)
     }

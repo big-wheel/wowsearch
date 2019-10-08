@@ -21,9 +21,10 @@ export function selectAll(
   selectorItem = normalizeSelector(selectorItem)
   if (!selectorItem) return []
 
+  let nodes = []
   if (selectorItem.selector) {
     if (selectorItem.type === 'css' || !selectorItem.type) {
-      return [].slice.apply(document.querySelectorAll(selectorItem.selector))
+      nodes = [].slice.apply(document.querySelectorAll(selectorItem.selector))
     } else {
       const documentElem = document.ownerDocument || document
       const selfNode = document
@@ -35,25 +36,26 @@ export function selectAll(
         null
       )
       let thisHeading = headings.iterateNext()
-      const array = []
       while (thisHeading) {
-        selfNode.contains(thisHeading) && array.push(thisHeading)
+        selfNode.contains(thisHeading) && nodes.push(thisHeading)
         thisHeading = headings.iterateNext()
       }
-      return array
     }
   }
 
-  return []
+  nodes && debug('selector: %s, matched nodes: %o.', selectorItem.selector, nodes.map(node => node.textContent))
+
+  return nodes
 }
 
 export function selectOne(document, selectorItem): Element {
   selectorItem = normalizeSelector(selectorItem)
   if (!selectorItem) return null
 
+  let node = null
   if (selectorItem.selector) {
     if (selectorItem.type === 'css' || !selectorItem.type) {
-      return document.querySelector(selectorItem.selector)
+      node = document.querySelector(selectorItem.selector)
     } else {
       const documentElem = document.ownerDocument || document
       const selfNode = document
@@ -66,14 +68,17 @@ export function selectOne(document, selectorItem): Element {
       let thisHeading = headings.iterateNext()
       while (thisHeading) {
         if (selfNode.contains(thisHeading)) {
-          return thisHeading
+          node =  thisHeading
+          break
         }
         thisHeading = headings.iterateNext()
       }
     }
   }
 
-  return null
+  node && debug('selector: %s, matched: %o.', selectorItem.selector, node.textContent)
+
+  return node
 }
 
 export default function selectVal(
@@ -86,7 +91,6 @@ export default function selectVal(
   let node = selectOne(document, selectorItem)
   if (node) {
     text = node.textContent
-    debug('selector: %s, matched: %o.', selectorItem.selector, text)
   }
 
   return {
@@ -131,7 +135,6 @@ export function stripChars(
   let node = selectOne(document, selectorItem)
   if (node) {
     text = node.textContent
-    debug('selector: %s, matched: %o.', selectorItem.selector, text)
   }
 
   return {
