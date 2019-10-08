@@ -36,10 +36,10 @@
   },
   "scripts": {
     "example": "node example",
-    "test": "jest",
-    "prepublishOnly": "npm test"
+    "test": "jest"
   },
   "bugs": {
     "url": "https://github.com/big-wheel/wowsearch/issues"
-  }
+  },
+  "gitHead": "f75c52b203fa1b8c1a085a2800495566a1e1ab02"
 }

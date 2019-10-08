@@ -10,8 +10,7 @@
     "dist": "rimraf dist && tsc",
     "test": "jest",
     "dev": "npm run dist -- -w",
-    "prepublishOnly": "npm run dist",
-    "version": "npm test"
+    "prepublishOnly": "npm run dist"
   },
   "repository": {
     "type": "git",
@@ -38,5 +37,6 @@
   "engines": {
     "node": ">=6"
   },
-  "version": "0.0.6"
+  "version": "0.0.6",
+  "gitHead": "f75c52b203fa1b8c1a085a2800495566a1e1ab02"
 }

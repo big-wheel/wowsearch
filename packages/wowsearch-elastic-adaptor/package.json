@@ -38,5 +38,6 @@
     "lodash.template": "^4.5.0",
     "url-join": "^4.0.1",
     "wowsearch-parse": "^0.0.6"
-  }
+  },
+  "gitHead": "f75c52b203fa1b8c1a085a2800495566a1e1ab02"
 }

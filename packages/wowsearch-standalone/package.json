@@ -30,5 +30,6 @@
     "globby": "^10.0.1",
     "wowsearch": "^0.0.5",
     "wowsearch-elastic-adaptor": "^0.0.5"
-  }
+  },
+  "gitHead": "f75c52b203fa1b8c1a085a2800495566a1e1ab02"
 }

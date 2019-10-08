@@ -8,8 +8,7 @@
     "bootstrap": "PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org lerna bootstrap",
     "test": "jest",
     "release": "npm test && lerna publish",
-    "dev": "lerna run dev --parallel",
-    "prepublishOnly": "npm test"
+    "dev": "lerna run dev --parallel"
   },
   "keywords": [
     "wowsearch"
