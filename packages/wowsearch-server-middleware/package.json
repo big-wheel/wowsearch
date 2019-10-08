@@ -28,7 +28,6 @@
     "wowsearch-standalone": "^0.0.6"
   },
   "publishConfig": {
-    "registry": "https://registry.npm.taobao.org"
   },
   "repository": {
     "type": "git",
