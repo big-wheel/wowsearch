@@ -24,7 +24,7 @@
     "memoize-fn": "^1.0.1",
     "node-schedule": "^1.3.2",
     "p-queue": "^6.1.1",
-    "wowsearch-crypto": "^0.0.5",
+    "wowsearch-crypto": "^0.0.6",
     "wowsearch-standalone": "^0.0.6"
   },
   "publishConfig": {
