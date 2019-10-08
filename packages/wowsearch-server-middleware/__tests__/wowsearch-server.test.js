@@ -53,6 +53,7 @@ describe('wowsearch-server', () => {
             if (err) {
               return done(err)
             }
+            done()
           })
       })
   })

@@ -21,14 +21,6 @@ function wowsearchServerMiddleware(
     privateKey,
   } = {}
 ) {
-  if (!publicKeyPath || !publicKey) {
-    throw new Error('publicKeyPath or publicKey is required')
-  }
-
-  if (!privateKeyPath || !privateKey) {
-    throw new Error('privateKeyPath or privateKey is required')
-  }
-
   return [
     makeRouter({
       workPath,
