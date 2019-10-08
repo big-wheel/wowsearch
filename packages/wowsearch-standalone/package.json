@@ -8,8 +8,7 @@
   "license": "MIT",
   "scripts": {
     "example": "node example/index.js",
-    "test": "jest",
-    "version": "npm test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",

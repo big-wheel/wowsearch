@@ -1,6 +1,6 @@
 {
   "name": "wowsearch-crypto",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Now I’m the model of a modern major general / The venerated Virginian veteran whose men are all / Lining up, to put me up on a pedestal / Writin’ letters to relatives / Embellishin’ my elegance and eloquence / But the elephant is in the room / The truth is in ya face when ya hear the British cannons go / BOOM",
   "keywords": [],
   "author": "imcuttle <moyuyc95@gmail.com>",
@@ -28,8 +28,8 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "optimist": "^0.6.1",
-    "concat-stream": "^2.0.0"
+    "concat-stream": "^2.0.0",
+    "optimist": "^0.6.1"
   },
   "bugs": {
     "url": "https://github.com/big-wheel/wowsearch/issues"

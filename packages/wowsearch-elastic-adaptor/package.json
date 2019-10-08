@@ -10,8 +10,7 @@
     "dist": "tsc",
     "test": "jest",
     "dev": "npm run dist -- -w",
-    "prepublishOnly": "npm run dist",
-    "version": "npm test"
+    "prepublishOnly": "npm run dist"
   },
   "repository": {
     "type": "git",
@@ -20,7 +19,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.js",
   "devDependencies": {
-    "wowsearch": "^0.0.5"
+    "wowsearch": "^0.0.6"
   },
   "keywords": [
     "imcuttle",
@@ -30,7 +29,7 @@
   "engines": {
     "node": ">=6"
   },
-  "version": "0.0.5",
+  "version": "0.0.6",
   "dependencies": {
     "@moyuyc/visit-tree": "^2.0.1",
     "is-plain-object": "^3.0.0",
@@ -38,6 +37,6 @@
     "ky-universal": "^0.3.0",
     "lodash.template": "^4.5.0",
     "url-join": "^4.0.1",
-    "wowsearch-parse": "^0.0.5"
+    "wowsearch-parse": "^0.0.6"
   }
 }

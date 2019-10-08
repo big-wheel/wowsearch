@@ -7,7 +7,7 @@
   "scripts": {
     "bootstrap": "PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org lerna bootstrap",
     "test": "jest",
-    "release": "lerna publish",
+    "release": "npm test && lerna publish",
     "dev": "lerna run dev --parallel",
     "prepublishOnly": "npm test"
   },
