@@ -48,7 +48,7 @@ module.exports = [
   {
     mode: 'production',
     devtool: 'source-map',
-    entry: './standalone.js',
+    entry: './standalone-entry.js',
     output: {
       libraryExport: 'default',
       filename: `${name}.standalone.js`,

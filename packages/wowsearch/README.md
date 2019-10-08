@@ -7,7 +7,7 @@
 爬虫程序最大并发数量
 
 - Type: `number`
-- Default: `cpus().length - 1`
+- Default: `Math.max(cpus().length - 1, 1)`
 
 #### `js_render`
 

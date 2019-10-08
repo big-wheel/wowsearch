@@ -6,6 +6,7 @@
     "dist": "rimraf dist && webpack --config=webpack.prod.config.js",
     "prepublishOnly": "npm run dist"
   },
+  "description": "官方搜索 UI 组件",
   "browser": "dist/wowsearch-ui.umd.js",
   "main": "dist/wowsearch-ui.cjs.js",
   "cdn": "dist/wowsearch-ui.standalone.js",

@@ -1,7 +1,7 @@
 {
   "name": "wowsearch-server-middleware",
   "version": "0.0.13",
-  "description": "> TODO: description",
+  "description": "A http middleware with wowsearch crawling corntab, schedule crawling and config encryption.",
   "author": "imcuttle <moyuyc95@gmail.com>",
   "homepage": "https://github.com/big-wheel/wowsearch#readme",
   "license": "ISC",

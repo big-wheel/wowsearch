@@ -16,6 +16,7 @@ module.exports = ({
   publicKeyPath,
   privateKey,
   privateKeyPath,
+  concurrency,
   scheduleInput,
   runTaskFile,
   workPath
@@ -24,6 +25,7 @@ module.exports = ({
     nps.join(__dirname, 'worker.js'),
     [
       JSON.stringify({
+        concurrency,
         publicKey,
         publicKeyPath,
         privateKey,
@@ -66,7 +68,7 @@ module.exports = ({
         res.json(runDateList)
       })
       .get('/public-key', (req, res) => {
-        res.end(fs.readFileSync(publicKeyPath).toString())
+        res.end(publicKey || fs.readFileSync(publicKeyPath).toString())
       }),
     {
       childProcessor: child

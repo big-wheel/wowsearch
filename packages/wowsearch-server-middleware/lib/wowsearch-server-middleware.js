@@ -11,6 +11,7 @@ function wowsearchServerMiddleware(
   workPath,
   {
     token,
+    concurrency,
     enableDelete = true,
     runTaskFile,
     scheduleInput = '0 0 * * 0',
@@ -18,7 +19,7 @@ function wowsearchServerMiddleware(
     publicKeyPath,
     publicKey,
     privateKeyPath,
-    privateKey,
+    privateKey
   } = {}
 ) {
   return [
@@ -27,6 +28,7 @@ function wowsearchServerMiddleware(
       runTaskFile,
       scheduleInput,
       privateKey,
+      concurrency,
       publicKey,
       publicKeyPath,
       privateKeyPath

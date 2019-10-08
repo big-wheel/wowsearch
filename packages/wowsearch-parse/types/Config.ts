@@ -133,7 +133,7 @@ export function normalize(config: Config) {
 
   config = Object.assign(
     {
-      concurrency: cpus().length - 1,
+      concurrency: Math.max(cpus().length - 1, 1),
       timeout: 30000,
       strip_chars: ' .,;:§¶',
       js_render: false,

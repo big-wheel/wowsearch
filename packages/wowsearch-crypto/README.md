@@ -1,6 +1,6 @@
 # `wowsearch-crypto`
 
-> TODO: description
+> 公钥加密，私钥解密工具
 
 ## Usage
 
@@ -8,6 +8,4 @@
 npm -g i wowsearch-crypto
 
 wowsearch-crypto --help
-
-// TODO: DEMONSTRATE API
 ```

@@ -6,33 +6,38 @@
  */
 import * as join from 'url-join'
 import ky from 'ky-universal'
+import * as merge from 'lodash.merge'
 
 export default ({
   endpoint = 'http://localhost:9200/',
   index_name = null,
-  size = 10
+  size = 10,
+  data = {}
 } = {}) => {
   return {
     async fetcher(value) {
       let body: any = await ky
         .post(join(endpoint, index_name, '_search'), {
-          json: {
-            query: {
-              multi_match: {
-                query: value,
-                fields: ['content', 'anchor'],
-                fuzziness: 'AUTO'
-              }
+          json: merge(
+            {
+              query: {
+                multi_match: {
+                  query: value,
+                  fields: ['content', 'anchor'],
+                  fuzziness: 'AUTO'
+                }
+              },
+              highlight: {
+                pre_tags: ['<span class="wowsearch-highlight">'],
+                post_tags: ['</span>'],
+                fields: {
+                  content: {}
+                }
+              },
+              size
             },
-            highlight: {
-              pre_tags: ['<span class="wowsearch-highlight">'],
-              post_tags: ['</span>'],
-              fields: {
-                content: {}
-              }
-            },
-            size
-          }
+            data
+          )
           // mode: 'no-cors'
         })
         .json()

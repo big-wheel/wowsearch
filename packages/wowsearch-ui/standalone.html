@@ -5,10 +5,43 @@
     <title>Title</title>
     <link rel="stylesheet" href="./dist/style.css" />
     <script src="./dist/wowsearch-ui.standalone.js"></script>
+    <script src="../wowsearch-server-middleware/lib/router.js"></script>
   </head>
   <body>
-  <script>
-    console.log(WowsearchUI)
-  </script>
+  <div>
+    <style>
+      .wowsearch-ui-wrapper {
+        display: flex;
+      }
+      #index_name {
+        flex: 1;
+      }
+      #root {
+        flex: 3;
+      }
+    </style>
+    <div class="wowsearch-ui-wrapper">
+      <input id="index_name" value="" placeholder="请输入你的索引名" />
+      <div id="root"></div>
+    </div>
+    <script>
+      (function() {
+        var index_input = window.index_name;
+        index_input.addEventListener('change', function (evt) {
+          render(evt.target.value.trim() || '_all');
+        });
+        render('_all');
+
+        function render(index_name) {
+          instance = WowsearchUI('#root', Object.assign(WowsearchUI.elasticAdaptor({
+            index_name: index_name
+          }), {
+
+          }));
+        }
+
+      })()
+    </script>
+  </div>
   </body>
 </html>

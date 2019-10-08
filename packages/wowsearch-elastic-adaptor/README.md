@@ -5,6 +5,8 @@
 
 wowsearch adaptor for elastic
 
+区分 node 环境和 browser 环境适配器，node 环境适配器主要是将数据推送至 elasticsearch 远端，browser 适配器主要是为 wowsearch-ui 提供获取数据的方式。
+
 ## Installation
 
 ```bash
@@ -14,6 +16,8 @@ yarn add wowsearch-elastic-adaptor
 ```
 
 ## Usage
+
+### `wowsearch-elastic-adaptor/node`
 
 - `wowsearch config`
 
@@ -26,6 +30,18 @@ source_adaptor: {
     // "url_tpl": ""
   }
 }
+```
+
+### `wowsearch-elastic-adaptor/browser`
+
+```
+import UI from 'wowsearch-ui'
+import adaptor from 'wowsearch-elastic-adaptor'
+
+ReactDOM.render(
+  <UI {...adaptor({index_name: 'foo'})}/>
+  // ...
+)
 ```
 
 ## API
@@ -47,6 +63,21 @@ elasticsearch 的服务端地址
 拼凑某数据节点完整地址的模板，一般在使用 hash 路由的站点，需要设置为 `'${url}'`
 
 - Default: '${url}#${anchor}'
+
+### `wowsearch-elastic-adaptor/browser`
+
+#### `index_name`
+
+同上
+
+#### `endpoint`
+
+同上
+
+#### `data`
+
+额外外注入的请求数据
+
 
 ## Authors
 
