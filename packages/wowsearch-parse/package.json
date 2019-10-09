@@ -37,6 +37,6 @@
   "engines": {
     "node": ">=6"
   },
-  "version": "0.0.16",
+  "version": "0.0.17",
   "gitHead": "8a5561d69d911226621f7458fd7173793e392b9b"
 }
