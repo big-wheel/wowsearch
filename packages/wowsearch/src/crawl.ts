@@ -20,8 +20,8 @@ import * as u from 'url'
 import parseElementTree from 'wowsearch-parse'
 import selectVal, { selectAll } from 'wowsearch-parse/dist/selectVal'
 import DocumentNode from 'wowsearch-parse/dist/types/DocumentNode'
-import {EventEmitter} from "events";
-import {func} from "prop-types";
+import { EventEmitter } from 'events'
+import { func } from 'prop-types'
 
 const debug = require('debug')('wowsearch:crawl')
 
@@ -146,25 +146,28 @@ export async function createBrowser(timeout) {
   return await puppeteer.launch({
     headless: !process.env.WOWSEARCH_NO_HEADLESS,
     timeout,
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage'
+    ]
   })
 }
 
 export async function createGetLivingBrowser(timeout) {
-  let browser = await createBrowser(timeout) as any
+  let browser = (await createBrowser(timeout)) as any
 
   return async () => {
     if (browser && browser.isConnected()) {
       return browser
     }
     if (browser) {
-      browser.close()
+      await browser.close()
     }
-    browser = await createBrowser(timeout) as any
+    browser = (await createBrowser(timeout)) as any
     return browser
   }
 }
-
 
 export async function pushDocumentNode(
   documentNode: DocumentNode,
@@ -208,8 +211,9 @@ export async function crawlByUrl(
   try {
     if (config.js_render) {
       // @ts-ignore
-      useGetBrowser = getBrowser || await createGetLivingBrowser(config.timeout)
-      const page = await useGetBrowser().newPage()
+      useGetBrowser =
+        getBrowser || (await createGetLivingBrowser(config.timeout))
+      const page = await (await useGetBrowser()).newPage()
       await page.setExtraHTTPHeaders(headers)
       if (cookie) {
         const cookies = parseString(cookie)
@@ -223,7 +227,7 @@ export async function crawlByUrl(
             secure: false,
             session: false,
             size: cookie.value.length + cookie.name.length,
-            ...cookie,
+            ...cookie
           })
         }
       }
@@ -236,7 +240,7 @@ export async function crawlByUrl(
       html = await page.evaluate(() => {
         return document.documentElement.outerHTML
       })
-      !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] && await page.close()
+      !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] && (await page.close())
     } else {
       let res = await got.get(encodeURI(url), {
         headers: headers,
@@ -251,7 +255,8 @@ export async function crawlByUrl(
     }
   } finally {
     if (useGetBrowser !== getBrowser) {
-      !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] && await useGetBrowser().close()
+      !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] &&
+        (await (await useGetBrowser()).close())
     }
   }
   debug('html: %s', html)
