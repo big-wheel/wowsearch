@@ -14,7 +14,8 @@ import {
   crawlByUrl,
   pushDocumentNode,
   createBrowser,
-  pushDocumentNodeMap, createGetLivingBrowser
+  pushDocumentNodeMap,
+  createGetLivingBrowser
 } from './src/crawl'
 import match, { isRule, Rule } from 'wowsearch-parse/dist/match'
 import parseSitemap from './src/parseSitemap'
@@ -100,10 +101,6 @@ export default async function wowsearch(config: Config): Promise<{}> {
         config,
         getBrowser
       )
-      if (documentNode) {
-        documentNode.urlRule = rule
-        docMap[url] = documentNode
-      }
 
       if (smartCrawlingUrls && smartCrawlingUrls.length) {
         const notWalkedUrls = smartCrawlingUrls.filter(
@@ -113,18 +110,24 @@ export default async function wowsearch(config: Config): Promise<{}> {
         queue.addAll(notWalkedUrls.map(ent => createTask(ent)))
       }
 
-      debug(
-        'Done crawl page: %s, left %s tasks',
-        url,
-        // except self
-        queue.size + queue.pending - 1
-      )
+      if (documentNode) {
+        documentNode.urlRule = rule
+        docMap[url] = documentNode
+        debug(
+          'Crawl page successfully: %s, left %s tasks',
+          url,
+          // except self
+          queue.size + queue.pending - 1
+        )
+      }
     }
   }
 
   await queue.addAll(urls.map(url => createTask(url)))
   await queue.onIdle()
-  !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] && getBrowser && (await getBrowser().close())
+  !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] &&
+    getBrowser &&
+    (await getBrowser().close())
   debug('Start pushing')
   return await pushDocumentNodeMap(docMap, config)
 }
