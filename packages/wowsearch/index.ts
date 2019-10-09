@@ -14,7 +14,7 @@ import {
   crawlByUrl,
   pushDocumentNode,
   createBrowser,
-  pushDocumentNodeMap
+  pushDocumentNodeMap, createGetLivingBrowser
 } from './src/crawl'
 import match, { isRule, Rule } from 'wowsearch-parse/dist/match'
 import parseSitemap from './src/parseSitemap'
@@ -85,9 +85,9 @@ export default async function wowsearch(config: Config): Promise<{}> {
   const urls = await getUrlList(config)
   const queue = new PQueue({ concurrency })
   const history = new Map<string, any>()
-  let browser
+  let getBrowser
   if (config.js_render) {
-    browser = await createBrowser(config.timeout)
+    getBrowser = await createGetLivingBrowser(config.timeout)
   }
 
   const createTask = (ent: MatchedUrlEntity) => {
@@ -98,7 +98,7 @@ export default async function wowsearch(config: Config): Promise<{}> {
       const { documentNode, smartCrawlingUrls } = await crawlByUrl(
         url,
         config,
-        browser
+        getBrowser
       )
       if (documentNode) {
         documentNode.urlRule = rule
@@ -124,7 +124,7 @@ export default async function wowsearch(config: Config): Promise<{}> {
 
   await queue.addAll(urls.map(url => createTask(url)))
   await queue.onIdle()
-  !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] && browser && (await browser.close())
+  !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] && getBrowser && (await getBrowser().close())
   debug('Start pushing')
   return await pushDocumentNodeMap(docMap, config)
 }

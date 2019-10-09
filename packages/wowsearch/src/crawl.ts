@@ -20,6 +20,8 @@ import * as u from 'url'
 import parseElementTree from 'wowsearch-parse'
 import selectVal, { selectAll } from 'wowsearch-parse/dist/selectVal'
 import DocumentNode from 'wowsearch-parse/dist/types/DocumentNode'
+import {EventEmitter} from "events";
+import {func} from "prop-types";
 
 const debug = require('debug')('wowsearch:crawl')
 
@@ -144,9 +146,25 @@ export async function createBrowser(timeout) {
   return await puppeteer.launch({
     headless: !process.env.WOWSEARCH_NO_HEADLESS,
     timeout,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
   })
 }
+
+export async function createGetLivingBrowser(timeout) {
+  let browser = await createBrowser(timeout) as any
+
+  return async () => {
+    if (browser && browser.isConnected()) {
+      return browser
+    }
+    if (browser) {
+      browser.close()
+    }
+    browser = await createBrowser(timeout) as any
+    return browser
+  }
+}
+
 
 export async function pushDocumentNode(
   documentNode: DocumentNode,
@@ -173,7 +191,7 @@ export async function pushDocumentNodeMap(
 export async function crawlByUrl(
   url: string,
   config: CrawlerConfig,
-  browser?: any
+  getBrowser?: () => Promise<any>
 ): Promise<CrawlResult> {
   let html
   let useBrowser
@@ -185,11 +203,13 @@ export async function crawlByUrl(
     },
     (key, value) => !!value
   )
+  let useGetBrowser
+
   try {
     if (config.js_render) {
       // @ts-ignore
-      useBrowser = browser || (await createBrowser(config.timeout))
-      const page = await useBrowser.newPage()
+      useGetBrowser = getBrowser || await createGetLivingBrowser(config.timeout)
+      const page = await useGetBrowser().newPage()
       await page.setExtraHTTPHeaders(headers)
       if (cookie) {
         const cookies = parseString(cookie)
@@ -230,8 +250,8 @@ export async function crawlByUrl(
       smartCrawlingUrls: []
     }
   } finally {
-    if (useBrowser !== browser) {
-      !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] && await useBrowser.close()
+    if (useGetBrowser !== getBrowser) {
+      !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] && await useGetBrowser().close()
     }
   }
   debug('html: %s', html)
