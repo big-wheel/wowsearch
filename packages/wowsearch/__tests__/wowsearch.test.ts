@@ -11,7 +11,7 @@ import { makeFixture } from './help'
 import { default as wowsearch, getUrlList } from '../index'
 
 describe('wowsearch', function() {
-  it('getUrlList', async function() {
+  it.skip('getUrlList', async function() {
     const urls = await getUrlList(
       {
         selectors: {},

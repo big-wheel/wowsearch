@@ -41,6 +41,7 @@ if (typeof process.send === 'function') {
 
   scheduleInput &&
     schedule.scheduleJob(scheduleInput, () => {
+      console.log('Run schedule Job')
       run(arg)
     })
 
