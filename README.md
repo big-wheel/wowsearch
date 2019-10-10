@@ -36,4 +36,4 @@ passed && console.log('wowsearch! 完成了站点数据爬取，同时推送至�
 
 ### Todo
 
-- [ ] cookie 权限？保密性+ 用户
+- [x] cookie 权限？保密性+ 用户
