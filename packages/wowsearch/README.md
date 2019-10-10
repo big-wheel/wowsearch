@@ -17,6 +17,18 @@
 - Type: `boolean`
 - Default: `false`
 
+#### `js_render_options`
+
+使用 `puppeteer.launch` 需要传入的 `options`
+```
+await puppeteer.launch(
+  js_render_options
+)
+```
+**注意：该选项适合于 `js_render = true`**
+
+- Type: `{}`
+
 #### `js_waitfor`
 
 查看[`waitFor`](https://github.com/GoogleChrome/puppeteer/blob/v1.20.0/docs/api.md#pagewaitforselectororfunctionortimeout-options-args)

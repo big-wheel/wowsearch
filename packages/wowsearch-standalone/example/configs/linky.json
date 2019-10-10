@@ -6,7 +6,7 @@
   "js_waitfor": ".linky-main-wrapper .node-markdown-content",
   "concurrency": 2,
   "smart_crawling": false,
-  "timeout": 3000,
+  "timeout": 20000,
   "source_adaptor": {
     "name": "wowsearch-elastic-adaptor/node",
     "options": {

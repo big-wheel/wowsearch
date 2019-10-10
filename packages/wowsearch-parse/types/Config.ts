@@ -68,6 +68,7 @@ export type CrawlerConfig = CommonConfig & {
   request_headers?: {}
   request_cookie?: string
   js_render?: boolean
+  js_render_options?: {}
   js_waitfor?: string | number | Function
   start_urls?: Array<string>
   start_urls_patterns?: Array<Rule>

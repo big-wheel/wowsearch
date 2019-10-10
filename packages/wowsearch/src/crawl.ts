@@ -141,7 +141,7 @@ export function crawl(
   }
 }
 
-export async function createBrowser(timeout) {
+export async function createBrowser(timeout, options) {
   const puppeteer = require('puppeteer')
   return await puppeteer.launch({
     headless: !process.env.WOWSEARCH_NO_HEADLESS,
@@ -150,12 +150,13 @@ export async function createBrowser(timeout) {
       '--no-sandbox',
       '--disable-setuid-sandbox',
       '--disable-dev-shm-usage'
-    ]
+    ],
+    ...options
   })
 }
 
-export async function createGetLivingBrowser(timeout) {
-  let browser = (await createBrowser(timeout)) as any
+export async function createGetLivingBrowser(timeout, options) {
+  let browser = (await createBrowser(timeout, options)) as any
 
   return async () => {
     if (browser && browser.isConnected()) {
@@ -164,7 +165,7 @@ export async function createGetLivingBrowser(timeout) {
     if (browser) {
       await browser.close()
     }
-    browser = (await createBrowser(timeout)) as any
+    browser = (await createBrowser(timeout, options)) as any
     return browser
   }
 }
@@ -212,7 +213,7 @@ export async function crawlByUrl(
     if (config.js_render) {
       // @ts-ignore
       useGetBrowser =
-        getBrowser || (await createGetLivingBrowser(config.timeout))
+        getBrowser || (await createGetLivingBrowser(config.timeout, config.js_render_options))
       const page = await (await useGetBrowser()).newPage()
       await page.setExtraHTTPHeaders(headers)
       if (cookie) {

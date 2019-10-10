@@ -88,7 +88,7 @@ export default async function wowsearch(config: Config): Promise<{}> {
   const history = new Map<string, any>()
   let getBrowser
   if (config.js_render) {
-    getBrowser = await createGetLivingBrowser(config.timeout)
+    getBrowser = await createGetLivingBrowser(config.timeout, config.js_render_options)
   }
 
   const createTask = (ent: MatchedUrlEntity) => {
