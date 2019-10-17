@@ -6,7 +6,7 @@
   "source_adaptor": {
     "name": "wowsearch-elastic-adaptor/node",
     "options": {
-      "index_name": "imcuttle_github_io"
+      "index_name": "imcuttle_github_io_x"
     }
   },
   "selectors": {

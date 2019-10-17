@@ -208,12 +208,16 @@ export async function crawlByUrl(
     (key, value) => !!value
   )
   let useGetBrowser
+  const isSingleRender = !!process.env['WOWSEARCH_SINGLE_JS_RENDER']
 
   try {
     if (config.js_render) {
-      // @ts-ignore
-      useGetBrowser =
-        getBrowser || (await createGetLivingBrowser(config.timeout, config.js_render_options))
+      if (isSingleRender) {
+        useGetBrowser = getBrowser || (await createGetLivingBrowser(config.timeout, config.js_render_options))
+      } else {
+        useGetBrowser = await createGetLivingBrowser(config.timeout, config.js_render_options)
+      }
+
       const page = await (await useGetBrowser()).newPage()
       await page.setExtraHTTPHeaders(headers)
       if (cookie) {
@@ -255,7 +259,7 @@ export async function crawlByUrl(
       smartCrawlingUrls: []
     }
   } finally {
-    if (useGetBrowser !== getBrowser) {
+    if (useGetBrowser !== getBrowser && isSingleRender) {
       !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] &&
         (await (await useGetBrowser()).close())
     }
