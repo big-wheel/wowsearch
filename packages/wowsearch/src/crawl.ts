@@ -117,12 +117,6 @@ export function crawl(
     force_crawling_urls
   } = config
 
-  let smartCrawlingUrls = []
-  if (smart_crawling) {
-    smartCrawlingUrls = getCrawlingUrls(document, { fromUrl, config })
-    debug('smartCrawlingUrls: %o', smartCrawlingUrls.map(x => x.url))
-  }
-
   // TODO
   // Do filter about start_urls and stop_urls.
   if (selectors_exclude) {
@@ -130,6 +124,12 @@ export function crawl(
       const nodes = selectAll(document, val)
       nodes.forEach(node => node.remove())
     })
+  }
+
+  let smartCrawlingUrls = []
+  if (smart_crawling) {
+    smartCrawlingUrls = getCrawlingUrls(document, { fromUrl, config })
+    debug('smartCrawlingUrls: %o', smartCrawlingUrls.map(x => x.url))
   }
 
   const documentNode = parseElementTree(document, selectors)
