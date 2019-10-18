@@ -34,6 +34,14 @@ passed && console.log('wowsearch! 完成了站点数据爬取，同时推送至�
 [配置说明点这](./packages/wowsearch)
 [查看配置案例](./packages/wowsearch-standalone/example)
 
-### Todo
+### 如何贡献代码
 
-- [x] cookie 权限？保密性+ 用户
+1. clone 代码库
+2. 在项目根目录执行脚本
+```bash
+npm i
+npm run bootstrap
+```
+
+- commit message 规范走 [conventionalcommits](https://www.conventionalcommits.org)
+- 项目包管理使用 [lerna](https://github.com/lerna/lerna)
