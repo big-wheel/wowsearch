@@ -6,6 +6,7 @@
  */
 import * as join from 'url-join'
 import ky from 'ky-universal'
+import * as chunk from 'lodash.chunk'
 import flattenDocumentNode from '../flattenDocumentNode'
 import DocumentNode from 'wowsearch-parse/dist/types/DocumentNode'
 
@@ -19,8 +20,7 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
   const {
     index_name,
     url_tpl = '${url}#${anchor}',
-    endpoint = process.env.WOWSEARCH_ELASTIC_ADAPTOR_ENDPOINT ||
-      'http://localhost:9200/',
+    endpoint = process.env.WOWSEARCH_ELASTIC_ADAPTOR_ENDPOINT || 'http://localhost:9200/',
     ...rest
   } = wowsearchConfig
 
@@ -46,35 +46,39 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
 
     try {
       // delete index
-      await ky.delete(join(endpoint, index_name), {})
+      await ky.delete(join(endpoint, index_name), {
+        timeout: false
+      })
     } catch (e) {
       console.error('Delete index, error happens: %s', String(e))
     }
 
-    return ky
-      .post(join(endpoint, index_name, '_bulk'), {
-        searchParams: {
-          refresh: ''
-        },
-        headers: {
-          'content-type': 'application/json'
-        },
-        body:
-          summeryList
-            .map((item, id) => {
-              return [
-                JSON.stringify({ index: { _id: '' + id } }),
-                JSON.stringify(item)
-              ].join('\n')
-            })
-            .join('\n') + '\n',
-        ...rest
-      })
-      .then(response => {
-        return response.json()
-      })
-      .then(body => {
-        // console.log(body)
-      })
+    const promises = chunk(summeryList, 500).map(list =>
+      ky
+        .post(join(endpoint, index_name, '_bulk'), {
+          timeout: false,
+          searchParams: {
+            refresh: ''
+          },
+          headers: {
+            'content-type': 'application/json'
+          },
+          body:
+            list
+              .map((item, id) => {
+                return [JSON.stringify({index: {_id: '' + id}}), JSON.stringify(item)].join('\n')
+              })
+              .join('\n') + '\n',
+          ...rest
+        })
+        .then(response => {
+          return response.json()
+        })
+        .then(body => {
+          // console.log(body)
+        })
+    )
+
+    return Promise.all(promises)
   }
 }

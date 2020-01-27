@@ -4,39 +4,30 @@
  * @date 2018/6/10
  * @description
  */
-import {
-  CrawlerConfig,
-  MatchedUrlEntity
-} from 'wowsearch-parse/dist/types/Config'
+import {CrawlerConfig, MatchedUrlEntity} from 'wowsearch-parse/dist/types/Config'
 import * as got from 'got'
-import { JSDOM } from 'jsdom'
+import {JSDOM} from 'jsdom'
 import * as each from 'lodash.foreach'
 // @ts-ignore
 import * as filterObj from 'filter-obj'
 
 import makeCheck from './makeCheckUrl'
-import { parseString } from './parseCookie'
+import {parseString} from './parseCookie'
 import * as u from 'url'
 import parseElementTree from 'wowsearch-parse'
-import selectVal, { selectAll } from 'wowsearch-parse/dist/selectVal'
+import {selectAll} from 'wowsearch-parse/dist/selectVal'
 import DocumentNode from 'wowsearch-parse/dist/types/DocumentNode'
-import { EventEmitter } from 'events'
-import { func } from 'prop-types'
 
 const debug = require('debug')('wowsearch:crawl')
 
-const protocolPorts = new Map<string, number>([
-  ['https:', 443],
-  ['http:', 80],
-  [null, null]
-])
+const protocolPorts = new Map<string, number>([['https:', 443], ['http:', 80], [null, null]])
 export type DocumentNodeMap = {
   [url: string]: DocumentNode
 }
 
 export function isSameOrigin(valueUrl: string, fromUrl?: string) {
   valueUrl = valueUrl.trim()
-  let { pathname, protocol, hostname, port } = u.parse(valueUrl)
+  let {pathname, protocol, hostname, port} = u.parse(valueUrl)
   if (valueUrl.startsWith('//') || protocol == null) {
     return true
   }
@@ -46,21 +37,14 @@ export function isSameOrigin(valueUrl: string, fromUrl?: string) {
   const fo = u.parse(fromUrl)
   fo.port = fo.port || <any>protocolPorts.get(fo.protocol)
   port = port || <any>protocolPorts.get(protocol)
-  return (
-    fo.protocol === protocol && fo.hostname === hostname && fo.port === port
-  )
+  return fo.protocol === protocol && fo.hostname === hostname && fo.port === port
 }
 
 function getCrawlingUrls(
   document,
-  { fromUrl = '', config }: { fromUrl?: string; config?: CrawlerConfig } = {}
+  {fromUrl = '', config}: {fromUrl?: string; config?: CrawlerConfig} = {}
 ): MatchedUrlEntity[] {
-  const {
-    start_urls_patterns,
-    smart_crawling_selector,
-    stop_urls_patterns,
-    force_crawling_urls
-  } = config
+  const {start_urls_patterns, smart_crawling_selector, stop_urls_patterns, force_crawling_urls} = config
 
   const check = makeCheck(start_urls_patterns, stop_urls_patterns)
   const smartCrawlingUrls = []
@@ -88,11 +72,7 @@ function getCrawlingUrls(
     }
   })
 
-  debug(
-    'smartCrawlingUrls: %o, from url: %s',
-    smartCrawlingUrls.map(u => u.url),
-    fromUrl
-  )
+  debug('smartCrawlingUrls: %o, from url: %s', smartCrawlingUrls.map(u => u.url), fromUrl)
   return smartCrawlingUrls
 }
 
@@ -101,12 +81,8 @@ type CrawlResult = {
   smartCrawlingUrls?: MatchedUrlEntity[]
 }
 
-export function crawl(
-  text: string,
-  config: CrawlerConfig,
-  fromUrl?
-): CrawlResult {
-  const { document } = new JSDOM(text, { url: fromUrl }).window
+export function crawl(text: string, config: CrawlerConfig, fromUrl?): CrawlResult {
+  const {document} = new JSDOM(text, {url: fromUrl}).window
   const {
     start_urls,
     strip_chars,
@@ -128,7 +104,7 @@ export function crawl(
 
   let smartCrawlingUrls = []
   if (smart_crawling) {
-    smartCrawlingUrls = getCrawlingUrls(document, { fromUrl, config })
+    smartCrawlingUrls = getCrawlingUrls(document, {fromUrl, config})
     debug('smartCrawlingUrls: %o', smartCrawlingUrls.map(x => x.url))
   }
 
@@ -146,11 +122,7 @@ export async function createBrowser(timeout, options) {
   return await puppeteer.launch({
     headless: !process.env.WOWSEARCH_NO_HEADLESS,
     timeout,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage'
-    ],
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
     ...options
   })
 }
@@ -170,24 +142,15 @@ export async function createGetLivingBrowser(timeout, options) {
   }
 }
 
-export async function pushDocumentNode(
-  documentNode: DocumentNode,
-  config: CrawlerConfig
-) {
-  const map: DocumentNodeMap = { [documentNode.href]: documentNode }
+export async function pushDocumentNode(documentNode: DocumentNode, config: CrawlerConfig) {
+  const map: DocumentNodeMap = {[documentNode.href]: documentNode}
   return pushDocumentNodeMap(map, config)
 }
 
-export async function pushDocumentNodeMap(
-  documentNodeMap: DocumentNodeMap,
-  config: CrawlerConfig
-) {
-  const { source_adaptor } = config
+export async function pushDocumentNodeMap(documentNodeMap: DocumentNodeMap, config: CrawlerConfig) {
+  const {source_adaptor} = config
   // Push
-  const pushAdaptor = require(source_adaptor.name)(
-    source_adaptor.options,
-    config
-  )
+  const pushAdaptor = require(source_adaptor.name)(source_adaptor.options, config)
   const result = await pushAdaptor(documentNodeMap, config)
   return result !== false
 }
@@ -210,6 +173,7 @@ export async function crawlByUrl(
   let useGetBrowser
   const isSingleRender = !!process.env['WOWSEARCH_SINGLE_JS_RENDER']
 
+  let page
   try {
     if (config.js_render) {
       if (isSingleRender) {
@@ -218,7 +182,8 @@ export async function crawlByUrl(
         useGetBrowser = await createGetLivingBrowser(config.timeout, config.js_render_options)
       }
 
-      const page = await (await useGetBrowser()).newPage()
+      page = await (await useGetBrowser()).newPage()
+      config.timeout && page.setDefaultTimeout(config.timeout)
       await page.setExtraHTTPHeaders(headers)
       if (cookie) {
         const cookies = parseString(cookie)
@@ -255,13 +220,13 @@ export async function crawlByUrl(
     }
   } catch (e) {
     console.error(`URL: ${url}`, String(e))
+    page && page.close()
     return {
       smartCrawlingUrls: []
     }
   } finally {
     if (useGetBrowser !== getBrowser && isSingleRender) {
-      !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] &&
-        (await (await useGetBrowser()).close())
+      !process.env['WOWSEARCH_NO_BROWSER_CLOSE'] && (await (await useGetBrowser()).close())
     }
   }
   debug('html: %s', html)
@@ -270,11 +235,11 @@ export async function crawlByUrl(
 }
 
 export async function push(text: string, config: CrawlerConfig, fromUrl?) {
-  const { documentNode } = await crawl(text, config, fromUrl)
+  const {documentNode} = await crawl(text, config, fromUrl)
   return pushDocumentNode(documentNode, config)
 }
 
 export async function pushByUrl(url: string, config: CrawlerConfig) {
-  const { documentNode } = await crawlByUrl(url, config)
+  const {documentNode} = await crawlByUrl(url, config)
   return pushDocumentNode(documentNode, config)
 }
