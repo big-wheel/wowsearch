@@ -1,6 +1,6 @@
 {
   "name": "wowsearch",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "dependencies": {
     "debug": "^3.1.0",
     "filter-obj": "^2.0.1",
@@ -12,7 +12,7 @@
     "p-queue": "^6.1.1",
     "pify": "^3.0.0",
     "puppeteer": "^1.20.0",
-    "wowsearch-parse": "^0.0.20",
+    "wowsearch-parse": "^0.0.21",
     "xml2js": "^0.4.19"
   },
   "main": "dist/index.js",
@@ -26,7 +26,7 @@
   "devDependencies": {
     "read-json-sync": "^2.0.0",
     "typescript": "^3.6.3",
-    "wowsearch-elastic-adaptor": "^0.0.20"
+    "wowsearch-elastic-adaptor": "^0.0.21"
   },
   "jest": {
     "testEnvironment": "node",
