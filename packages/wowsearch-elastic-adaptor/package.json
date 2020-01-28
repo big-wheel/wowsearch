@@ -19,7 +19,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.js",
   "devDependencies": {
-    "wowsearch": "^0.0.21"
+    "wowsearch": "^0.0.22"
   },
   "keywords": [
     "imcuttle",
@@ -29,7 +29,7 @@
   "engines": {
     "node": ">=6"
   },
-  "version": "0.0.21",
+  "version": "0.0.22",
   "dependencies": {
     "@moyuyc/visit-tree": "^2.0.1",
     "is-plain-object": "^3.0.0",
@@ -39,7 +39,7 @@
     "lodash.merge": "^4.6.2",
     "lodash.template": "^4.5.0",
     "url-join": "^4.0.1",
-    "wowsearch-parse": "^0.0.21"
+    "wowsearch-parse": "^0.0.22"
   },
   "gitHead": "d6a6955f345746f9549c0114070f8ec4821c8850"
 }
