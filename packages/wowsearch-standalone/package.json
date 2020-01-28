@@ -23,13 +23,13 @@
     "node": ">=6"
   },
   "main": "index.js",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "dependencies": {
     "dotenv": "^8.1.0",
     "find-up": "^4.1.0",
     "globby": "^10.0.1",
-    "wowsearch": "^0.0.22",
-    "wowsearch-elastic-adaptor": "^0.0.22"
+    "wowsearch": "^0.0.23",
+    "wowsearch-elastic-adaptor": "^0.0.23"
   },
   "gitHead": "d6a6955f345746f9549c0114070f8ec4821c8850"
 }
