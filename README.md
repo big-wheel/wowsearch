@@ -45,3 +45,7 @@ npm run bootstrap
 
 - commit message 规范走 [conventionalcommits](https://www.conventionalcommits.org)
 - 项目包管理使用 [lerna](https://github.com/lerna/lerna)
+
+### Todo
+- [ ] 目前使用 wowsearch 使用主进程负责 http 服务（获取爬取任务），child process 处理爬取任务；后续改造成使用 mq 管理任务和通信，不同的节点单独负责单独的任务（web + mq + crawl）
+ 
