@@ -171,7 +171,7 @@ export async function crawlByUrl(
     (key, value) => !!value
   )
   let useGetBrowser
-  const isSingleRender = !!process.env['WOWSEARCH_SINGLE_JS_RENDER']
+  const isSingleRender = process.env['WOWSEARCH_SINGLE_JS_RENDER'] !== 'false'
 
   let page
   try {

@@ -10,6 +10,8 @@ import * as chunk from 'lodash.chunk'
 import flattenDocumentNode from '../flattenDocumentNode'
 import DocumentNode from 'wowsearch-parse/dist/types/DocumentNode'
 
+const debug = require('debug')('wowsearch:elastic-adaptor')
+
 export type ElasticConfig = {
   index_name?: string
   endpoint?: string
@@ -22,7 +24,7 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
     index_name,
     url_tpl = '${url}#${anchor}',
     endpoint = process.env.WOWSEARCH_ELASTIC_ADAPTOR_ENDPOINT || 'http://localhost:9200/',
-    per_count = 50,
+    per_count = 5000,
     ...rest
   } = wowsearchConfig
 
@@ -49,7 +51,7 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
     try {
       // delete index
       await ky.delete(join(endpoint, index_name), {
-        timeout: false
+        timeout: 10000
       })
     } catch (e) {
       console.error('Delete index, error happens: %s', String(e))
@@ -60,32 +62,34 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
       chunks = chunk(summeryList, per_count)
     }
 
-    const promises = chunks.map(list =>
-      ky
-        .post(join(endpoint, index_name, '_bulk'), {
-          timeout: false,
-          searchParams: {
-            refresh: ''
-          },
-          headers: {
-            'content-type': 'application/json'
-          },
-          body:
-            list
-              .map((item, id) => {
-                return [JSON.stringify({index: {_id: '' + id}}), JSON.stringify(item)].join('\n')
-              })
-              .join('\n') + '\n',
-          ...rest
-        })
-        .then(response => {
-          return response.json()
-        })
-        .then(body => {
-          // console.log(body)
-        })
-    )
-
-    return Promise.all(promises)
+    let id = 1
+    return chunks.reduce((promise, list, currentIndex, {length}) => {
+      return promise.then(() => {
+        debug('Post bulk %s/%s', currentIndex + 1, length)
+        return ky
+          .post(join(endpoint, index_name, '_bulk'), {
+            timeout: 10000,
+            searchParams: {
+              refresh: ''
+            },
+            headers: {
+              'content-type': 'application/json'
+            },
+            body:
+              list
+                .map(item => {
+                  return [JSON.stringify({index: {_id: '' + id++}}), JSON.stringify(item)].join('\n')
+                })
+                .join('\n') + '\n',
+            ...rest
+          })
+          .then(response => {
+            return response.json()
+          })
+          .then(body => {
+            // console.log(body)
+          })
+      })
+    }, Promise.resolve())
   }
 }
