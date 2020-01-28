@@ -21,16 +21,16 @@ function getConfigFiles(configRootPath, configFileGlob) {
 
 module.exports = async ({
   cwd = process.cwd(),
-  configRootPath = nps.join(cwd, 'configs'),
   transformConfig,
-  configFileGlob
+  configFileGlob,
+  configFiles
 } = {}) => {
   const path = findUp.sync('.env', { cwd })
   path && require('dotenv').config({ path })
 
   const wowsearch = require('wowsearch').default
 
-  const configFiles = getConfigFiles(configRootPath, configFileGlob)
+  configFiles = configFiles || getConfigFiles(configRootPath, configFileGlob)
 
   return Promise.all(
     configFiles.map(async configFile => {

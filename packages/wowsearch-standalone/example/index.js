@@ -6,4 +6,4 @@
  */
 const run = require('..')
 
-run({cwd: __dirname})
+run({cwd: __dirname })

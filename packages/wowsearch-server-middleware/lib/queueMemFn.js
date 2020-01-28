@@ -9,6 +9,8 @@ const PQueue = require('p-queue').default
 
 module.exports = (fn, { concurrency, isEqual = () => false } = {}) => {
   const queue = new PQueue({ concurrency })
+  // todo 变成共享某文件？
+  // https://www.npmjs.com/package/lockfile
   const cache = new Map()
   const mFn = robust(function () {
     return queue.add(async () => {
