@@ -12,7 +12,10 @@ export default ({
   endpoint = 'http://localhost:9200/',
   index_name = null,
   size = 10,
-  data = {}
+  // 放置预设的 过滤条件，如 lang: 'zh'
+  filters = null,
+  data = {},
+  filter = list => list
 } = {}) => {
   return {
     async fetcher(value) {
@@ -21,17 +24,25 @@ export default ({
           json: merge(
             {
               query: {
-                multi_match: {
-                  query: value,
-                  fields: ['content', 'anchor'],
-                  fuzziness: 'AUTO'
+                bool: {
+                  must: [
+                    filters && {term: filters},
+                    {
+                      multi_match: {
+                        query: value,
+                        fields: ['content', 'anchor', 'parents']
+                        // fuzziness: 'AUTO'
+                      }
+                    }
+                  ].filter(Boolean)
                 }
               },
               highlight: {
-                pre_tags: ['<span class="wowsearch-highlight">'],
+                pre_tags: ['<span class="wowsearch-ui-search-highlight">'],
                 post_tags: ['</span>'],
                 fields: {
-                  content: {}
+                  content: {},
+                  parents: {}
                 }
               },
               size
@@ -46,21 +57,22 @@ export default ({
         throw new Error(body.error.reason)
       }
 
-      return body.hits.hits.map(hit => {
-        const title =
-          hit._source.parents && hit._source.parents.length
-            ? hit._source.parents[0]
-            : hit._source.content
-        const crumbs = hit._source.parents.slice(1)
+      return filter(
+        body.hits.hits.map(hit => {
+          const source = Object.assign({}, hit._source, hit.highlight)
+          const title = source.parents && source.parents.length ? source.parents[0] : source.content
+          const crumbs = source.parents.slice(1)
 
-        return {
-          id: hit._id,
-          url: hit._source.url,
-          title,
-          crumbs,
-          content: hit._source.content
-        }
-      })
+          return {
+            id: hit._id,
+            headerTitle: hit._index,
+            url: source.url,
+            title,
+            crumbs,
+            content: source.content
+          }
+        })
+      )
     }
   }
 }

@@ -1,10 +1,11 @@
 {
-  "sitemap_urls": [
-    "http://linky.dev.weiyun.baidu.com:8339/api/linky/sitemap.txt"
-  ],
+  "sitemap_urls": ["http://linky.dev.weiyun.baidu.com:8339/api/linky/sitemap.txt"],
   "js_render": true,
   "js_waitfor": ".linky-main-wrapper .node-markdown-content",
-  "concurrency": 2,
+  "js_render_options": {
+    "args": ["--disable-gpu", "--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
+  },
+  "concurrency": 10,
   "smart_crawling": false,
   "timeout": 20000,
   "source_adaptor": {

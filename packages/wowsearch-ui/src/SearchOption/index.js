@@ -11,22 +11,19 @@ import './index.less'
 const c = p('')
 const cn = p('wowsearch-search-option-')
 
-
-export default function SearchOption({className, title, crumbs = [], url, content}) {
-  return <a href={url} className={c(cn('wrapper'), className)}>
-    <div className={cn('left')}>
-      {title}
-    </div>
-    <div className={cn('right')}>
-      <div className={cn('header')}>
-        {crumbs.map((crumb, i) => {
-          const preCrumb = i > 0 ? ' > ' : ''
-          return <span key={i} className={cn('crumb')}>{preCrumb}{crumb}</span>
-        })}
+export default function SearchOption({className, openInNew, title, crumbs = [], url, content}) {
+  return (
+    <a target={openInNew ? '_blank' : '_self'} href={url} className={c(cn('wrapper'), className)}>
+      <div className={cn('left')} dangerouslySetInnerHTML={{__html: title}} />
+      <div className={cn('right')}>
+        <div className={cn('header')}>
+          {crumbs.map((crumb, i) => {
+            const preCrumb = i > 0 ? ' > ' : ''
+            return <span key={i} className={cn('crumb')} dangerouslySetInnerHTML={{__html: preCrumb + crumb}} />
+          })}
+        </div>
+        <div className={cn('body')} dangerouslySetInnerHTML={{__html: content}} />
       </div>
-      <div className={cn('body')}>
-        {content}
-      </div>
-    </div>
-  </a>
+    </a>
+  )
 }

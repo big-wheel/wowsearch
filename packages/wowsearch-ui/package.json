@@ -37,6 +37,7 @@
     "wowsearch-elastic-adaptor": "^0.0.23"
   },
   "dependencies": {
+    "lodash.groupby": "^4.6.0",
     "memoize-fn": "^1.0.1",
     "prefix-classname": "^1.0.1",
     "rc-select": "^10.0.0-alpha.24",

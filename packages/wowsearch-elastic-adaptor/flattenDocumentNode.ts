@@ -8,8 +8,8 @@ import DocumentNode from 'wowsearch-parse/dist/types/DocumentNode'
 import * as visit from '@moyuyc/visit-tree'
 import ContentNode from 'wowsearch-parse/dist/types/ContentNode'
 import LvlNode from 'wowsearch-parse/dist/types/LvlNode'
-import * as isObj from "is-plain-object";
-import { parseLvlTypeLevel } from 'wowsearch-parse'
+import * as isObj from 'is-plain-object'
+import {parseLvlTypeLevel} from 'wowsearch-parse'
 import * as template from 'lodash.template'
 
 export type FlattenedNode = {
@@ -19,14 +19,10 @@ export type FlattenedNode = {
   type: 'text' | 'lvl' | any
   content: string
   parents: string[]
-  // for filter
-  tags: string[]
+  [extraName: string]: any
 }
 
-export default (
-  documentNode: DocumentNode,
-  { url_tpl = '${url}#${anchor}' } = {}
-) => {
+export default (documentNode: DocumentNode, {url_tpl = '${url}#${anchor}'} = {}) => {
   let nodes = [] as FlattenedNode[]
   let parentsMap = new WeakMap<ContentNode, any[]>()
 
@@ -34,10 +30,10 @@ export default (
 
   const rule = documentNode.urlRule as any
 
-  let extraMeta = {}
+  let extraMeta = {} as any
   // @ts-ignore
   if (rule && isObj(rule)) {
-    const extraMeta = {...rule}
+    extraMeta = {...rule}
     delete extraMeta.test
   }
 
@@ -82,7 +78,7 @@ export default (
             const value = global.get(key)
             const level = parseLvlTypeLevel(key)
             if (level !== null) {
-              parents[level] = { value: value }
+              parents[level] = {value: value}
             } else {
               extraMeta[key] = value
             }

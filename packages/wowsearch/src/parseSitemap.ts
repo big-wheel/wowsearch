@@ -17,6 +17,7 @@ export function parseSitemapXML(text: string): Promise<any> {
 export function parseSitemapTXT(text: string): string[] {
   return text
     .split('\n')
+    // .slice(0, 10)
     .map(x => x.trim())
     .filter(Boolean)
 }

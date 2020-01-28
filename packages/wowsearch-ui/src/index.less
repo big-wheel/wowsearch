@@ -1,10 +1,30 @@
+//@import "animation.less";
 @select-prefix: ~'wowsearch-ui-search';
+@select-highlight-color: #4c84ff;
+//@select-highlight-bg-color: alpha(lighten(@select-highlight-color, .7), .6);
+@select-highlight-bg-color: rgba(143, 187, 237, 0.1);
 
 @search-prefix: ~'wowsearch-search-option';
 
-// @todo 去掉select组件的max-height: 200 行内样式 有更好的方法吗？
-#rc_select_0_list + div {
-  max-height: 500px !important;
+.word-break() {
+  // ff
+  word-break: break-all;
+  // chrome
+  word-break: break-word;
+
+  overflow-wrap: break-word;
+}
+
+.@{select-prefix} {
+  &-highlight {
+    display: inline;
+    color: @select-highlight-color;
+    background-color: @select-highlight-bg-color;
+  }
+  &-category-header {
+    padding: 8px 0;
+    border-bottom: 1px solid #d9d9d9;
+  }
 }
 
 .search-input-without-border() {
@@ -19,7 +39,7 @@
 .@{select-prefix} {
   display: inline-block;
   font-size: 12px;
-  width: 100px;
+  width: 100%;
   position: relative;
 
   &-disabled {
@@ -130,7 +150,6 @@
         position: absolute;
         z-index: 999;
         white-space: nowrap;
-        position: none;
         left: 0;
         top: 0;
         visibility: hidden;
@@ -179,7 +198,7 @@
   // =============== Focused ===============
   &-focused {
     .@{select-prefix}-selector {
-      border-color: #4c84ff !important;
+      border-color: @select-highlight-color;
     }
   }
 
@@ -191,15 +210,14 @@
 
 
     min-width: 500px;
-    max-width: 600px;
+    //max-width: 600px;
 
     border: 1px solid #d9d9d9;
     border-radius: 4px;
     box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.1);
 
     &-hidden {
-      //display: none;
-      display: block;
+      display: none;
     }
   }
 
@@ -207,7 +225,7 @@
   &-item {
     font-size: 16px;
     line-height: 1.5;
-    padding: 4px 16px;
+    padding: 0 16px;
 
     // >>> Group
     &-group {
@@ -224,29 +242,24 @@
         padding-left: 24px;
       }
 
-      .category-header {
-        padding: 8px 0;
-        border-bottom: 1px solid #d9d9d9;
-      }
-
       // search option detail
       .@{search-prefix} {
         &-wrapper {
           color: #666;
           text-decoration: none;
-          margin-top: 6px;
+          margin-top: 10px;
         }
 
         &-left {
-          width: 140px;
-
+          .word-break();
           text-align: right;
-          padding: 0 12px;
+          padding: 6px 12px;
         }
 
         &-right {
+          .word-break();
           border-left: 1px solid #ddd;
-          padding: 0 12px;
+          padding: 6px 12px;
           color: #314659;
           font-weight: bold;
         }
@@ -283,6 +296,8 @@
     &-empty {
       text-align: center;
       color: #999;
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
   }
 }
