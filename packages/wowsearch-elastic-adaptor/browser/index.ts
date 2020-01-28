@@ -40,6 +40,7 @@ export default ({
               highlight: {
                 pre_tags: ['<span class="wowsearch-ui-search-highlight">'],
                 post_tags: ['</span>'],
+                encoder: 'html',
                 fields: {
                   content: {},
                   parents: {}
