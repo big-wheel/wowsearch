@@ -14,6 +14,7 @@ export type ElasticConfig = {
   index_name?: string
   endpoint?: string
   url_tpl?: string
+  per_count?: number
 }
 
 module.exports = (wowsearchConfig: ElasticConfig = {}) => {
@@ -21,6 +22,7 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
     index_name,
     url_tpl = '${url}#${anchor}',
     endpoint = process.env.WOWSEARCH_ELASTIC_ADAPTOR_ENDPOINT || 'http://localhost:9200/',
+    per_count = 50,
     ...rest
   } = wowsearchConfig
 
@@ -53,7 +55,12 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
       console.error('Delete index, error happens: %s', String(e))
     }
 
-    const promises = chunk(summeryList, 500).map(list =>
+    let chunks = [summeryList]
+    if (per_count > 0) {
+      chunks = chunk(summeryList, per_count)
+    }
+
+    const promises = chunks.map(list =>
       ky
         .post(join(endpoint, index_name, '_bulk'), {
           timeout: false,
