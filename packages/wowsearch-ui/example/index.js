@@ -9,5 +9,5 @@ import render from '../standalone'
 render(window.root, {
   ...render.elasticAdaptor({ index_name: '_all', endpoint: process.env.WOWSEARCH_ELASTIC_ADAPTOR_ENDPOINT || '' }),
   placeholder: '搜索',
-  openInNew: true
+  openInNew: false
 })

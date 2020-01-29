@@ -13,7 +13,8 @@ const cn = p('wowsearch-search-option-')
 
 export default function SearchOption({className, openInNew, title, crumbs = [], url, content}) {
   return (
-    <a target={openInNew ? '_blank' : '_self'} href={url} className={c(cn('wrapper'), className)}>
+    // 不走 select onSelect / onChange 的跳转逻辑
+    <a onClick={evt => evt.stopPropagation()} target={openInNew ? '_blank' : '_self'} href={url} className={c(cn('wrapper'), className)}>
       <div className={cn('left')} dangerouslySetInnerHTML={{__html: title}} />
       <div className={cn('right')}>
         <div className={cn('header')}>
