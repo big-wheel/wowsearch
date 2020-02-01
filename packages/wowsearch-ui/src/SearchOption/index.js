@@ -6,7 +6,6 @@
  */
 import React from 'react'
 import p from 'prefix-classname'
-import './index.less'
 
 const c = p('')
 const cn = p('wowsearch-search-option-')

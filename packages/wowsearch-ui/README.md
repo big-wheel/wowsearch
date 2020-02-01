@@ -6,29 +6,39 @@
 
 ### 作为 React 组件使用
 
-```
-import UI from 'wowsearch-ui'
+```jsx
+import WowseasrchUI from 'wowsearch-ui'
+import elasticAdaptor from 'wowsearch-elastic-adaptor/browser'
+import 'wowsearch-ui/index.less'
 
 ReactDOM.render(
-  <UI />
+  <WowseasrchUI {...elasticAdaptor({ index_name: '你的索引名' })} />
   // ...
 )
 ```
 
-### 独立使用
+### 独立使用 (项目环境不依赖 React)
 
 ```
-import standalone from 'wowsearch-ui/standalone'
+import wowsearchUI from 'wowsearch-ui/standalone'
+import 'wowsearch-ui/index.less'
 
-// standalone 为 https://github.com/imcuttle/react-pizza 实例
+// wowsearchUI 为 https://github.com/imcuttle/react-pizza 实例
 // 详见 https://github.com/imcuttle/react-pizza#readme
+
+const ui = wowsearchUI(
+    '#root',
+    wowsearchUI.elasticAdaptor({
+        index_name: '_all'
+    })
+);
 ```
 
 
 ### CDN 独立使用
 
 ```
-<script src="https://unpkg.com/wowsearch-ui@^0.0.13"></script>
+<script src="https://unpkg.com/wowsearch-ui"></script>
 <link rel="stylesheet" href="https://unpkg.com/wowsearch-ui/dist/style.css"/>
 
 <div id="root"></div>
@@ -40,11 +50,17 @@ import standalone from 'wowsearch-ui/standalone'
 </script>
 ```
 
-
-## API
-
 ### Props
+
+wowsearch-ui 继承 [rc-select](https://github.com/react-component/select) 配置 
 
 #### `fetcher`
 
-- Type: `() => Promise<[]>`
+搜索时获取数据请求，一般通过 `elasticAdaptor` 输出
+
+- Type: `(inputValue) => Promise<[]>`
+
+#### `openInNew`
+是否在新窗口打开页面
+- Default: `false`
+- Type: `boolean`

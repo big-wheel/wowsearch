@@ -36,7 +36,8 @@ source_adaptor: {
 
 ```
 import UI from 'wowsearch-ui'
-import adaptor from 'wowsearch-elastic-adaptor'
+import 'wowsearch-ui/index.less'
+import adaptor from 'wowsearch-elastic-adaptor/browser'
 
 ReactDOM.render(
   <UI {...adaptor({index_name: 'foo'})}/>
@@ -76,8 +77,15 @@ elasticsearch 的服务端地址
 
 #### `data`
 
-额外外注入的请求数据
+额外外注入的请求数据，一般不需要用到
 
+#### `size`
+
+搜索条目的大小，默认 10
+
+#### `filters`
+
+额外的搜索条件，如 `{ lang: 'zh' }` 来搜索中文环境
 
 ## Authors
 

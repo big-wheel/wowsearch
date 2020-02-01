@@ -5,6 +5,8 @@
   "publishConfig": {
     "access": "public"
   },
+  "main": "node/index.js",
+  "browser": "browser/index.js",
   "license": "MIT",
   "scripts": {
     "dist": "tsc",
@@ -16,7 +18,6 @@
     "type": "git",
     "url": "git+https://github.com/big-wheel/wowsearch.git"
   },
-  "main": "dist/index.js",
   "typings": "dist/index.d.js",
   "devDependencies": {
     "wowsearch": "^0.0.27"

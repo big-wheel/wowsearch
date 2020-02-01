@@ -55,7 +55,7 @@ module.exports = [
       library: libraryName,
       libraryTarget: 'umd'
     },
-  }
+  },
 ].map(config => merge(require('./webpack.config'), {
   devtool: false,
   mode: 'development'
