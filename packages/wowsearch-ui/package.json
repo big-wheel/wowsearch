@@ -7,7 +7,6 @@
     "prepublishOnly": "npm run dist"
   },
   "description": "官方搜索 UI 组件",
-  "browser": "dist/wowsearch-ui.umd.js",
   "main": "dist/wowsearch-ui.cjs.js",
   "cdn": "dist/wowsearch-ui.standalone.js",
   "unpkg": "dist/wowsearch-ui.standalone.js",
@@ -35,6 +34,11 @@
     "webpack-dev-server": "^3.8.1",
     "webpack-merge": "^4.2.2",
     "wowsearch-elastic-adaptor": "^0.0.28"
+  },
+  "peerDependencies": {
+    "prop-types": "*",
+    "react": ">=16.4.0",
+    "react-dom": ">=16.4.0"
   },
   "dependencies": {
     "lodash.groupby": "^4.6.0",
