@@ -15,11 +15,12 @@ import SearchOption from './SearchOption'
 
 SearchUI.propTypes = {
   fetcher: PropTypes.func.isRequired,
+  onAfterSelect: PropTypes.func,
   openInNew: PropTypes.bool,
   placeholder: PropTypes.node
 }
 
-export default function SearchUI({fetcher, placeholder, openInNew = false, ...props}) {
+export default function SearchUI({fetcher, onAfterSelect, placeholder, openInNew = false, ...props}) {
   const mFetcher = React.useMemo(() => {
     return robust(fetcher, {})
   }, [fetcher])
@@ -70,6 +71,7 @@ export default function SearchUI({fetcher, placeholder, openInNew = false, ...pr
                 location.href = option.raw.url
               }
             }
+            onAfterSelect && onAfterSelect(value, option)
           }
         },
         mark: INTERNAL_PROPS_MARK,

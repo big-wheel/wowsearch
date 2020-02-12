@@ -68,7 +68,7 @@ module.exports = (wowsearchConfig: ElasticConfig = {}) => {
         debug('Post bulk %s/%s', currentIndex + 1, length)
         return ky
           .post(join(endpoint, index_name, '_bulk'), {
-            timeout: 10000,
+            timeout: 100000,
             searchParams: {
               refresh: ''
             },
