@@ -12,5 +12,6 @@ render(window.root, {
   placeholder: '搜索',
   autoFocus: true,
   tabIndex: 1,
-  openInNew: false
+  // openInNew: true,
+  openInNew: false,
 })
