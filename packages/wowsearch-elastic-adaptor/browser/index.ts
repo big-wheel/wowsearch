@@ -11,7 +11,7 @@ import * as merge from 'lodash.merge'
 export default ({
   endpoint = 'http://localhost:9200/',
   index_name = null,
-  size = 10,
+  size = 6,
   // 放置预设的 过滤条件，如 lang: 'zh'
   filters = null,
   data = {},

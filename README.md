@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="./logo.png" />
+    <img width="240" src="./logo.png" />
 </p>
 
 <h3 align="center">wowsearch</h3>
