@@ -1,8 +1,11 @@
 //@import "animation.less";
 @select-prefix: ~'wowsearch-ui-search';
-@select-highlight-color: #4c84ff;
-//@select-highlight-bg-color: alpha(lighten(@select-highlight-color, .7), .6);
-@select-highlight-bg-color: rgba(143, 187, 237, 0.1);
+//@select-highlight-color: #4c84ff;
+@select-highlight-color: #FF4400;
+//@select-highlight-bg-color: rgba(143, 187, 237, 0.1);
+@select-highlight-bg-color: rgba(237, 124, 57, 0.1);
+@select-hover-bg: #fdf1ea;
+
 @select-height: 30px;
 @search-font-size: 14px;
 
@@ -18,6 +21,14 @@
 }
 
 .@{select-prefix} {
+  &-logo-container {
+    text-align: right;
+    padding: 10px 14px;
+  }
+  &-logo {
+    width: 100px;
+    height: auto;
+  }
   &-highlight {
     display: inline;
     color: @select-highlight-color;
@@ -300,7 +311,7 @@
       // ------- Active -------
       &-active {
         .@{search-prefix}-right {
-          background: #F5F9FD;
+          background: @select-hover-bg;
         }
 
       }

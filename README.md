@@ -1,11 +1,18 @@
-# wowsearch
+<p align="center">
+    <img src="./logo.png" />
+</p>
 
-[![build status](https://img.shields.io/travis/big-wheel/wowsearch/master.svg?style=flat-square)](https://travis-ci.org/big-wheel/wowsearch)
-[![Test coverage](https://img.shields.io/codecov/c/github/big-wheel/wowsearch.svg?style=flat-square)](https://codecov.io/github/big-wheel/wowsearch?branch=master)
-[![NPM version](https://img.shields.io/npm/v/wowsearch.svg?style=flat-square)](https://www.npmjs.com/package/wowsearch)
-[![NPM Downloads](https://img.shields.io/npm/dm/wowsearch.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/wowsearch)
+<h3 align="center">wowsearch</h3>
 
-一个开源的，基于爬虫的文档搜索工作流
+<p align="center">
+  <a href="https://travis-ci.org/big-wheel/wowsearch"><img src="https://img.shields.io/travis/big-wheel/wowsearch/master.svg?style=flat-square" /></a>
+  <a href="https://codecov.io/github/big-wheel/wowsearch?branch=master"><img src="https://img.shields.io/codecov/c/github/big-wheel/wowsearch.svg?style=flat-square" /></a>
+  <a href="https://prettier.io/"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" /></a>
+  <a href="https://conventionalcommits.org"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square" /></a>
+</p>
+<p align="center">一个开源的，基于爬虫的文档搜索工作流</p>
+
+
 
 ## 介绍
 

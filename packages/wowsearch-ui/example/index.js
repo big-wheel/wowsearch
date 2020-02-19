@@ -8,7 +8,7 @@ import render from '../standalone'
 import '../index.less'
 
 render(window.root, {
-  ...render.elasticAdaptor({ index_name: '_all', endpoint: process.env.WOWSEARCH_ELASTIC_ADAPTOR_ENDPOINT || '' }),
+  ...render.elasticAdaptor({ index_name: '_all', size: 5, endpoint: process.env.WOWSEARCH_ELASTIC_ADAPTOR_ENDPOINT || '' }),
   placeholder: '搜索',
   autoFocus: true,
   tabIndex: 1,

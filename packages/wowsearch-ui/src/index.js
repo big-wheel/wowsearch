@@ -60,7 +60,7 @@ export default function SearchUI({fetcher, onAfterSelect, placeholder, openInNew
   return (
     <Select
       notFoundContent={'没有找到'}
-      listHeight={'400px'}
+      listHeight={null}
       internalProps={{
         onRawSelect: (value, option, source) => {
           if (option && option.raw) {
@@ -76,6 +76,16 @@ export default function SearchUI({fetcher, onAfterSelect, placeholder, openInNew
         },
         mark: INTERNAL_PROPS_MARK,
         skipTriggerChange: true
+      }}
+      dropdownRender={menu => {
+        return <div className="wowsearch-ui-search-dropdown-container">
+          {menu}
+          {!!menu.props.options && !!menu.props.options.length && <div className="wowsearch-ui-search-logo-container">
+            <a href="https://github.com/big-wheel/wowsearch" target="_blank" className="wowsearch-ui-search-logo-anchor">
+              <img className="wowsearch-ui-search-logo" src={require('!!url-loader!./logo.png').default} alt="" />
+            </a>
+          </div>}
+        </div>
       }}
       dropdownMatchSelectWidth
       labelInValue
