@@ -20,7 +20,7 @@ SearchUI.propTypes = {
   placeholder: PropTypes.node
 }
 
-export default function SearchUI({fetcher, onAfterSelect, placeholder, openInNew = false, ...props}) {
+export default function SearchUI({selectRef, fetcher, onAfterSelect, placeholder, openInNew = false, ...props}) {
   const mFetcher = React.useMemo(() => {
     return robust(fetcher, {})
   }, [fetcher])
@@ -59,6 +59,7 @@ export default function SearchUI({fetcher, onAfterSelect, placeholder, openInNew
 
   return (
     <Select
+      ref={selectRef}
       notFoundContent={'没有找到'}
       listHeight={null}
       internalProps={{
