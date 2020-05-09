@@ -10,7 +10,7 @@ import * as groupBy from 'lodash.groupby'
 import {INTERNAL_PROPS_MARK} from 'rc-select/es/interface/generator'
 import {selectPrefix} from '!get-less-vars/loader!./index.less'
 import * as PropTypes from 'prop-types'
-import {robust} from 'memoize-fn'
+import {robust} from 'memoize-fn/index'
 import SearchOption from './SearchOption'
 
 SearchUI.propTypes = {
@@ -88,7 +88,7 @@ export default function SearchUI({fetcher, onAfterSelect, placeholder, openInNew
         </div>
       }}
       dropdownMatchSelectWidth
-      labelInValue
+      labelInValue={false}
       inputIcon={() => (
         <svg
           xmlns="http://www.w3.org/2000/svg"

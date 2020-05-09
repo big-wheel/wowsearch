@@ -45,7 +45,7 @@
     "lodash.groupby": "^4.6.0",
     "memoize-fn": "^1.0.1",
     "prefix-classname": "^1.0.1",
-    "rc-select": "^10.0.0-rc.3",
+    "rc-select": "^10.3.1",
     "react-pizza": "^0.1.2"
   },
   "gitHead": "82f74abb083e1a71759cbaeb79e0d60dda63216b"
