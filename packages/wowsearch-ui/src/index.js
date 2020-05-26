@@ -108,7 +108,6 @@ export default function SearchUI({selectRef, fetcher, onAfterSelect, placeholder
       prefixCls={selectPrefix}
       onSearch={fetchData}
       showSearch
-      value={null}
       optionLabelProp="children"
       placeholder={placeholder}
       {...props}
