@@ -12,7 +12,7 @@
 </p>
 <p align="center">一个开源的，基于爬虫的文档搜索工作流</p>
 
-
+<p align="center"><img alt="" src="https://i.loli.net/2020/07/09/yQqnLW6DlI2gjms.png" /></p>
 
 ## 介绍
 
