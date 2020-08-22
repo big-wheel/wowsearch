@@ -20,14 +20,24 @@
 #### `js_render_options`
 
 使用 `puppeteer.launch` 需要传入的 `options`
+
 ```
 await puppeteer.launch(
   js_render_options
 )
 ```
+
 **注意：该选项适合于 `js_render = true`**
 
 - Type: `{}`
+
+#### `js_render_evaluate`
+
+在分析页面 HTML 之前，需要执行的客户端脚本, 如需要点击事件展开文本内容
+
+**注意：该选项适合于 `js_render = true`**
+
+- Type: `string | Function`
 
 #### `js_waitfor`
 
@@ -84,7 +94,6 @@ await puppeteer.launch(
 
 - Type: `string[]`
 - Default: `[]`
-
 
 #### `selectors_exclude`
 

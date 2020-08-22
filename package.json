@@ -9,6 +9,8 @@
     "test": "jest",
     "dist": "lerna run dist --no-parallel",
     "release": "npm run dist && npm test && lerna publish",
+    "server:example": "lerna run example --stream --scope=wowsearch-server-middleware",
+    "standalone:example": "lerna run example --stream --scope=wowsearch-standalone",
     "dev": "lerna run dev --parallel"
   },
   "keywords": [

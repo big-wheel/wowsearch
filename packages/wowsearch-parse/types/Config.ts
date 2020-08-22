@@ -69,6 +69,7 @@ export type CrawlerConfig = CommonConfig & {
   request_cookie?: string
   js_render?: boolean
   js_render_options?: {}
+  js_render_evaluate?: string
   js_waitfor?: string | number | Function
   start_urls?: Array<string>
   start_urls_patterns?: Array<Rule>
@@ -105,10 +106,8 @@ const WalliDef = w.leq({
   smart_crawling: w.boolean.optional,
   smart_crawling_selector: walliSelector.optional,
   start_urls: w.arrayOf(w.string).optional,
-  start_urls_patterns: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })]))
-    .optional,
-  stop_urls_patterns: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })]))
-    .optional,
+  start_urls_patterns: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })])).optional,
+  stop_urls_patterns: w.arrayOf(w.oneOf([walliRule, w.leq({ url: w.string })])).optional,
   stop_urls: w.arrayOf(w.string).optional,
 
   selectors: {
@@ -170,14 +169,10 @@ export function normalize(config: Config) {
         },
         value
       )
-      config.selectors[key].anchor_selector = normalizeSelector(
-        config.selectors[key].anchor_selector
-      )
+      config.selectors[key].anchor_selector = normalizeSelector(config.selectors[key].anchor_selector)
     }
   })
-  config.smart_crawling_selector = normalizeSelector(
-    config.smart_crawling_selector
-  )
+  config.smart_crawling_selector = normalizeSelector(config.smart_crawling_selector)
 
   return config
 }

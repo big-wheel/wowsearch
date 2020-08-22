@@ -123,6 +123,7 @@ export async function createBrowser(timeout, options) {
     headless: !process.env.WOWSEARCH_NO_HEADLESS,
     timeout,
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+    defaultViewport: null,
     ...options
   })
 }
@@ -207,6 +208,7 @@ export async function crawlByUrl(
       })
 
       config.js_waitfor && (await page.waitFor(config.js_waitfor))
+      config.js_render_evaluate && await page.evaluate(config.js_render_evaluate)
       html = await page.evaluate(() => {
         return document.documentElement.outerHTML
       })
