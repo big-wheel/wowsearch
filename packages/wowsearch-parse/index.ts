@@ -93,7 +93,9 @@ function getAnchor(elem: Element, selectorItem: StrictSelector) {
 }
 
 function generateTextNode(node: Node, selector: StrictSelector) {
-  return new TextNode(transformVal(node.textContent, selector))
+  const textNode = new TextNode(transformVal(node.textContent, selector))
+  textNode.domNode = node
+  return textNode
 }
 
 // todo:
@@ -121,6 +123,7 @@ function generateLvlNode(
   const lvlNode = new LvlNode(level)
 
   walk && walk(startElem)
+  lvlNode.domNode = startElem
   lvlNode.value = transformVal(startElem.textContent, selectorItem)
   lvlNode.anchor = getAnchor(startElem, selectorItem)
   const children = lvlNode.children

@@ -8,6 +8,7 @@
 export default class ContentNode {
   public type: string
   public value: string
+  public domNode?: Node
 
   constructor(value = null) {
     this.value = value
