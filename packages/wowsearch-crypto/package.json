@@ -1,6 +1,6 @@
 {
   "name": "wowsearch-crypto",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "公钥加密，私钥解密工具",
   "keywords": [],
   "author": "imcuttle <moyuyc95@gmail.com>",
