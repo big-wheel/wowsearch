@@ -245,7 +245,6 @@ export default function parseElementTree(
   const track = new WeakMap()
   visitTree(
     document,
-    () => {},
     (childNode: Element, ctx) => {
       // Removed or walked
       if (track.has(childNode) || !childNode.parentElement) {
@@ -284,10 +283,11 @@ export default function parseElementTree(
         ctx.node.remove()
         return matched.node.remove()
       } else {
-        ctx.skip()
+        // ctx.skip()
         // childNode.remove && childNode.remove()
       }
     },
+    () => {},
     { path: 'children' }
   )
 
