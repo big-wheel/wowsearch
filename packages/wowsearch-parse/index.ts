@@ -92,8 +92,9 @@ function getAnchor(elem: Element, selectorItem: StrictSelector) {
   return anchor
 }
 
-function generateTextNode(node: Node, selector: StrictSelector) {
-  const textNode = new TextNode(transformVal(node.textContent, selector))
+function generateTextNode(node: Node, selector: StrictSelector, allowInnerText: boolean) {
+  // @ts-ignore
+  const textNode = new TextNode(transformVal(allowInnerText ? (node.innerText || node.textContent) : node.textContent, selector))
   textNode.domNode = node
   return textNode
 }
@@ -105,7 +106,8 @@ function generateLvlNode(
   selectorKey,
   startElem: Element,
   selectors: Selectors,
-  walk?: Function
+  walk?: Function,
+  allowInnerText?: boolean
 ): { lvlNode: LvlNode; endElement: Element } {
   const selectorItem = normalizeSelector(selectors[selectorKey])
   if (!selectorItem) return null
@@ -124,7 +126,8 @@ function generateLvlNode(
 
   walk && walk(startElem)
   lvlNode.domNode = startElem
-  lvlNode.value = transformVal(startElem.textContent, selectorItem)
+  // @ts-ignore
+  lvlNode.value = transformVal(allowInnerText ? (startElem.innerText || startElem.textContent) : startElem.textContent, selectorItem)
   lvlNode.anchor = getAnchor(startElem, selectorItem)
   const children = lvlNode.children
 
@@ -149,7 +152,8 @@ function generateLvlNode(
               matchedSelectorKey,
               matches.node,
               selectors,
-              walk
+              walk,
+              allowInnerText
             )
             children.push(childObj.lvlNode)
             // matches.node.remove()
@@ -164,7 +168,7 @@ function generateLvlNode(
           }
         } else if (matchedSelectorKey === 'text') {
           walk && walk(matches.node)
-          const node = generateTextNode(matches.node, matches.selector)
+          const node = generateTextNode(matches.node, matches.selector, allowInnerText)
           node && node.value && children.push(node)
           callbackList.push(() => {
             matches.node.remove()
@@ -207,7 +211,10 @@ function runUntilEq(walk, node: Element) {
 
 export default function parseElementTree(
   document: Element,
-  selectors: Selectors
+  selectors: Selectors,
+  { allowInnerText = false }: {
+    allowInnerText?: boolean
+  } = {}
 ): DocumentNode {
   const documentNode = new DocumentNode()
   const selectorKeys = uniq(LVL_TYPES.concat(Object.keys(selectors)))
@@ -256,7 +263,7 @@ export default function parseElementTree(
           const { selector, key } = selectorList[matched.selectorIndex]
           if (selector.type) {
             if (key === 'text') {
-              const node = generateTextNode(matchedNode, selector)
+              const node = generateTextNode(matchedNode, selector, allowInnerText)
               node && node.value && documentNode.children.push(node)
               // ctx.skip()
             } else if (isLvlType(key)) {
@@ -266,7 +273,8 @@ export default function parseElementTree(
                 selectors,
                 elem => {
                   track.set(elem, true)
-                }
+                },
+                allowInnerText
               )
               documentNode.children.push(lvlNode)
               // ctx.skip()
