@@ -11,11 +11,11 @@ import { JSDOM } from 'jsdom'
 
 const parse = (html, config) => {
   const { document } = new JSDOM(html).window
-  return parseElementTree(document, config)
+  return parseElementTree(document.body, config)
 }
 
 // TODO performance
-describe.skip('parseElementTree', function() {
+describe('parseElementTree', function() {
   it('spec wiki', async function () {
     const docNode = await parse(
       readFileSync(makeFixture('wiki.html')).toString(),
@@ -111,4 +111,22 @@ describe.skip('parseElementTree', function() {
 
     expect(docNode).toMatchSnapshot()
   })
+
+  it('should doc.html', async function () {
+    const docNode = await parse(
+      readFileSync(makeFixture('doc.html')).toString(),
+      {
+        lvl0: '.Post-RichText h1',
+        lvl1: '.Post-RichText h2',
+        lvl2: '.Post-RichText h3',
+        lvl3: '.Post-RichText h4',
+        lvl4: '.Post-RichText h5',
+        lvl5: '.Post-RichText h6',
+        code: '.Post-RichText pre',
+        text:
+          '.Post-RichText table, .Post-RichText p, .Post-RichText img, .Post-RichText ul, .Post-RichText ol, .Post-RichText li'
+      }
+    )
+    expect(docNode).toMatchSnapshot()
+  });
 })

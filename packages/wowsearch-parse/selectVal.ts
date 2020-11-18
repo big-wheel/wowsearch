@@ -1,5 +1,5 @@
-import { CrawlerConfig, StrictSelector } from './types/Config'
-import {func} from "prop-types";
+import { StrictSelector } from './types/Config'
+import * as escape from 'escape-string-regexp'
 
 const debug = require('debug')('wowsearch:select')
 
@@ -149,7 +149,7 @@ export function transformVal(text: string, selectorItem): string {
   let strip_chars = selectorItem.strip_chars || ''
   text = text
     ? text.replace(
-        new RegExp(`(^[${strip_chars}]+)|(${strip_chars}]+$)`, 'g'),
+        new RegExp(`(^[${escape(strip_chars)}]+)|(${escape(strip_chars)}]+$)`, 'g'),
         ''
       )
     : selectorItem.hasOwnProperty('default_value')

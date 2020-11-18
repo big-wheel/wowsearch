@@ -8,7 +8,7 @@ import ContentNode from "./ContentNode";
  */
 
 export default class TextNode extends ContentNode {
-  public readonly type = 'text'
+  public type = 'text'
   public value: string | null
 
   constructor(value = null) {
