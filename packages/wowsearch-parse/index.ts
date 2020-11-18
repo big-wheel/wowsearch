@@ -151,8 +151,6 @@ function parseLvlChildren(
     const elem = elements[i];
     if (elem.type === "lvl") {
       if ((elem as LvlNode).level <= parent.level) {
-
-        console.log(endElem.outerHTML, startElem.outerHTML, elements)
         return {
           endElement: endElem,
           nextElements: elements.slice(i),
